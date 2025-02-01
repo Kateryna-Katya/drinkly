@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Icon } from "../Icon/Icon";
 import { SvgSprite } from "../SvgSprite/SvgSprite";
 
@@ -24,7 +25,12 @@ const WaterConsumptionTracker = () => {
           <p>Personal rate setting</p>
         </li>
       </ul>
-      <button className={css.welcomeBtn}>Try tracker</button>
+
+      <Link to="/signup">
+        <button type="button" className={css.welcomeBtn}>
+          Try tracker
+        </button>
+      </Link>
     </div>
   );
 };

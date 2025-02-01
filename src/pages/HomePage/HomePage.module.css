@@ -4,11 +4,20 @@
   flex-direction: column;
   gap: 40px;
 }
-
+.WelcomePageContainer {
+  background-image: url(../../img/WelcomePage/bcg_welcome_mob.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 8px 20px 40px;
+}
 @media (min-width: 768px) {
   .welcomePage {
     width: 704px;
     gap: 60px;
+  }
+  .WelcomePageContainer {
+    background-image: url(../../img/WelcomePage/bcg_welcome_tablet.png);
+    padding: 16px 32px 50px;
   }
 }
 @media (min-width: 1440px) {
@@ -18,7 +27,15 @@
     flex-direction: row;
     gap: 81px;
     align-items: flex-end;
+    padding-top: 80px;
     margin-left: auto;
     margin-right: auto;
+  }
+  .WelcomePageContainer {
+    padding: 12px 112px 294px;
+    background-image: url(../../img/WelcomePage/bcg_welcome_desktop.png),
+      url(../../img/WelcomePage/bcg_welcome_bubble_desktop.png);
+    background-position: center bottom, center center;
+    background-size: auto;
   }
 }
