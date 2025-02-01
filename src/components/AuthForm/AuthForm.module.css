@@ -1,0 +1,129 @@
+.formWrapper {
+  max-width: 280px;
+  padding-top: 80px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (min-width: 768px) {
+  .formWrapper {
+    max-width: 336px;
+    padding-top: 104px;
+    margin-left: 32px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .formWrapper {
+    max-width: 384px;
+    padding-top: 200px;
+    margin-right: 216px;
+    margin-left: auto;
+  }
+
+  .formWrapper.signinDeskPadding {
+    padding-top: 222px;
+  }
+}
+
+.title {
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1.23;
+  color: #2f2f2f;
+  margin-bottom: 16px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form label {
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.form input {
+  width: 100%;
+  border: 1px solid #d7e3ff;
+  border-radius: 6px;
+  height: 44px;
+  padding-left: 10px;
+  color: #407bff;
+}
+
+.form input::placeholder {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #9ebbff;
+}
+
+.labelText {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 18px;
+  line-height: 1.33;
+  color: #2f2f2f;
+}
+
+.btn {
+  border: none;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  height: 36px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #ffffff;
+  box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
+  background: #407bff;
+}
+
+@media screen and (min-width: 768px) {
+  .btn {
+    height: 44px;
+  }
+}
+
+.btn:hover,
+.btn:focus {
+  box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.54);
+}
+
+.btn:active {
+  box-shadow: none;
+}
+
+.link {
+  font-size: 16px;
+  line-height: 1.25;
+  color: #407bff;
+}
+
+.errorMessage {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  font-size: 14px;
+  line-height: 1.29;
+  color: #ef5050;
+}
+
+.form input.error {
+  border-color: red;
+  color: red;
+}
+
+.eyeButton {
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  padding: 0;
+  position: absolute;
+  top: 46px;
+  right: 14px;
+}

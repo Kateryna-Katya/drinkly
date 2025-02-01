@@ -1,9 +1,11 @@
-const SignUpPage = () => {
-    return (
-      <div>
+import AuthForm from "../../components/AuthForm/AuthForm";
+import AuthPagesWrapper from "../../components/AuthPagesWrapper/AuthPagesWrapper";
 
-        <h1>SignUpPage</h1>
-      </div>
-    );
-  };
-  export default SignUpPage;
+const SignUpPage = () => {
+  return (
+    <AuthPagesWrapper>
+      <AuthForm />
+    </AuthPagesWrapper>
+  );
+};
+export default SignUpPage;
