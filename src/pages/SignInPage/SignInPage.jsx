@@ -1,9 +1,11 @@
-const SignInPage = () => {
-    return (
-      <div>
+import AuthForm from "../../components/AuthForm/AuthForm";
+import AuthPagesWrapper from "../../components/AuthPagesWrapper/AuthPagesWrapper";
 
-        <h1>SignInPage</h1>
-      </div>
-    );
-  };
-  export default SignInPage;
+const SignInPage = () => {
+  return (
+    <AuthPagesWrapper signin>
+      <AuthForm signin />
+    </AuthPagesWrapper>
+  );
+};
+export default SignInPage;

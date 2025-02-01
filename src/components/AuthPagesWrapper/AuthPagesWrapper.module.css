@@ -1,0 +1,29 @@
+.background {
+  background: url("../../img/auth-pages/bubbles-mob.png") no-repeat top 108px
+      center,
+    url("../../img/auth-pages/bottle-mob.png") no-repeat top 450px center;
+  height: 100vh;
+}
+
+@media screen and (min-width: 768px) {
+  .background {
+    background: url("../../img/auth-pages/bubbles-tablet.png") no-repeat top
+        right,
+      url("../../img/auth-pages/bottle-tablet.png") no-repeat top 116px left
+        112px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .background {
+    background: url("../../img/auth-pages/bubbles-desk.png") no-repeat top 52px
+        center,
+      url("../../img/auth-pages/bottle-desk.png") no-repeat top 80px left -51px;
+  }
+
+  .background.deskBackgroundPosition {
+    background: url("../../img/auth-pages/bubbles-desk.png") no-repeat top 109px
+        center,
+      url("../../img/auth-pages/bottle-desk.png") no-repeat top 80px left -51px;
+  }
+}
