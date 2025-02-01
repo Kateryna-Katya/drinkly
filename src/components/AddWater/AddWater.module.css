@@ -49,25 +49,42 @@
 .wrapperQuantity {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 24px;
 }
 .btnQuantity {
   border: 1px solid var(--secondary-color-4);
   box-shadow: 0 2px 4px 0 rgba(64, 123, 255, 0.2);
   background-color: transparent;
   border-radius: 30px;
-  padding: 10px;
+  padding: 0;
   width: 44px;
   height: 44px;
+  position: relative;
 }
 .quantity {
+  border-radius: 40px;
+  padding: 6px 10px;
+  width: 92px;
+  height: 36px;
   font-weight: 700;
   font-size: 18px;
   text-align: center;
   color: var(--primery-color-blue);
+  background: var(--secondary-color---5);
 }
 .iconMinus {
   fill: #407bff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .iconPlus {
   stroke: #407bff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

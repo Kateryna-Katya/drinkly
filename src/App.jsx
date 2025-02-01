@@ -18,9 +18,9 @@ const App=()=> {
     <>
      <Routes>
      <Route path="/" element={<HomePage />} />
-     <Route path="/register" element={<SignUpPage />} />
-     <Route path ="/login" element={ <SignInPage />}/>
-      <Route path ="/main" element={<MainPage />}/>
+     <Route path="/singup" element={<SignUpPage />} />
+     <Route path ="/singin" element={ <SignInPage />}/>
+      <Route path ="/home" element={<MainPage />}/>
       <Route path ="*" element={<NotFoundPage />}/>
       
       </Routes>
