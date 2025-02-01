@@ -1,0 +1,41 @@
+.welcomeWhyDrink {
+  border-radius: 10px;
+  padding: 24px 16px;
+  width: 280px;
+  height: 416px;
+  box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.3);
+  background: #ecf2ff;
+}
+.welcomeWhyDrinkName {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.11111;
+  margin-bottom: 12px;
+}
+.welcomeWhyDrinkList {
+  font-size: 16px;
+  line-height: 1.25;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.welcomeWhyDrinkListItem {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+.welcomeIconCircle {
+  width: 8px;
+  height: 8px;
+}
+
+@media (min-width: 768px) {
+  .welcomeWhyDrink {
+    padding: 32px 24px;
+    width: 494px;
+    height: 332px;
+  }
+}
+@media (min-width: 1440px) {
+}
