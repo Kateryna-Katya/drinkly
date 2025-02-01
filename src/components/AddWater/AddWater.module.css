@@ -14,14 +14,14 @@
   position: relative;
   background: #fff;
   border-radius: 10px;
-  padding: 32px 24px;
-  width: 592px;
-  height: 504px;
+  padding: 24px 12px;
+  width: 280px;
+  height: 540px;
 }
 
 .btnClose {
   position: absolute;
-  top: 36px;
+  top: 28px;
   right: 24px;
   background-color: transparent;
   border: none;
@@ -110,21 +110,22 @@
   border: 1px solid var(--secondary-color---5);
   border-radius: 6px;
   padding: 12px 10px;
-  width: 544px;
+  width: 120px;
   height: 44px;
 }
 .inputQuantity {
   border: 1px solid var(--secondary-color---5);
   border-radius: 6px;
   padding: 12px 10px;
-  width: 544px;
+  width: 120px;
   height: 44px;
 }
 
 .wrapperSave {
   margin-top: 24px;
   display: flex;
-  gap: 24px;
+  flex-direction: column;
+  gap: 16px;
   justify-content: flex-end;
   align-items: center;
 }
@@ -139,8 +140,8 @@
 .btnSave {
   border-radius: 10px;
   padding: 10px 30px;
-  width: 160px;
-  height: 44px;
+  width: 256px;
+  height: 36px;
   box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
   background: var(--primery-color-blue);
   color: var(--primery-color-white);
@@ -148,4 +149,34 @@
   font-size: 18px;
   text-align: center;
   border: none;
+}
+
+@media (min-width: 768px) {
+  .modal {
+    padding: 32px 24px;
+    width: 704px;
+    height: 504px;
+  }
+  .btnClose {
+    top: 36px;
+  }
+  .inputTime {
+    width: 656px;
+    height: 44px;
+  }
+  .inputQuantity {
+    width: 656px;
+    height: 44px;
+  }
+  .wrapperSave {
+    flex-direction: row;
+    gap: 16px;
+  }
+  .btnSave {
+    width: 160px;
+    height: 44px;
+  }
+}
+
+@media (min-width: 1440px) {
 }
