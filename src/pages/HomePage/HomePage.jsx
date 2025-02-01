@@ -1,18 +1,9 @@
-import Header from "../../components/Header/Header";
-import WaterConsumptionTracker from "../../components/WaterConsumptionTracker/WaterConsumptionTracker";
-import WhyDrinkWater from "../../components/WhyDrinkWater/WhyDrinkWater";
-
-import css from "./HomePage.module.css";
-
 const HomePage = () => {
-  return (
-    <div className={css.WelcomePageContainer}>
-      <Header />
-      <div className={css.welcomePage}>
-        <WaterConsumptionTracker />
-        <WhyDrinkWater />
+    return (
+      <div>
+       
+        <h1>HomePage</h1>
       </div>
-    </div>
-  );
-};
-export default HomePage;
+    );
+  };
+  export default HomePage;

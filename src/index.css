@@ -30,6 +30,10 @@
 a {
   text-decoration: none;
 }
+button {
+  padding: 0;
+  cursor: pointer;
+}
 
 
 body {
@@ -43,6 +47,9 @@ body {
 
 .container {
 max-width: 320px;
+margin-left: auto;
+margin-right: auto;
+
 
 }
 
@@ -57,7 +64,7 @@ max-width: 320px;
 
 @media (min-width: 1440px) {
   .container {
-    min-width: 1440px;
+    max-width: 1440px;
 
   }
 }
