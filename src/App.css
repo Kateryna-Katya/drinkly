@@ -44,14 +44,14 @@ body {
 
 .container {
 max-width: 320px;
- padding:0 20px;
+
 }
 
 
 @media (min-width: 768px) {
   .container {
   max-width: 768px;
-  padding: 16px 32px;
+  
   }
 }
 
@@ -59,7 +59,7 @@ max-width: 320px;
 @media (min-width: 1440px) {
   .container {
     min-width: 1440px;
-    padding: 12px 112px;
+    
   }
 
 }
