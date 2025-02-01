@@ -1,7 +1,17 @@
 import styles from "./AddWater.module.css";
 import { Icon } from "../Icon/Icon.jsx";
-
+import { useState } from "react";
 const Modal = () => {
+  const [quantity, setQuantity] = useState(0);
+
+  const handleIncrement = () => {
+    setQuantity((prevQuantity) => prevQuantity + 50);
+  };
+
+  const handleDecrement = () => {
+    if (quantity > 0) setQuantity((prevQuantity) => prevQuantity - 50);
+  };
+
   return (
     <div className={styles.backdrop}>
       <div className={styles.modal}>
@@ -19,7 +29,7 @@ const Modal = () => {
         <p className={styles.text2}>Amount of water:</p>
 
         <div className={styles.wrapperQuantity}>
-          <button className={styles.btnQuantity}>
+          <button className={styles.btnQuantity} onClick={handleDecrement}>
             <Icon
               id="icon-minus-small"
               width="24"
@@ -27,8 +37,8 @@ const Modal = () => {
               className={styles.iconMinus}
             />
           </button>
-          <span className={styles.quantity}>0ml</span>
-          <button className={styles.btnQuantity}>
+          <span className={styles.quantity}>{quantity}ml</span>
+          <button className={styles.btnQuantity} onClick={handleIncrement}>
             <Icon
               id="icon-plus-small"
               width="24"
@@ -41,16 +51,16 @@ const Modal = () => {
         <form className={styles.form}>
           <label className={styles.labelTime}>
             Recording time:
-            <input className={styles.inputTime} />
+            <input type="time" className={styles.inputTime} />
           </label>
           <label className={styles.labelQuantity}>
             Enter the value of the water used:
-            <input className={styles.inputQuantity} />
+            <input type="number" className={styles.inputQuantity} />
           </label>
         </form>
 
         <div className={styles.wrapperSave}>
-          <span className={styles.quantitySave}></span>
+          <span className={styles.quantitySave}>{quantity}ml</span>
           <button className={styles.btnSave}>Save</button>
         </div>
       </div>
