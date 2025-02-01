@@ -1,0 +1,151 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal {
+  position: relative;
+  background: #fff;
+  border-radius: 10px;
+  padding: 32px 24px;
+  width: 592px;
+  height: 504px;
+}
+
+.btnClose {
+  position: absolute;
+  top: 36px;
+  right: 24px;
+  background-color: transparent;
+  border: none;
+}
+.iconClose {
+  fill: #407bff;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 26px;
+  margin-bottom: 24px;
+}
+.text1 {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 111%;
+  margin-bottom: 16px;
+}
+.text2 {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.wrapperQuantity {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 24px;
+}
+.btnQuantity {
+  border: 1px solid var(--secondary-color-4);
+  box-shadow: 0 2px 4px 0 rgba(64, 123, 255, 0.2);
+  background-color: transparent;
+  border-radius: 30px;
+  padding: 0;
+  width: 44px;
+  height: 44px;
+  position: relative;
+}
+.quantity {
+  border-radius: 40px;
+  padding: 6px 10px;
+  width: 92px;
+  height: 36px;
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+  color: var(--primery-color-blue);
+  background: var(--secondary-color---5);
+}
+.iconMinus {
+  fill: #407bff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.iconPlus {
+  stroke: #407bff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.labelTime {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.labelQuantity {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-weight: 500;
+  font-size: 18px;
+}
+.inputTime {
+  border: 1px solid var(--secondary-color---5);
+  border-radius: 6px;
+  padding: 12px 10px;
+  width: 544px;
+  height: 44px;
+}
+.inputQuantity {
+  border: 1px solid var(--secondary-color---5);
+  border-radius: 6px;
+  padding: 12px 10px;
+  width: 544px;
+  height: 44px;
+}
+
+.wrapperSave {
+  margin-top: 24px;
+  display: flex;
+  gap: 24px;
+  justify-content: flex-end;
+  align-items: center;
+}
+.quantitySave {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+  color: var(--primery-color-blue);
+  width: 72px;
+}
+.btnSave {
+  border-radius: 10px;
+  padding: 10px 30px;
+  width: 160px;
+  height: 44px;
+  box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
+  background: var(--primery-color-blue);
+  color: var(--primery-color-white);
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+  border: none;
+}
