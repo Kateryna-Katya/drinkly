@@ -3,7 +3,7 @@ export const SvgSprite = () => {
     <svg xmlns="http://www.w3.org/2000/svg" style={{ display: "none" }}>
       <defs>
         <symbol id="icon-circle" viewBox="0 0 8 8">
-          <circle cx="4" cy="4" r="4" fill="#407BFF" />
+          <circle cx="4" cy="4" r="4" />
         </symbol>
         <symbol id="icon-calendar-days" viewBox="0 0 32 32">
           <path
@@ -144,6 +144,14 @@ export const SvgSprite = () => {
             strokeLinejoin="round"
             strokeWidth="1.333"
             d="M20.001 9.436c0 1.088-.421 2.132-1.172 2.901S17.061 13.539 16 13.539c-1.061 0-2.079-.432-2.829-1.202s-1.172-1.813-1.172-2.901c0-1.088.421-2.132 1.172-2.901S14.939 5.333 16 5.333c1.061 0 2.079.432 2.829 1.202s1.172 1.813 1.172 2.901zM8 24.881c.034-2.153.892-4.205 2.389-5.715S13.901 16.81 16 16.81c2.099 0 4.115.846 5.611 2.356s2.355 3.562 2.389 5.715a18.732 18.732 0 0 1-8 1.785c-2.855 0-5.564-.639-8-1.785z"
+          />
+        </symbol>
+        <symbol id="icon-cross" viewBox="0 0 24 24">
+          <path
+            d="M6 18L18 6M6 6L18 18"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </symbol>
       </defs>
