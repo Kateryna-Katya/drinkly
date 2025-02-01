@@ -25,6 +25,7 @@ a {
 }
 
 button {
+  padding: 0;
   cursor: pointer;
 }
 
@@ -58,7 +59,7 @@ max-width: 320px;
 
 @media (min-width: 1440px) {
   .container {
-    min-width: 1440px;
+    max-width: 1440px;
     
   }
 
