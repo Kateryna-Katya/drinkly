@@ -1,8 +1,13 @@
 import WaterNote from "../WaterNote/WaterNote";
+import Modal from "../AddWater/AddWater";
 import { Icon } from "../Icon/Icon";
+
+import { useState } from "react";
+
 
 
 const TodayWaterList = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false); 
 
     const waterNotes = [];
 
@@ -17,13 +22,14 @@ const TodayWaterList = () => {
          ))}   
          </ul>
         </div>
-        <button>
+        <button onClick={() => setIsModalOpen(true)}>
             <Icon
             id="icon-plus-small"
             width="16"
             height="16"/>
             Add water
-         </button>
+        </button>
+        {isModalOpen && <Modal onClose={() => setIsModalOpen(false)} />}
     </div>
         
     )
