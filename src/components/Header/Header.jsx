@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import UserLogo from '../UserLogo/UserLogo';
 import Logo from '../Logo/Logo';
 import styles from './Header.module.css';
 
@@ -13,7 +12,7 @@ const Header = ({ isAuthenticated, user }) => {
       </div>
 
       {isAuthenticated ? (
-        <UserLogo user={user} />
+        <div>{user.name}</div>
       ) : (
         <Link to="/signin" className={styles.authBtn}>
           Sign In
