@@ -1,0 +1,51 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.authBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+  color: var(--primery-color-blue);
+}
+
+.icon {
+  border: 1px solid var(--primery-color-black);
+  border-radius: 30px;
+  padding: 2px;
+  width: 28px;
+  height: 28px;
+}
+
+/* @media (min-width: 768px) {
+  .header {
+  }
+  .logoContainer {
+  }
+
+  .authBtn {
+  }
+
+  .icon {
+  }
+}
+@media (min-width: 1440px) {
+  .header {
+  }
+  .logoContainer {
+  }
+  .authBtn {
+  }
+
+  .icon {
+  }
+} */
