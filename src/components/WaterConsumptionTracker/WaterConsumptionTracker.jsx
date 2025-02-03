@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { Icon } from "../Icon/Icon";
-import { SvgSprite } from "../SvgSprite/SvgSprite";
+
 
 import css from "./WaterConsumptionTracker.module.css";
+import SvgSprite from "../SvgSprite/SvgSprite";
 
 const WaterConsumptionTracker = () => {
   return (

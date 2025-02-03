@@ -9,7 +9,8 @@ import { signinSchema, signupSchema } from "../../validation/auth.js";
 import css from "./AuthForm.module.css";
 
 import { Icon } from "../Icon/Icon.jsx";
-import { SvgSprite } from "../SvgSprite/SvgSprite.jsx";
+import SvgSprite from "../SvgSprite/SvgSprite.jsx";
+
 
 const signupInitialValues = {
   email: "",
