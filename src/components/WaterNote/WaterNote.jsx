@@ -3,6 +3,9 @@ import { useState } from 'react';
 import DeleteWaterNoteModal from "../DeleteWaterNoteModal/DeleteWaterNoteModal.jsx";
 import EditWaterNoteModal from "../EditWaterNoteModal/EditWaterNoteModal.jsx";
 
+import css from "./WaterNote.module.css"
+
+
 
 const WaterNote = ({ waternote }) => {
     const [isEditWaterNoteModalOpen, setIsEditWaterNoteModalOpen] = useState(false);
@@ -20,28 +23,33 @@ const WaterNote = ({ waternote }) => {
      };
 
     return (
-        <div>
-            <div>
+        <div className={css.waterNoteWrapper}>
+            <div className={css.waterNoteDataWrapper}>
                 <Icon
                 id="icon-cup"
-                width="24"
-                height="24"/>
-                <p>{waternote.volume}</p> 
-                <p>{waternote.time}</p>
-                
+                width="26"
+                height="26"/>
+                <p className={css.waterNoteVolume}>{waternote.volume}</p> 
+                <p className={css.waterNoteTime}>{waternote.time}</p>  
             </div>
-            <div>
-                <Icon
+            <div className={css.waterNoteBtnsWrapper}>
+                <button className={css.waterNoteEditBtn} onClick={openEditWaterNoteModal}><Icon
+                
                 id="icon-pencil-square"
                 width="16"
                     height="16"
-                onClick={openEditWaterNoteModal}/>
-                <Icon
+                /></button>
+                <button className={css.waterNoteDeleteBtn} onClick={openDeleteWaterNoteModal}>
+                    <Icon
+                
                 id="icon-trash"
                 width="16"
                     height="16"
-                onClick={openDeleteWaterNoteModal}/>
+                />
+                </button>
+                
             </div>
+
           <EditWaterNoteModal
                isOpen={isEditWaterNoteModalOpen}
                onRequestClose={closeEditWaterNoteModal}

@@ -1,0 +1,27 @@
+
+.todayAndCalendarWrapper {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 24px;
+    border-radius: 10px;
+    padding: 24px 8px;
+    width: 280px;
+    box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.3);
+    background: #ecf2ff;
+}
+@media (min-width: 768px) {
+    .todayAndCalendarWrapper {
+        padding: 32px 24px;
+        width: 704px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .todayAndCalendarWrapper {
+            width: 592px;
+    }
+}
