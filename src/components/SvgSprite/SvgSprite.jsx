@@ -1,4 +1,4 @@
-export const SvgSprite = () => {
+ const SvgSprite = () => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" style={{ display: "none" }}>
       <defs>
@@ -211,4 +211,5 @@ export const SvgSprite = () => {
       </defs>
     </svg>
   );
-};
+ };
+export default SvgSprite;

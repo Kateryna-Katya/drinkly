@@ -1,14 +1,20 @@
 import TodayWaterList from "../../components/TodayWaterList/TodayWaterList";
 
+import css from "./HomePage.module.css"
+
 
 
 
 
 const HomePage = () => {
   return (
-    <div >
+    <div className={css.homePage}>
+       
       <h1>HomePage</h1>
-      <TodayWaterList />
+      <div className={css.todayAndCalendarWrapper}>
+        <TodayWaterList />
+      </div>
+      
      
     </div>
     
