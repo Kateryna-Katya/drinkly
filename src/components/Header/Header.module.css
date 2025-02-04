@@ -15,15 +15,14 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 125%;
+  color: var(--primery-color-blue);
 }
 
 .icon {
-  border: 1px solid var(--primery-color-black);
+  fill: white;
   border-radius: 30px;
   padding: 2px;
-  width: 28px;
-  height: 28px;
-  stroke: #2F2F2F;
+  stroke: #2f2f2f;
 }
 
 /* @media (min-width: 768px) {

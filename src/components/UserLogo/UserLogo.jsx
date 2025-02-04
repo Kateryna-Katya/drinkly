@@ -1,5 +1,6 @@
 import { useState } from "react";
 import UserLogoModal from "../UserLogoModal/UserLogoModal";
+import { Icon } from "../Icon/Icon.jsx";
 import styles from "./UserLogo.module.css";
 
 const UserLogo = ({ user }) => {
@@ -24,9 +25,10 @@ const UserLogo = ({ user }) => {
       <button className={styles.userLogo} onClick={toggleModal}>
         <span className={styles.userName}>{user.name || user.email}</span>
         {getAvatarContent()}
-        <svg className={styles.icon}>
-          <use href="#icon-chevron-down" />
-        </svg>
+        <Icon className={styles.icon}
+            id="icon-chevron-down"
+                width="16"
+                height="16"/>
       </button>
 
       {isModalOpen && <UserLogoModal onClose={toggleModal} />}
@@ -35,3 +37,5 @@ const UserLogo = ({ user }) => {
 };
 
 export default UserLogo;
+
+
