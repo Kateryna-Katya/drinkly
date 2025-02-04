@@ -1,2 +1,71 @@
 
+.waterNoteWrapper {
+    display: flex;
+    gap: 38px;
+    align-items: center;
+    border-bottom: 1px solid #d7e3ff;
+   
+    height: 50px;
+    
+}
+.waterNoteVolume {
+    font-size: 18px;
+    line-height: 1.33;
+    color: #407bff;
+    margin-left: auto;
+    text-align: right;
+}
 
+.waterNoteTime {
+    font-size: 12px;
+    line-height: 2;
+    color: #2f2f2f;
+}
+
+.waterNoteDataWrapper {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-right: 4px;
+}
+
+.waterNoteBtnsWrapper {
+    display: flex;
+    gap: 18px;
+    margin-right: 0;
+}
+
+.waterNoteEditBtn {
+    fill: none;
+    stroke: #9ebbff;
+    border: none;
+    background-color: transparent;
+    transition: border-bottom 0.3s ease-in-out;
+    
+}
+.waterNoteEditBtn:hover {
+    border-bottom: 1px solid #9ebbff;
+    
+
+}
+.waterNoteDeleteBtn {
+    fill: none;
+    stroke: #ef5050;
+    border: none;
+    background-color: transparent;
+    
+}
+.waterNoteDeleteBtn:hover {
+    border-bottom: 1px solid #ef5050;
+
+
+}
+@media (min-width: 768px) {
+    .waterNoteWrapper {
+          
+            height: 60px;
+    
+        }
+}
+
+@media (min-width: 1440px) {}

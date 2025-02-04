@@ -1,0 +1,124 @@
+.todayWaterListSectionWrapper {
+    width: 100%;
+    height: 258px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+   
+    
+}
+.todayWaterListWrapper {
+    width: 100%;
+   
+    
+}
+.todayWaterListHeader {
+    font-weight: 500;
+    line-height: 1.25;
+    padding-top: 0;
+    padding-left: 0;
+    margin-bottom: 16px;
+}
+
+.todayWaterListBtn {
+    width: 97px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 8px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+    color: #407bff;
+    border: none;
+    background-color: transparent;
+    transition: color 0.3s ease-in-out;
+                
+}
+.todayWaterListBtn svg {
+    stroke: #407bff;
+    fill: currentColor;
+    transition: color 0.3s ease-in-out;
+    
+}
+.todayWaterListBtn:hover {
+    color: #ff9d43;
+   
+}
+.todayWaterListBtn:hover svg {
+    fill: currentColor;
+    stroke: currentColor;
+    color: #ff9d43;
+}    
+
+
+.scrollableList {
+    
+    max-height: 180px;
+    margin-bottom: 12px;
+    padding-right: 4px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    /* Firefox */
+    scrollbar-color: #9ebbff transparent;
+    /* Повзунок + прозорий фон (Firefox) */
+}
+
+/* Для Chrome, Edge, Safari */
+.scrollableList::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* Прибираємо фон */
+.scrollableList::-webkit-scrollbar-track {
+    background: 2px solid #d7e3ff;
+}
+
+/* Стилі для повзунка */
+.scrollableList::-webkit-scrollbar-thumb {
+    background: #9ebbff;
+    border-radius: 8px;
+}
+
+
+
+
+.waterNoteDataWrapper {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-right: 4px;
+    
+}
+.waterNoteVolume {
+    font-size: 18px;
+    line-height: 1.33;
+    color: #407bff;
+    margin-left: auto;
+    text-align: right;
+}
+
+.waterNoteTime {
+    font-size: 12px;
+    line-height: 2;
+    color: #2f2f2f;
+        
+}
+
+@media (min-width: 768px) {
+    
+.scrollableList {
+      
+        max-height: 176px;
+        
+    }
+
+}
+
+@media (min-width: 1440px) {
+   
+}
