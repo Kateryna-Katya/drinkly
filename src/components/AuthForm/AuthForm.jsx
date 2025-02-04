@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { ErrorMessage, Field, Formik, Form } from "formik";
 import clsx from "clsx";
 
 import { signinSchema, signupSchema } from "../../validation/auth.js";
+import { signupUser } from "../../redux/auth/operations.js";
 
 import css from "./AuthForm.module.css";
 
 import { Icon } from "../Icon/Icon.jsx";
 import SvgSprite from "../SvgSprite/SvgSprite.jsx";
-
 
 const signupInitialValues = {
   email: "",
@@ -28,13 +28,10 @@ const AuthForm = ({ signin }) => {
   const [isRepeatPasswordShown, setIsRepeatPasswordShown] = useState(false);
   const navigate = useNavigate();
 
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const signupHandleSubmit = (values, actions) => {
-    console.log({ email: values.email, password: values.password });
-    console.log("signup");
-
-    //  dispatch(registerWater({ email: values.email, password: values.password }));
+    dispatch(signupUser({ email: values.email, password: values.password }));
     //  actions.resetForm();
     navigate("/signin");
   };
