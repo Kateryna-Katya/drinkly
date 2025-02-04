@@ -19,11 +19,10 @@
 }
 
 .icon {
-  border: 1px solid var(--primery-color-black);
+  fill: white;
   border-radius: 30px;
   padding: 2px;
-  width: 28px;
-  height: 28px;
+  stroke: #2f2f2f;
 }
 
 /* @media (min-width: 768px) {

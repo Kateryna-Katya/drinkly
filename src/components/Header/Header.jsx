@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import styles from './Header.module.css';
+import { Icon } from "../Icon/Icon.jsx";
+
 
 const Header = ({ isAuthenticated, user }) => {
   return (
@@ -16,9 +18,10 @@ const Header = ({ isAuthenticated, user }) => {
       ) : (
         <Link to="/signin" className={styles.authBtn}>
           Sign In
-          <svg className={styles.icon}>
-            <use href="#icon-user" />
-          </svg>
+          <Icon className={styles.icon}
+            id="icon-user"
+                width="28"
+                height="28"/>
         </Link>
       )}
     </header>
@@ -26,3 +29,4 @@ const Header = ({ isAuthenticated, user }) => {
 };
 
 export default Header;
+
