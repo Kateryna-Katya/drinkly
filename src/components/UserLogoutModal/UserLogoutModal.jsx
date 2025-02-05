@@ -1,11 +1,14 @@
 import css from "./UserLogoutModal.module.css";
 import { Icon } from "../Icon/Icon.jsx";
+import useModalClose from "../../hooks/useModalClose.js";
 
-const UserLogoutModal = () => {
+const UserLogoutModal = ({ isOpen, onClose }) => {
+  const { handleBackdropClick } = useModalClose(isOpen, onClose);
+
   return (
-    <div className={css.backdrop}>
+    <div className={css.backdrop} onClick={handleBackdropClick}>
       <div className={css.modal}>
-        <button type="button" className={css.iconCloseBtn}>
+        <button type="button" className={css.iconCloseBtn} onClick={onClose}>
           <Icon
             id="icon-cross"
             width="24"
@@ -19,7 +22,9 @@ const UserLogoutModal = () => {
 
         <div className={css.containerBtn}>
           <button className={css.btnLogout}>Log out</button>
-          <button className={css.btnCancel}>Cancel</button>
+          <button className={css.btnCancel} onClick={onClose}>
+            Cancel
+          </button>
         </div>
       </div>
     </div>
