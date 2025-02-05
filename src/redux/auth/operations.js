@@ -14,7 +14,7 @@ export const signupUser = createAsyncThunk(
   async (user, thunkAPI) => {
     try {
       const { data } = await axios.post("/auth/register", user);
-    setAuthHeader(data.token)
+      setAuthHeader(data.data.accessToken);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -22,40 +22,61 @@ export const signupUser = createAsyncThunk(
   }
 );
 
-export const signinUser = createAsyncThunk ("/auth/signinUser",
-  async (user, thunkAPI)=>{
-    try{
-      const{data}=await axios.post("/auth/login", user);
-      setAuthHeader(data.token)
+export const signinUser = createAsyncThunk(
+  "/auth/signinUser",
+  async (user, thunkAPI) => {
+    try {
+      const { data } = await axios.post("/auth/login", user);
+      setAuthHeader(data.token);
       return data;
-    }catch(error){
+    } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }
-)
-export const refreshUser=createAsyncThunk("/auth/refreshUser",
-  async(__,thunkAPI)=>{
-    const state=thunkAPI.getState();
-    if(state.auth.token===null){
-      return thunkAPI.rejectWithValue("No token provided to refresh user data");
-    }try{
-      setAuthHeader(state.auth.token);
-      const{data}=await axios.get("/auth/refresh");
-      return data;
-    }catch(error){
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-)
+);
 
-export const logoutUser= createAsyncThunk(
+export const currenthUser = createAsyncThunk(
+  "auth/current",
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    if (state.auth.token === null || state.auth.userId === null) {
+      return thunkAPI.rejectWithValue("Unable to fetch user");
+    }
+    try {
+      setAuthHeader(state.auth.token);
+      const { data } = await axios.get(`/users/${state.auth.userId}`);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const refreshUser = createAsyncThunk(
+  "/auth/refreshUser",
+  async (__, thunkAPI) => {
+    const state = thunkAPI.getState();
+    if (state.auth.token === null) {
+      return thunkAPI.rejectWithValue("No token provided to refresh user data");
+    }
+    try {
+      setAuthHeader(state.auth.token);
+      const { data } = await axios.get("/auth/refresh");
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const logoutUser = createAsyncThunk(
   "/auth/logoutUser",
-  async(__,thunkAPI)=>{
-    try{
+  async (__, thunkAPI) => {
+    try {
       await axios.post("/auth/logout");
       clearAuthHeader();
-    }catch(error){
+    } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }
-)
+);

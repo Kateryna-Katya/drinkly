@@ -23,6 +23,7 @@
     "react-modal": "^3.16.3",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.4",
+    "redux-persist": "^6.0.0",
     "yup": "^1.6.1"
   },
   "devDependencies": {
