@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
 import { ErrorMessage, Field, Formik, Form } from "formik";
 import clsx from "clsx";
 
 import { signinSchema, signupSchema } from "../../validation/auth.js";
+import { signupUser } from "../../redux/auth/operations.js";
+import { selectAuthLoading } from "../../redux/auth/selectors.js";
 
 import css from "./AuthForm.module.css";
 
+import Loader from "../Loader/Loader.jsx";
 import { Icon } from "../Icon/Icon.jsx";
-import SvgSprite from "../SvgSprite/SvgSprite.jsx";
-
 
 const signupInitialValues = {
   email: "",
@@ -26,32 +28,34 @@ const signinInitialValues = {
 const AuthForm = ({ signin }) => {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [isRepeatPasswordShown, setIsRepeatPasswordShown] = useState(false);
+  const loading = useSelector(selectAuthLoading);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  //   const dispatch = useDispatch();
+  const signupHandleSubmit = async (values, actions) => {
+    try {
+      await dispatch(
+        signupUser({ email: values.email, password: values.password })
+      ).unwrap();
 
-  const signupHandleSubmit = (values, actions) => {
-    console.log({ email: values.email, password: values.password });
-    console.log("signup");
-
-    //  dispatch(registerWater({ email: values.email, password: values.password }));
-    //  actions.resetForm();
-    navigate("/signin");
+      actions.resetForm();
+      navigate("/signin");
+    } catch (error) {
+      toast.error(error.data.message);
+    }
   };
 
   const signinHandleSubmit = (values, actions) => {
-    console.log(values);
-    console.log("signin");
-    //  dispatch(registerWater(values));
+    //  dispatch();
     //  actions.resetForm();
     navigate("/");
   };
 
   return (
     <div className={clsx(css.formWrapper, signin && css.signinDeskPadding)}>
-      <SvgSprite />
       <h2 className={css.title}>{signin ? "Sign In" : "Sign Up"}</h2>
-
+      {loading && <Loader />}
       <Formik
         initialValues={signin ? signinInitialValues : signupInitialValues}
         onSubmit={signin ? signinHandleSubmit : signupHandleSubmit}
