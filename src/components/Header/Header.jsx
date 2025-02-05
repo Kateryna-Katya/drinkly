@@ -1,14 +1,13 @@
-import { Link } from 'react-router-dom';
-import Logo from '../Logo/Logo';
-import styles from './Header.module.css';
+import { Link } from "react-router-dom";
+import Logo from "../Logo/Logo";
+import styles from "./Header.module.css";
 import { Icon } from "../Icon/Icon.jsx";
-
 
 const Header = ({ isAuthenticated, user }) => {
   return (
     <header className={styles.header}>
       <div className={styles.logoContainer}>
-        <Link to={isAuthenticated ? '/' : '/signin'}>
+        <Link to={isAuthenticated ? "/home" : "/"}>
           <Logo />
         </Link>
       </div>
@@ -18,10 +17,7 @@ const Header = ({ isAuthenticated, user }) => {
       ) : (
         <Link to="/signin" className={styles.authBtn}>
           Sign In
-          <Icon className={styles.icon}
-            id="icon-user"
-                width="28"
-                height="28"/>
+          <Icon className={styles.icon} id="icon-user" width="28" height="28" />
         </Link>
       )}
     </header>
@@ -29,4 +25,3 @@ const Header = ({ isAuthenticated, user }) => {
 };
 
 export default Header;
-
