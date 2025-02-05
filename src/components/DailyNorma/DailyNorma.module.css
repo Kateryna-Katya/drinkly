@@ -1,0 +1,25 @@
+.wrapper_daily_norma {
+  padding: 8px 20px;
+}
+
+.title_daily_norma {
+  font-size: 18px;
+}
+
+.water_title_daily_norma {
+  font-size: 24px;
+  color: #407bff;
+}
+
+.btm_daily_norma {
+  background-color: transparent;
+  border: none;
+  color: #8baeff;
+  cursor: pointer;
+  outline: none;
+}
+
+.div_daily_norma {
+  display: flex;
+  column-gap: 12px;
+}
