@@ -6,7 +6,7 @@ import { ErrorMessage, Field, Formik, Form } from "formik";
 import clsx from "clsx";
 
 import { signinSchema, signupSchema } from "../../validation/auth.js";
-import { signupUser } from "../../redux/auth/operations.js";
+import { signinUser, signupUser } from "../../redux/auth/operations.js";
 import { selectAuthLoading } from "../../redux/auth/selectors.js";
 
 import css from "./AuthForm.module.css";
@@ -29,6 +29,7 @@ const AuthForm = ({ signin }) => {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [isRepeatPasswordShown, setIsRepeatPasswordShown] = useState(false);
   const loading = useSelector(selectAuthLoading);
+ 
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -46,22 +47,29 @@ const AuthForm = ({ signin }) => {
     }
   };
 
-  const signinHandleSubmit = (values, actions) => {
-    //  dispatch();
-    //  actions.resetForm();
-    navigate("/");
+  const signinHandleSubmit = async(values, actions) => {
+   try{
+    const { email, password} = values;
+    await dispatch(signinUser({ email, password})).unwrap();
+    actions.resetForm();
+    navigate("/home");
+   }catch(error){
+    toast.error(error.data.message);
+   }
+  
   };
 
   return (
     <div className={clsx(css.formWrapper, signin && css.signinDeskPadding)}>
       <h2 className={css.title}>{signin ? "Sign In" : "Sign Up"}</h2>
       {loading && <Loader />}
+      
       <Formik
         initialValues={signin ? signinInitialValues : signupInitialValues}
         onSubmit={signin ? signinHandleSubmit : signupHandleSubmit}
         validationSchema={signin ? signinSchema : signupSchema}
       >
-        {({ touched, errors }) => (
+        {({ touched, errors,}) => (
           <Form className={css.form} noValidate>
             <label>
               <span className={css.labelText}>Enter your email</span>

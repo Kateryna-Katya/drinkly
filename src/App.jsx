@@ -1,8 +1,13 @@
-import { lazy, Suspense } from "react";
+import { lazy, useEffect} from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import SvgSprite from "./components/SvgSprite/SvgSprite";
-import Layout from "./components/Layout/Layout"; // Імпортуємо Layout
+import Layout from "./components/Layout/Layout"; 
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsRefreshing } from "./redux/auth/selectors";
+import RestrictedRoute from "./components/RestrictedRoute";
+import PrivateRoute from "./components/PrivateRoute";
+import { refreshUser } from "./redux/auth/operations";
 
 const WelcomePage = lazy(() => import("./pages/WelcomePage/WelcomePage"));
 const SignUpPage = lazy(() => import("./pages/SignUpPage/SignUpPage"));
@@ -10,45 +15,56 @@ const SignInPage = lazy(() => import("./pages/SignInPage/SignInPage"));
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 
 const App = () => {
+  const dispatch=useDispatch();
+  const isRefreshing=useSelector(selectIsRefreshing);
+  useEffect(()=>{
+    dispatch(refreshUser());
+  },[dispatch]);
   return (
     <>
       <SvgSprite />
-      <Suspense fallback={<div>.....Loading</div>}>
+      {isRefreshing?(
+        <div></div>
+      ):(<Layout>
         <Routes>
           <Route
             path="/"
             element={
-              <Layout>
-                <WelcomePage />
-              </Layout>
-            }
+              <WelcomePage />
+               }
           />
           <Route
             path="/signup"
             element={
-              <Layout>
-                <SignUpPage />
-              </Layout>
+             <RestrictedRoute
+             restrictedTo="/home"
+              component={<SignUpPage />}  
+             />
             }
           />
           <Route
             path="/signin"
             element={
-              <Layout>
-                <SignInPage />
-              </Layout>
+              <RestrictedRoute
+              restrictedTo="/home"
+               component={<SignInPage />}
+                
+             />
             }
           />
           <Route
             path="/home"
             element={
-              <Layout>
-                <HomePage />
-              </Layout>
+              <PrivateRoute
+              restrictedTo="/signin"
+              component={ <HomePage />}
+               
+             />
             }
           />
         </Routes>
-      </Suspense>
+       </Layout>
+          )}
     </>
   );
 };
