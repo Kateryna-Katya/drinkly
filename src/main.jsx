@@ -6,9 +6,10 @@ import { Provider } from "react-redux";
 import "modern-normalize";
 import "./index.css";
 
-import store from "./redux/store.js";
+import store, { persistor } from "./redux/store.js";
 
 import App from "./App.jsx";
+import { PersistGate } from "redux-persist/integration/react";
 
 // import Modal from "react-modal";
 
@@ -18,7 +19,9 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+        </PersistGate>
       </BrowserRouter>
     </Provider>
   </StrictMode>
