@@ -1,12 +1,16 @@
 import TodayWaterList from "../../components/TodayWaterList/TodayWaterList";
-import DailyNorma from "../../components/DailyNorma/DailyNorma";
+
+import css from "./HomePage.module.css";
+import DailyNormaModal from "../../components/DailyNormaModal/DailyNormaModal";
 
 const HomePage = () => {
   return (
-    <div>
+    <div className={css.homePage}>
       <h1>HomePage</h1>
-      <DailyNorma />
-      <TodayWaterList />
+      <DailyNormaModal />
+      <div className={css.todayAndCalendarWrapper}>
+        <TodayWaterList />
+      </div>
     </div>
   );
 };

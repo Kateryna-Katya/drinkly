@@ -1,14 +1,11 @@
 import { Link } from "react-router-dom";
 import { Icon } from "../Icon/Icon";
 
-
 import css from "./WaterConsumptionTracker.module.css";
-import SvgSprite from "../SvgSprite/SvgSprite";
 
 const WaterConsumptionTracker = () => {
   return (
     <div className={css.welcome}>
-      <SvgSprite />
       <h1 className={css.welcomeName}>Water consumption tracker</h1>
       <h2 className={css.welcomeName2}>Record daily water intake and track</h2>
       <h3 className={css.welcomeListName}>Tracker Benefits</h3>

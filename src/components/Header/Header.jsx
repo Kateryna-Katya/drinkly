@@ -1,24 +1,39 @@
-import { Link } from 'react-router-dom';
-import Logo from '../Logo/Logo';
-import styles from './Header.module.css';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import Logo from "../Logo/Logo";
+import styles from "./Header.module.css";
+import { Icon } from "../Icon/Icon.jsx";
+import UserLogoModal from "../UserLogoModal/UserLogoModal";
 
 const Header = ({ isAuthenticated, user }) => {
+  const [isUserLogoModalOpen, setIsUserLogoModalOpen] = useState(false);
+
+  const handleLogoClick = () => {
+    if (isAuthenticated) {
+      setIsUserLogoModalOpen(true);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsUserLogoModalOpen(false);
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.logoContainer}>
-        <Link to={isAuthenticated ? '/' : '/signin'}>
+        <div onClick={handleLogoClick}>
           <Logo />
-        </Link>
+        </div>
       </div>
+
+      {isUserLogoModalOpen && <UserLogoModal onClose={handleCloseModal} />}
 
       {isAuthenticated ? (
         <div>{user.name}</div>
       ) : (
         <Link to="/signin" className={styles.authBtn}>
           Sign In
-          <svg className={styles.icon}>
-            <use href="#icon-user" />
-          </svg>
+          <Icon className={styles.icon} id="icon-user" width="28" height="28" />
         </Link>
       )}
     </header>

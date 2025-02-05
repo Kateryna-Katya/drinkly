@@ -1,11 +1,20 @@
 import css from "./UserLogoutModal.module.css";
 import { Icon } from "../Icon/Icon.jsx";
+import useModalClose from "../../hooks/useModalClose.js";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../redux/auth/operations.js";
 
-const UserLogoutModal = () => {
+const UserLogoutModal = ({ isOpen, onClose }) => {
+  const dispatch=useDispatch();
+  const { handleBackdropClick } = useModalClose(isOpen, onClose);
+const handleLogout=()=>{
+  dispatch(logoutUser());
+  onClose();
+}
   return (
-    <div className={css.backdrop}>
+    <div className={css.backdrop} onClick={handleBackdropClick}>
       <div className={css.modal}>
-        <button type="button" className={css.iconCloseBtn}>
+        <button type="button" className={css.iconCloseBtn} onClick={onClose}>
           <Icon
             id="icon-cross"
             width="24"
@@ -18,8 +27,10 @@ const UserLogoutModal = () => {
         <h3 className={css.text1}>Do you really want to leave?</h3>
 
         <div className={css.containerBtn}>
-          <button className={css.btnLogout}>Log out</button>
-          <button className={css.btnCancel}>Cancel</button>
+          <button className={css.btnLogout}onClick={handleLogout}>Log out</button>
+          <button className={css.btnCancel} onClick={onClose}>
+            Cancel
+          </button>
         </div>
       </div>
     </div>

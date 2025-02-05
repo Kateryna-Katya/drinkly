@@ -1,0 +1,28 @@
+.userLogoModal {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 16px;
+  width: 118px;
+  height: 88px;
+}
+
+.modalOverlay {
+}
+
+.modalBtn {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+  color: var(--primery-color-blue);
+  box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.2);
+  background-color: var(--primery-color-white);
+}
+
+.icon {
+  gap: 8px;
+  stroke: #407bff;
+  fill: none;
+}
