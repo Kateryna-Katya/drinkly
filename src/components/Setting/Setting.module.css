@@ -1,0 +1,228 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  position: relative;
+  background: #fff;
+  padding: 32px 12px;
+  width: 280px;
+  height: 852px;
+  border-radius: 10px;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 26px;
+  margin-bottom: 24px;
+  line-height: 1.23;
+}
+
+.closeButton {
+  position: absolute;
+  top: 36px;
+  right: 12px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.settingContainer {
+  margin-bottom: 24px;
+}
+
+.photoLabelContainer {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  text-align: center;
+  align-items: center;
+}
+
+.photoLabel {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.11;
+}
+
+.photoPreview {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+}
+
+.uploadContainer {
+  cursor: pointer;
+  width: 134px;
+  height: 18px;
+  font-weight: 500;
+  font-size: 14px;
+  color: #407bff;
+}
+
+.hiddenInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.genderLabel {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.11;
+}
+
+.genderRadio {
+  display: inline-block;
+  padding-top: 12px;
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.genderSpan {
+  padding-left: 8px;
+  padding-right: 24px;
+}
+
+.nameLabel {
+  display: block;
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.emailLabel {
+  display: block;
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.passwordLabel {
+  display: block;
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.fieldLabel {
+  display: block;
+  font-size: 16px;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.inputWithIcon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.iconButton {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #999;
+  padding: 0;
+}
+
+.saveBtn {
+  border: none;
+  border-radius: 10px;
+  padding: 8px 30px;
+  width: 256px;
+  height: 36px;
+  box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
+  background: #407bff;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  text-align: center;
+  align-items: center;
+  color: #fff;
+}
+
+.inputs {
+  border: 1px solid #d7e3ff;
+  border-radius: 6px;
+  padding: 12px 10px;
+  width: 256px;
+  height: 44px;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #407bff;
+}
+
+.inputs::placeholder {
+  color: #9ebbff;
+}
+
+.ErrorMessage {
+  color: red;
+  font-size: 14px;
+  min-height: 18px;
+  display: block;
+}
+
+@media screen and (min-width: 768px) {
+  .modalContent {
+    padding: 32px 24px;
+    width: 704px;
+    height: 860px;
+  }
+
+  .closeButton {
+    top: 36px;
+    right: 24px;
+  }
+
+  .inputWithIcon {
+    width: 392px;
+  }
+  .inputs {
+    width: 392px;
+    height: 44px;
+  }
+  .saveBtn {
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    border-radius: 10px;
+    padding: 10px 30px;
+    width: 160px;
+    height: 44px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .modalContent {
+    width: 1008px;
+    height: 592px;
+    overflow: auto;
+  }
+  .formContainer {
+    display: flex;
+    gap: 24px;
+  }
+  .containerForMargin {
+    margin-bottom: 47px;
+  }
+  .saveBtn {
+    margin-bottom: 32px;
+  }
+}
