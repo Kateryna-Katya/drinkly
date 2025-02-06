@@ -7,7 +7,7 @@ import css from "./WaterNote.module.css"
 
 
 
-const WaterNote = ({ waternote }) => {
+const WaterNote = ({_id, waterVolume, time }) => {
     const [isEditWaterNoteModalOpen, setIsEditWaterNoteModalOpen] = useState(false);
     const [isDeleteWaterNoteModalOpen, setIsDeleteWaterNoteModalOpen] = useState(false);
 
@@ -17,10 +17,6 @@ const WaterNote = ({ waternote }) => {
     const openDeleteWaterNoteModal = () => setIsDeleteWaterNoteModalOpen(true);
     const closeDeleteWaterNoteModal = () => setIsDeleteWaterNoteModalOpen(false);
 
-   const handleDelete = () => {
-        // Логіка видалення запису
-        closeDeleteWaterNoteModal();
-     };
 
     return (
         <div className={css.waterNoteWrapper}>
@@ -29,8 +25,8 @@ const WaterNote = ({ waternote }) => {
                 id="icon-cup"
                 width="26"
                 height="26"/>
-                <p className={css.waterNoteVolume}>{waternote.volume}</p> 
-                <p className={css.waterNoteTime}>{waternote.time}</p>  
+                <p className={css.waterNoteVolume}>{waterVolume}</p> 
+                <p className={css.waterNoteTime}>{time}</p>  
             </div>
             <div className={css.waterNoteBtnsWrapper}>
                 <button className={css.waterNoteEditBtn} onClick={openEditWaterNoteModal}><Icon
@@ -53,13 +49,12 @@ const WaterNote = ({ waternote }) => {
           <EditWaterNoteModal
                isOpen={isEditWaterNoteModalOpen}
                onRequestClose={closeEditWaterNoteModal}
-               waternote={waternote}
            />
 
             <DeleteWaterNoteModal
                 isOpen={isDeleteWaterNoteModalOpen}
                 onRequestClose={closeDeleteWaterNoteModal}
-                onDelete={handleDelete}
+                id={_id}
             />
 
        </div>

@@ -1,8 +1,18 @@
-import { Icon } from '../Icon/Icon';
+import { useDispatch } from 'react-redux';
+import { deleteWaterCup } from "../../redux/water/operations";
 import Modal from 'react-modal';
+
+import { Icon } from '../Icon/Icon';
+
 import css from "./DeleteWaterNoteModal.module.css"
 
-const DeleteWaterNoteModal = ({ isOpen, onRequestClose, onDelete }) => {
+const DeleteWaterNoteModal = ({ isOpen, onRequestClose, _id }) => {
+    const dispatch = useDispatch();
+
+   const handleDelete = () => {
+    dispatch(deleteWaterCup(_id));
+    onRequestClose(); 
+};
      
     return (
       <Modal
@@ -21,14 +31,14 @@ const DeleteWaterNoteModal = ({ isOpen, onRequestClose, onDelete }) => {
                 id="icon-cross"
                 width="24"
                 height="24"
-                onClick={onRequestClose}/>
+               />
             </button>
                 </div>
                 
             <p className={css.text}>Are you sure you want to delete entry?</p>
             </div>
             <div className={css.btnsWrapper}>
-            <button className={css.deleteBtn} onClick={onDelete}>Delete</button>
+            <button type="button" className={css.deleteBtn} onClick={handleDelete}>Delete</button>
             <button className={css.cancelBtn} onClick={onRequestClose}>Cancel</button>
             </div>
             
