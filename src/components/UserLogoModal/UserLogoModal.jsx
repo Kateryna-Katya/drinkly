@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-// import SettingModal from "../SettingModal/SettingModal";
+import Setting from "../Setting/Setting";
 import UserLogoutModal from "../UserLogoutModal/UserLogoutModal";
 import { Icon } from "../Icon/Icon.jsx";
 import styles from "./UserLogoModal.module.css";
 
 const UserLogoModal = ({ onClose }) => {
-  // const [isSettingModalOpen, setIsSettingModalOpen] = useState(false);
+  const [isSettingOpen, setIsSettingOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   useEffect(() => {
@@ -15,22 +15,32 @@ const UserLogoModal = ({ onClose }) => {
       }
     };
 
+    const handleEscPress = (event) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
     document.addEventListener("mousedown", handleOutsideClick);
+    document.addEventListener("keydown", handleEscPress);
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("keydown", handleEscPress);
     };
   }, [onClose]);
 
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.userLogoModal}>
-        {/* <button onClick={() => setIsSettingModalOpen(true)} className={styles.modalBtn}><Icon className={styles.icon} id="icon-cog-6-tooth" width="16" height="16" />
+        <button onClick={() => setIsSettingOpen(true)} className={styles.modalBtn}>
+          <Icon className={styles.icon} id="icon-cog-6-tooth" width="16" height="16" />
           Setting
-        </button> */}
-        <button onClick={() => setIsLogoutModalOpen(true)} className={styles.modalBtn}><Icon className={styles.icon} id="icon-arrow-right-on-rectanglesvg" width="16" height="16" />
+        </button>
+        <button onClick={() => setIsLogoutModalOpen(true)} className={styles.modalBtn}>
+          <Icon className={styles.icon} id="icon-arrow-right-on-rectanglesvg" width="16" height="16" />
           Logout
         </button>
-        {/* {isSettingModalOpen && <SettingModal isOpen={isSettingModalOpen} onClose={() => setIsSettingModalOpen(false)} />} */}
+        {isSettingOpen && <Setting isOpen={isSettingOpen} onClose={() => setIsSettingOpen(false)} />}
         {isLogoutModalOpen && <UserLogoutModal isOpen={isLogoutModalOpen} onClose={() => setIsLogoutModalOpen(false)} />}
       </div>
     </div>

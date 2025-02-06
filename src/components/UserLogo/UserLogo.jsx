@@ -2,33 +2,31 @@ import { useState } from "react";
 import UserLogoModal from "../UserLogoModal/UserLogoModal";
 import { Icon } from "../Icon/Icon.jsx";
 import styles from "./UserLogo.module.css";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../redux/auth/selectors.js";
 
-const UserLogo = ({ user }) => {
+const UserLogo = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const user = useSelector(selectUser);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const getAvatarContent = () => {
-    if (user.avatar) {
-      return <img src={user.avatar} alt="User Avatar" className={styles.avatar} />;
-    }
-    if (user.name) {
-      return <div className={styles.avatarFallback}>{user.name.charAt(0).toUpperCase()}</div>;
-    }
-    return <div className={styles.avatarFallback}>{user.email.charAt(0).toUpperCase()}</div>;
-  };
-
   return (
     <div className={styles.userLogoContainer}>
       <button className={styles.userLogo} onClick={toggleModal}>
-        <span className={styles.userName}>{user.name || user.email}</span>
-        {getAvatarContent()}
-        <Icon className={styles.icon}
-            id="icon-chevron-down"
-                width="16"
-                height="16"/>
+        <div className={styles.avatar}>
+          {user.avatar ? (
+            <img src={user.avatar} alt="User Avatar" className={styles.avatarImage} />
+          ) : (
+            <div className={styles.avatarFallback}>
+              {user.email.charAt(0).toUpperCase()}
+            </div>
+          )}
+        </div>
+        <span className={styles.userName}>{user.name}</span>
+        <Icon className={styles.icon} id="icon-chevron-down-up" width="16" height="16" />
       </button>
 
       {isModalOpen && <UserLogoModal onClose={toggleModal} />}
@@ -37,5 +35,3 @@ const UserLogo = ({ user }) => {
 };
 
 export default UserLogo;
-
-
