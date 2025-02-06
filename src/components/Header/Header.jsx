@@ -4,12 +4,10 @@ import styles from "./Header.module.css";
 import { Icon } from "../Icon/Icon.jsx";
 import UserLogo from "../UserLogo/UserLogo";
 import { useSelector } from "react-redux";
-import { selectIsLoggedIn, selectUser } from "../../redux/auth/selectors.js";
+import { selectIsLoggedIn } from "../../redux/auth/selectors.js";
 
 const Header = ({ onLogoClick }) => {
   const isAuthenticated = useSelector(selectIsLoggedIn);
-  const user = useSelector(selectUser);
-  console.log(user)
 
   return (
     <header className={styles.header}>
@@ -20,7 +18,10 @@ const Header = ({ onLogoClick }) => {
       </div>
 
       {isAuthenticated ? (
-        <div> <UserLogo/></div>
+        <div>
+          {" "}
+          <UserLogo />
+        </div>
       ) : (
         <Link to="/signin" className={styles.authBtn}>
           Sign In
