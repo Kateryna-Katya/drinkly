@@ -18,15 +18,24 @@ const UserLogo = () => {
       <button className={styles.userLogo} onClick={toggleModal}>
         <div className={styles.avatar}>
           {user.avatar ? (
-            <img src={user.avatar} alt="User Avatar" className={styles.avatarImage} />
+            <img
+              src={user.avatar}
+              alt="User Avatar"
+              className={styles.avatarImage}
+            />
           ) : (
             <div className={styles.avatarFallback}>
-              {user.email.charAt(0).toUpperCase()}
+              {user.email !== null ? user.email.charAt(0).toUpperCase() : "A"}
             </div>
           )}
         </div>
         <span className={styles.userName}>{user.name}</span>
-        <Icon className={styles.icon} id="icon-chevron-double-up" width="16" height="16" />
+        <Icon
+          className={styles.icon}
+          id="icon-chevron-double-up"
+          width="16"
+          height="16"
+        />
       </button>
 
       {isModalOpen && <UserLogoModal onClose={toggleModal} />}
