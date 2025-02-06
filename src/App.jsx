@@ -3,12 +3,12 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import SvgSprite from "./components/SvgSprite/SvgSprite";
 import Layout from "./components/Layout/Layout";
-import { useDispatch, useSelector } from "react-redux";
-import { selectIsRefreshing } from "./redux/auth/selectors";
+import { useDispatch} from "react-redux";
+
 import RestrictedRoute from "./components/RestrictedRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import { currenthUser } from "./redux/auth/operations";
-import Loader from "./components/Loader/Loader";
+
 
 const WelcomePage = lazy(() => import("./pages/WelcomePage/WelcomePage"));
 const SignUpPage = lazy(() => import("./pages/SignUpPage/SignUpPage"));
@@ -17,17 +17,14 @@ const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 
 const App = () => {
   const dispatch = useDispatch();
-  const isRefreshing = useSelector(selectIsRefreshing);
+ 
   useEffect(() => {
     dispatch(currenthUser());
   }, [dispatch]);
   return (
     <>
       <SvgSprite />
-      {isRefreshing ? (
-        <Loader />
-      ) : (
-        <Layout>
+              <Layout>
           <Routes>
             <Route
               path="/"
@@ -64,7 +61,7 @@ const App = () => {
             />
           </Routes>
         </Layout>
-      )}
+      
     </>
   );
 };
