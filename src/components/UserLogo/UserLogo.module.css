@@ -1,4 +1,4 @@
-.userLogoContainer:focus {
+.userLogoContainer {
 
   }
 
@@ -20,7 +20,6 @@
 
 .avatar {
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   width: 28px;
   height: 28px;
@@ -32,8 +31,6 @@
   line-height: 125%;
   color: var(--primery-color-blue);
   text-transform: uppercase;
-  /* box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.3);
-  background: var(--secondary-color-2); */
 }
 
 .avatarImage {

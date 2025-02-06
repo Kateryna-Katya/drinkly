@@ -26,7 +26,7 @@ const UserLogo = () => {
           )}
         </div>
         <span className={styles.userName}>{user.name}</span>
-        <Icon className={styles.icon} id="icon-chevron-down-up" width="16" height="16" />
+        <Icon className={styles.icon} id="icon-chevron-double-up" width="16" height="16" />
       </button>
 
       {isModalOpen && <UserLogoModal onClose={toggleModal} />}
