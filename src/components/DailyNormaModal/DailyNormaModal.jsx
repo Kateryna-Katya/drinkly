@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
-import styles from "./DailyNormaModal.module.css";
 import { Icon } from "../Icon/Icon.jsx";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useSelector } from "react-redux";
+import { dailyNormaSchema } from "../DailyNormaSchema/DailyNormaSchema.js";
+import styles from "./DailyNormaModal.module.css";
+import toast from "react-hot-toast";
 import Loader from "../Loader/Loader.jsx";
-import * as Yup from "yup";
 import axios from "axios";
 
 const DailyNormaModal = ({ onCloseDailyModal }) => {
-  const [gender, setGender] = useState("");
+  const token = useSelector((state) => state.auth.token);
+  const userGender = useSelector((state) => state.auth.user.gender);
+
+  const [gender, setGender] = useState(userGender);
   const [weight, setWeight] = useState("");
   const [activity, setActivity] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -17,42 +22,31 @@ const DailyNormaModal = ({ onCloseDailyModal }) => {
     water: "",
   };
 
-  const dailyNormaSchema = Yup.object({
-    water: Yup.number()
-      .typeError("Please enter a number")
-      .min(1, "Water intake must be at least 1L")
-      .max(15, "Water intake cannot exceed 15L")
-      .required("This field is required"),
-  });
+  const handleSubmit = async (values) => {
+    try {
+      setIsLoading(true);
+      setError(null);
 
-  const rawAuth = localStorage.getItem("persist:auth");
-  const parsedAuth = rawAuth ? JSON.parse(rawAuth) : null;
-  const token = parsedAuth?.token ? JSON.parse(parsedAuth.token) : null;
-  const userId = parsedAuth?.token ? JSON.parse(parsedAuth.userId) : null;
+      const payload = {
+        waterRate: values.water * 1000,
+      };
 
-  useEffect(() => {
-    const fetchWater = async () => {
-      try {
-        setIsLoading(true);
-        const { data } = await axios.get(
-          `https://water-app-backend.onrender.com/users`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setGender(data.data.gender);
-      } catch (error) {
-        alert(setError(error.message));
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchWater();
-  }, [token, userId]);
-
-  const handleSubmit = async () => {};
+      const response = await axios.patch(
+        "https://water-app-backend.onrender.com/water/daily-norm",
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      onCloseDailyModal();
+    } catch (error) {
+      toast.error("Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const calculateWaterIntake = () => {
     const M = parseFloat(weight);
@@ -85,7 +79,6 @@ const DailyNormaModal = ({ onCloseDailyModal }) => {
   return (
     <div onClick={onBackDropClick} className={styles.backdrop}>
       {isLoading && <Loader />}
-      {error && { error }}
       <div className={styles.daily_norma_modal}>
         <div className={styles.daily_title_btn_modal}>
           <h2 className={styles.title_daily_modal}>My daily norma</h2>
@@ -106,13 +99,13 @@ const DailyNormaModal = ({ onCloseDailyModal }) => {
           <p>
             For woman:{" "}
             <span className={styles.daily_norma_modal_span}>
-              V=(M*0,03) + (T*0,4)
+              V=(M*0.03) + (T*0.4)
             </span>
           </p>
           <p>
             For man:{" "}
             <span className={styles.daily_norma_modal_span}>
-              V=(M*0,04) + (T*0,6)
+              V=(M*0.04) + (T*0.6)
             </span>
           </p>
         </div>
@@ -184,7 +177,6 @@ const DailyNormaModal = ({ onCloseDailyModal }) => {
                 <h3 className={styles.title_h3_modal}>
                   Write down how much water you will drink:
                 </h3>
-
                 <Field
                   type="text"
                   name="water"

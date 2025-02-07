@@ -104,10 +104,21 @@
   cursor: pointer;
   border-radius: 6px;
   margin-left: auto;
+  margin-top: 5px;
 }
 
 .iconClose {
   stroke: #407bff;
+}
+
+.errorMessage {
+  display: block;
+  width: 200px;
+  color: red;
+  font-size: 12px;
+  position: absolute;
+  top: 91%;
+  left: 30px;
 }
 
 @media (min-width: 768px) {
@@ -150,10 +161,4 @@
   .form_daily_modal {
     width: 544px;
   }
-}
-
-.errorMessage {
-  display: inline-block;
-  color: red;
-  font-size: 12px;
 }

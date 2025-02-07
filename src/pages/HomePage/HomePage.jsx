@@ -8,6 +8,7 @@ import { fetchWaterCupsToday } from "../../redux/water/operations";
 import { selectWaterLoading } from "../../redux/water/selectors";
 
 import css from "./HomePage.module.css";
+import DailyNorma from "../../components/DailyNorma/DailyNorma";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const HomePage = () => {
 
   return (
     <div className={css.homePage}>
+      <DailyNorma />
       <div className={css.todayAndCalendarWrapper}>
         <div>{isLoading && <Loader />}</div>
         <TodayWaterList />
