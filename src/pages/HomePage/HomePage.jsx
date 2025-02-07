@@ -2,16 +2,12 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import TodayWaterList from "../../components/TodayWaterList/TodayWaterList";
-import Loader from "../../components/Loader/Loader"
+import Loader from "../../components/Loader/Loader";
 
 import { fetchWaterCupsToday } from "../../redux/water/operations";
 import { selectWaterLoading } from "../../redux/water/selectors";
 
-import css from "./HomePage.module.css"
-
-
-
-
+import css from "./HomePage.module.css";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -27,10 +23,7 @@ const HomePage = () => {
         <div>{isLoading && <Loader />}</div>
         <TodayWaterList />
       </div>
-      
-     
     </div>
-    
   );
 };
 

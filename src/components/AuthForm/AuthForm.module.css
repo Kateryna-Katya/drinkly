@@ -1,6 +1,6 @@
 .formWrapper {
   max-width: 280px;
-  padding-top: 80px;
+  padding-top: 24px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -8,7 +8,7 @@
 @media screen and (min-width: 768px) {
   .formWrapper {
     max-width: 336px;
-    padding-top: 104px;
+    padding-top: 40px;
     margin-left: 32px;
   }
 }
@@ -16,13 +16,13 @@
 @media screen and (min-width: 1440px) {
   .formWrapper {
     max-width: 384px;
-    padding-top: 200px;
+    padding-top: 140px;
     margin-right: 216px;
     margin-left: auto;
   }
 
   .formWrapper.signinDeskPadding {
-    padding-top: 222px;
+    padding-top: 162px;
   }
 }
 

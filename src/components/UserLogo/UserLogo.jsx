@@ -16,6 +16,11 @@ const UserLogo = () => {
   return (
     <div className={styles.userLogoContainer}>
       <button className={styles.userLogo} onClick={toggleModal}>
+        <span className={styles.userName}>
+          {user.name !== null
+            ? user.name
+            : user.email !== null && user.email.split("@")[0]}
+        </span>
         <div className={styles.avatar}>
           {user.avatar ? (
             <img
@@ -25,11 +30,13 @@ const UserLogo = () => {
             />
           ) : (
             <div className={styles.avatarFallback}>
-              {user.email !== null ? user.email.charAt(0).toUpperCase() : "A"}
+              {user.name !== null
+                ? user.name.charAt(0).toUpperCase()
+                : user.email !== null && user.email.charAt(0).toUpperCase()}
             </div>
           )}
         </div>
-        <span className={styles.userName}>{user.name}</span>
+
         <Icon
           className={styles.icon}
           id="icon-chevron-double-up"
@@ -38,7 +45,12 @@ const UserLogo = () => {
         />
       </button>
 
-      {isModalOpen && <UserLogoModal onClose={toggleModal} />}
+      {isModalOpen && (
+        <UserLogoModal
+          onClose={toggleModal}
+          parentClass={styles.userLogoContainer}
+        />
+      )}
     </div>
   );
 };
