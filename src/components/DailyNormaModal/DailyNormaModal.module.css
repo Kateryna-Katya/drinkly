@@ -1,0 +1,164 @@
+.backdrop {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.daily_norma_modal {
+  background-color: white;
+  width: 280px;
+  height: 816px;
+  padding: 24px 12px;
+  border-radius: 16px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btn_close_daily_modal {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.title_daily_modal {
+  margin: 0;
+}
+
+.title_h3_modal {
+  padding-top: 24px;
+  padding-bottom: 16px;
+}
+
+.daily_title_btn_modal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.daily_norma_modal_formula {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 24px;
+  padding-bottom: 12px;
+}
+
+.daily_norma_modal_span {
+  color: #407bff;
+}
+
+.formula_text_daily_modal {
+  width: 256px;
+  height: 100px;
+  font-size: 12px;
+  padding: 10px;
+  color: #407bff;
+  border-radius: 10px;
+  border: 1px solid #d7e3ff;
+}
+
+.input_daily_modal {
+  height: 44px;
+  color: #407bff;
+  border: 1px solid #d7e3ff;
+  outline: none;
+  margin-bottom: 16px;
+}
+
+.form_daily_modal {
+  display: flex;
+  flex-direction: column;
+  width: 256px;
+}
+
+.label_daily_modal {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.radio_daily_modal {
+  display: flex;
+  gap: 3px;
+}
+
+.radio_div {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.amount_span_daily_modal {
+  color: #407bff;
+}
+
+.btn_save_daily_modal {
+  width: 256px;
+  height: 36px;
+  background-color: #407bff;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  margin-left: auto;
+  margin-top: 5px;
+}
+
+.iconClose {
+  stroke: #407bff;
+}
+
+.errorMessage {
+  display: block;
+  width: 200px;
+  color: red;
+  font-size: 12px;
+  position: absolute;
+  top: 91%;
+  left: 30px;
+}
+
+@media (min-width: 768px) {
+  .daily_norma_modal {
+    width: 696px;
+    height: 704px;
+    padding: 32px 24px;
+  }
+
+  .daily_norma_modal_formula {
+    flex-direction: row;
+  }
+
+  .form_daily_modal {
+    width: 652px;
+  }
+
+  .formula_text_daily_modal {
+    width: 656px;
+    height: 52px;
+  }
+
+  .btn_save_daily_modal {
+    width: 160px;
+    height: 44px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .daily_norma_modal {
+    width: 592px;
+    height: 712px;
+  }
+
+  .formula_text_daily_modal {
+    width: 544px;
+    height: 68px;
+  }
+
+  .form_daily_modal {
+    width: 544px;
+  }
+}

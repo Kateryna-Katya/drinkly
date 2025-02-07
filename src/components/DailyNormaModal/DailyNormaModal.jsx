@@ -1,0 +1,203 @@
+import { useEffect, useState } from "react";
+import { Icon } from "../Icon/Icon.jsx";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useSelector } from "react-redux";
+import { dailyNormaSchema } from "../DailyNormaSchema/DailyNormaSchema.js";
+import styles from "./DailyNormaModal.module.css";
+import toast from "react-hot-toast";
+import Loader from "../Loader/Loader.jsx";
+import axios from "axios";
+
+const DailyNormaModal = ({ onCloseDailyModal }) => {
+  const token = useSelector((state) => state.auth.token);
+  const userGender = useSelector((state) => state.auth.user.gender);
+
+  const [gender, setGender] = useState(userGender);
+  const [weight, setWeight] = useState("");
+  const [activity, setActivity] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const INITIAL_VALUE = {
+    water: "",
+  };
+
+  const handleSubmit = async (values) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+
+      const payload = {
+        waterRate: values.water * 1000,
+      };
+
+      const response = await axios.patch(
+        "https://water-app-backend.onrender.com/water/daily-norm",
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      onCloseDailyModal();
+    } catch (error) {
+      toast.error("Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const calculateWaterIntake = () => {
+    const M = parseFloat(weight);
+    const T = parseFloat(activity);
+    if (isNaN(M) || isNaN(T) || !gender) return "0";
+    return gender === "woman"
+      ? (M * 0.03 + T * 0.4).toFixed(2)
+      : (M * 0.04 + T * 0.6).toFixed(2);
+  };
+
+  useEffect(() => {
+    const onKeyDown = (event) => {
+      if (event.code === "Escape") {
+        onCloseDailyModal();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [onCloseDailyModal]);
+
+  const onBackDropClick = (event) => {
+    if (event.target === event.currentTarget) {
+      onCloseDailyModal();
+    }
+  };
+
+  return (
+    <div onClick={onBackDropClick} className={styles.backdrop}>
+      {isLoading && <Loader />}
+      <div className={styles.daily_norma_modal}>
+        <div className={styles.daily_title_btn_modal}>
+          <h2 className={styles.title_daily_modal}>My daily norma</h2>
+          <button
+            className={styles.btn_close_daily_modal}
+            type="button"
+            onClick={onCloseDailyModal}
+          >
+            <Icon
+              id="icon-cross"
+              width="24"
+              height="24"
+              className={styles.iconClose}
+            />
+          </button>
+        </div>
+        <div className={styles.daily_norma_modal_formula}>
+          <p>
+            For woman:{" "}
+            <span className={styles.daily_norma_modal_span}>
+              V=(M*0.03) + (T*0.4)
+            </span>
+          </p>
+          <p>
+            For man:{" "}
+            <span className={styles.daily_norma_modal_span}>
+              V=(M*0.04) + (T*0.6)
+            </span>
+          </p>
+        </div>
+        <p className={styles.formula_text_daily_modal}>
+          * V is the volume of the water norm in liters per day, M is your body
+          weight, T is the time of active sports, or another type of activity
+          commensurate in terms of loads (in the absence of these, you must set
+          0)
+        </p>
+
+        <Formik
+          initialValues={INITIAL_VALUE}
+          onSubmit={handleSubmit}
+          validationSchema={dailyNormaSchema}
+        >
+          <Form className={styles.form_daily_modal}>
+            <h3 className={styles.title_h3_modal}>Calculate your rate:</h3>
+            <div className={styles.radio_div}>
+              <label className={styles.radio_daily_modal}>
+                <input
+                  type="radio"
+                  name="gender"
+                  value="woman"
+                  checked={gender === "woman"}
+                  onChange={(e) => setGender(e.target.value)}
+                />
+                For woman
+              </label>
+              <label className={styles.radio_daily_modal}>
+                <input
+                  type="radio"
+                  name="gender"
+                  value="man"
+                  checked={gender === "man"}
+                  onChange={(e) => setGender(e.target.value)}
+                />
+                For man
+              </label>
+            </div>
+            <label className={styles.label_daily_modal}>
+              <span>Your weight in kilograms:</span>
+              <input
+                className={styles.input_daily_modal}
+                placeholder="0"
+                value={weight}
+                onChange={(e) => setWeight(e.target.value)}
+              />
+            </label>
+            <label className={styles.label_daily_modal}>
+              <span>
+                The time of active participation in sports or other activities
+                with a high physical. load in hours:
+              </span>
+              <input
+                className={styles.input_daily_modal}
+                placeholder="0"
+                value={activity}
+                onChange={(e) => setActivity(e.target.value)}
+              />
+            </label>
+            <p>
+              The required amount of water in liters per day:{" "}
+              <span className={styles.amount_span_daily_modal}>
+                {calculateWaterIntake()} L
+              </span>
+            </p>
+            <div>
+              <label className={styles.label_daily_modal}>
+                <h3 className={styles.title_h3_modal}>
+                  Write down how much water you will drink:
+                </h3>
+                <Field
+                  type="text"
+                  name="water"
+                  className={styles.input_daily_modal}
+                  placeholder="0"
+                />
+                <ErrorMessage
+                  component="div"
+                  className={styles.errorMessage}
+                  name="water"
+                />
+              </label>
+            </div>
+            <button className={styles.btn_save_daily_modal} type="submit">
+              Save
+            </button>
+          </Form>
+        </Formik>
+      </div>
+    </div>
+  );
+};
+
+export default DailyNormaModal;
