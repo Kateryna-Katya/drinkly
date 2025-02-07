@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import styles from "./DailyNormaModal.module.css";
 import { Icon } from "../Icon/Icon.jsx";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import Loader from "../Loader/Loader.jsx";
 import * as Yup from "yup";
 import axios from "axios";
 
-const DailyNormaModal = ({ onCloseDailyModal, getValue }) => {
+const DailyNormaModal = ({ onCloseDailyModal }) => {
   const [gender, setGender] = useState("");
   const [weight, setWeight] = useState("");
   const [activity, setActivity] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const INITIAL_VALUE = {
     water: "",
@@ -22,25 +25,34 @@ const DailyNormaModal = ({ onCloseDailyModal, getValue }) => {
       .required("This field is required"),
   });
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const token = "+X0Z6Hp+6uqBHIPUUg2FRKzWT5pj8WGuFJ6kHg/I";
-      const { data } = await axios.get(
-        "https://water-app-backend.onrender.com/users/67a3486a20c5b864b94b4c4c",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setGender(data.data.gender);
-    };
-    fetchProducts();
-  }, []);
+  const rawAuth = localStorage.getItem("persist:auth");
+  const parsedAuth = rawAuth ? JSON.parse(rawAuth) : null;
+  const token = parsedAuth?.token ? JSON.parse(parsedAuth.token) : null;
+  const userId = parsedAuth?.token ? JSON.parse(parsedAuth.userId) : null;
 
-  const handleSubmit = (values) => {
-    getValue(values.water);
-  };
+  useEffect(() => {
+    const fetchWater = async () => {
+      try {
+        setIsLoading(true);
+        const { data } = await axios.get(
+          `https://water-app-backend.onrender.com/users`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setGender(data.data.gender);
+      } catch (error) {
+        alert(setError(error.message));
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchWater();
+  }, [token, userId]);
+
+  const handleSubmit = async () => {};
 
   const calculateWaterIntake = () => {
     const M = parseFloat(weight);
@@ -72,6 +84,8 @@ const DailyNormaModal = ({ onCloseDailyModal, getValue }) => {
 
   return (
     <div onClick={onBackDropClick} className={styles.backdrop}>
+      {isLoading && <Loader />}
+      {error && { error }}
       <div className={styles.daily_norma_modal}>
         <div className={styles.daily_title_btn_modal}>
           <h2 className={styles.title_daily_modal}>My daily norma</h2>
