@@ -1,4 +1,6 @@
-
+.homePage {
+    padding-top: 52px;
+}
 .todayAndCalendarWrapper {
     margin-left: auto;
     margin-right: auto;
@@ -14,6 +16,9 @@
     background: #ecf2ff;
 }
 @media (min-width: 768px) {
+    .homePage {
+            padding-top: 24px;
+        }
     .todayAndCalendarWrapper {
         padding: 32px 24px;
         width: 704px;
@@ -21,7 +26,11 @@
 }
 
 @media (min-width: 1440px) {
+    .homePage {
+            padding-top: 20px;
+        }
     .todayAndCalendarWrapper {
             width: 592px;
+            margin-right: 112px;
     }
 }

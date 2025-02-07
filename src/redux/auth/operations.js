@@ -23,7 +23,7 @@ export const signupUser = createAsyncThunk(
 );
 
 export const signinUser = createAsyncThunk(
-  "/auth/signinUser",
+  "auth/signinUser",
   async (user, thunkAPI) => {
     try {
       const { data } = await axios.post("/auth/login", user);
@@ -39,12 +39,12 @@ export const currenthUser = createAsyncThunk(
   "auth/current",
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
-    if (state.auth.token === null || state.auth.userId === null) {
+    if (state.auth.token === null) {
       return thunkAPI.rejectWithValue("Unable to fetch user");
     }
     try {
       setAuthHeader(state.auth.token);
-      const { data } = await axios.get(`/users/${state.auth.userId}`);
+      const { data } = await axios.get(`/users`);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

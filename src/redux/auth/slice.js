@@ -22,7 +22,6 @@ const authSlice = createSlice({
       waterRate: 2000,
       photo: null,
     },
-    userId: null,
     token: null,
     isLoggedIn: false,
     loading: false,
@@ -49,7 +48,6 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.token = action.payload.data.accessToken;
         state.user._id = action.payload.data.userId;
-        state.userId = action.payload.data.userId;
         state.loading = false;
       })
       .addCase(signinUser.rejected, (state, action) => {

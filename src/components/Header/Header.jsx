@@ -1,35 +1,27 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../Logo/Logo";
 import styles from "./Header.module.css";
 import { Icon } from "../Icon/Icon.jsx";
-import UserLogoModal from "../UserLogoModal/UserLogoModal";
+import UserLogo from "../UserLogo/UserLogo";
+import { useSelector } from "react-redux";
+import { selectIsLoggedIn } from "../../redux/auth/selectors.js";
 
-const Header = ({ isAuthenticated, user }) => {
-  const [isUserLogoModalOpen, setIsUserLogoModalOpen] = useState(false);
-
-  const handleLogoClick = () => {
-    if (isAuthenticated) {
-      setIsUserLogoModalOpen(true);
-    }
-  };
-
-  const handleCloseModal = () => {
-    setIsUserLogoModalOpen(false);
-  };
+const Header = ({ onLogoClick }) => {
+  const isAuthenticated = useSelector(selectIsLoggedIn);
 
   return (
     <header className={styles.header}>
       <div className={styles.logoContainer}>
-        <div onClick={handleLogoClick}>
+        <div onClick={onLogoClick}>
           <Logo />
         </div>
       </div>
 
-      {isUserLogoModalOpen && <UserLogoModal onClose={handleCloseModal} />}
-
       {isAuthenticated ? (
-        <div>{user.name}</div>
+        <div>
+          {" "}
+          <UserLogo />
+        </div>
       ) : (
         <Link to="/signin" className={styles.authBtn}>
           Sign In

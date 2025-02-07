@@ -31,6 +31,7 @@ const DailyNorma = () => {
         }
       );
       let waterRate = data.data.waterRate;
+
       let waterLiter = waterRate / 1000;
       let waterFix = waterLiter.toFixed(1);
       setWaterCount(waterFix);
