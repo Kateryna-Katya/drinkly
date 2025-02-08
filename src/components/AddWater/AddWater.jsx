@@ -3,18 +3,46 @@ import { Icon } from "../Icon/Icon.jsx";
 import { useState } from "react";
 import useModalClose from "../../hooks/useModalClose";
 import TimeInput from "../TimeInput/TimeInput.jsx";
+import { useDispatch } from "react-redux";
+import { saveWaterCup } from "../../redux/water/operations.js";
+import { Field, Formik, Form } from "formik";
 
 const Modal = ({ isOpen, onClose }) => {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(50);
+  const [time, setTime] = useState("");
+
+  const dispatch = useDispatch();
 
   const { handleBackdropClick } = useModalClose(isOpen, onClose);
 
   const handleIncrement = () => {
-    setQuantity((prevQuantity) => prevQuantity + 50);
+    if (quantity < 15000) setQuantity((prevQuantity) => prevQuantity + 50);
   };
 
   const handleDecrement = () => {
     setQuantity((prevQuantity) => Math.max(0, prevQuantity - 50));
+  };
+
+  const handleInputChange = (event) => {
+    let value = event.target.value;
+
+    if (value === "") {
+      setQuantity(0);
+      return;
+    }
+
+    value = Number(value);
+
+    if (!isNaN(value) && value >= 50 && value <= 15000) {
+      setQuantity(value);
+    }
+  };
+
+  const date = new Date().toISOString();
+
+  const handleSave = () => {
+    console.log({ amount: quantity, date, time });
+    dispatch(saveWaterCup({ amount: quantity, date, time }));
   };
 
   return (
@@ -48,21 +76,31 @@ const Modal = ({ isOpen, onClose }) => {
           </button>
         </div>
 
-        <form className={styles.form}>
-          <label className={styles.labelTime}>
-            Recording time:
-            {/* <input type="time" className={styles.inputTime} /> */}
-            <TimeInput />
-          </label>
-          <label className={styles.labelQuantity}>
-            Enter the value of the water used:
-            <input type="number" className={styles.inputQuantity} />
-          </label>
-        </form>
+        <Formik>
+          <Form className={styles.form}>
+            <label className={styles.labelTime}>
+              Recording time:
+              <TimeInput time={time} setTime={setTime} />
+            </label>
+            <label className={styles.labelQuantity}>
+              Enter the value of the water used:
+              <Field
+                type="number"
+                className={styles.inputQuantity}
+                onChange={handleInputChange}
+                min="50"
+                max="15000"
+                maxLength="5"
+              />
+            </label>
+          </Form>
+        </Formik>
 
         <div className={styles.wrapperSave}>
           <span className={styles.quantitySave}>{quantity}ml</span>
-          <button className={styles.btnSave}>Save</button>
+          <button className={styles.btnSave} onClick={handleSave}>
+            Save
+          </button>
         </div>
       </div>
     </div>
@@ -70,3 +108,5 @@ const Modal = ({ isOpen, onClose }) => {
 };
 
 export default Modal;
+
+// "date": "2023-12-01T12:00:00.000Z",
