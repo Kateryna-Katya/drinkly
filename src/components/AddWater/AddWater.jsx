@@ -1,27 +1,27 @@
 import styles from "./AddWater.module.css";
 import { Icon } from "../Icon/Icon.jsx";
 import { useState } from "react";
-const Modal = () => {
+import useModalClose from "../../hooks/useModalClose";
+import TimeInput from "../TimeInput/TimeInput.jsx";
+
+const Modal = ({ isOpen, onClose }) => {
   const [quantity, setQuantity] = useState(0);
+
+  const { handleBackdropClick } = useModalClose(isOpen, onClose);
 
   const handleIncrement = () => {
     setQuantity((prevQuantity) => prevQuantity + 50);
   };
 
   const handleDecrement = () => {
-    if (quantity > 0) setQuantity((prevQuantity) => prevQuantity - 50);
+    setQuantity((prevQuantity) => Math.max(0, prevQuantity - 50));
   };
 
   return (
-    <div className={styles.backdrop}>
-      <div className={styles.modal}>
-        <button className={styles.btnClose}>
-          <Icon
-            id="icon-trash"
-            width="24"
-            height="24"
-            className={styles.iconClose}
-          />
+    <div className={styles.backdrop} onClick={handleBackdropClick}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <button className={styles.btnClose} onClick={onClose}>
+          <div className={styles.cross}></div>
         </button>
 
         <h2 className={styles.title}>Add water</h2>
@@ -51,7 +51,8 @@ const Modal = () => {
         <form className={styles.form}>
           <label className={styles.labelTime}>
             Recording time:
-            <input type="time" className={styles.inputTime} />
+            {/* <input type="time" className={styles.inputTime} /> */}
+            <TimeInput />
           </label>
           <label className={styles.labelQuantity}>
             Enter the value of the water used:
