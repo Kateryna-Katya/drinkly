@@ -155,6 +155,11 @@ const AuthForm = ({ signin }) => {
           </Form>
         )}
       </Formik>
+      {signin && (
+        <Link className={css.link} to="/auth/reset-password">
+          Forgot password?
+        </Link>
+      )}
       <Link className={css.link} to={signin ? "/signup" : "/signin"}>
         {signin ? "Sign Up" : "Sign In"}
       </Link>
