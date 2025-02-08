@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import styles from "./TimeInput.module.css";
+import { Field } from "formik";
 
-const TimeInput = () => {
-  const [time, setTime] = useState("");
-
+const TimeInput = ({ time, setTime }) => {
   useEffect(() => {
     const now = new Date();
     const formattedTime = now.toLocaleTimeString([], {
@@ -14,7 +13,7 @@ const TimeInput = () => {
   }, []);
 
   return (
-    <input
+    <Field
       className={styles.timeInput}
       type="time"
       value={time}
