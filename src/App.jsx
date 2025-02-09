@@ -4,6 +4,8 @@ import "./App.css";
 import SvgSprite from "./components/SvgSprite/SvgSprite";
 import Layout from "./components/Layout/Layout";
 import { useDispatch } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import RestrictedRoute from "./components/RestrictedRoute";
 import PrivateRoute from "./components/PrivateRoute";
@@ -23,6 +25,13 @@ const App = () => {
   }, [dispatch]);
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        pauseOnHover={false}
+        limit={3}
+      />
       <SvgSprite />
       <Layout>
         <Routes>

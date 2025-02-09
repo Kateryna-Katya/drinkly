@@ -18,14 +18,20 @@ const TodayWaterList = () => {
     <div className={css.todayWaterListSectionWrapper}>
       <h2 className={css.todayWaterListHeader}>Today</h2>
       <div className={css.todayWaterListWrapper}>
-        {waterRecords.length > 0 && (
+        {waterRecords.length > 0 ? (
           <ul className={css.scrollableList}>
-            {waterRecords.map(({ _id, waterVolume, time }) => (
-              <li className={css.waterRecordDataWrapper} key={_id}>
-                <WaterNote id={_id} waterVolume={waterVolume} time={time} />
+            {waterRecords.map((waterRecord) => (
+              <li className={css.waterRecordDataWrapper} key={waterRecord._id}>
+                <WaterNote
+                  id={waterRecord._id}
+                  waterVolume={waterRecord.waterVolume}
+                  time={waterRecord.time}
+                />
               </li>
             ))}
           </ul>
+        ) : (
+          <p className={css.text}>No notes yet</p>
         )}
       </div>
       <button

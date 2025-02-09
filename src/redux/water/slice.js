@@ -36,10 +36,9 @@ const waterSlice = createSlice({
       .addCase(deleteWaterCup.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        const index = state.waterRecords.findIndex(
-          (waterRecord) => waterRecord._id === action.payload._id
+        state.waterRecords = state.waterRecords.filter(
+          (record) => record._id !== action.payload
         );
-        state.waterRecords.splice(index, 1);
       })
       .addCase(deleteWaterCup.rejected, handleRejected)
       .addCase(logoutUser.fulfilled, (state) => {

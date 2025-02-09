@@ -7,7 +7,7 @@ import css from "./WaterNote.module.css"
 
 
 
-const WaterNote = ({_id, waterVolume, time }) => {
+const WaterNote = ({id, waterVolume, time }) => {
     const [isEditWaterNoteModalOpen, setIsEditWaterNoteModalOpen] = useState(false);
     const [isDeleteWaterNoteModalOpen, setIsDeleteWaterNoteModalOpen] = useState(false);
 
@@ -54,7 +54,7 @@ const WaterNote = ({_id, waterVolume, time }) => {
             <DeleteWaterNoteModal
                 isOpen={isDeleteWaterNoteModalOpen}
                 onRequestClose={closeDeleteWaterNoteModal}
-                id={_id}
+                id={id}
             />
 
        </div>
