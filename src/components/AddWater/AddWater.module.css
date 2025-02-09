@@ -19,6 +19,33 @@
   height: 540px;
 }
 
+.toast {
+  background-color: #fff;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px 15px;
+}
+
+:global(.Toastify__progress-bar--success) {
+  height: 4px;
+  background-color: #407bff;
+  border-radius: 2px;
+}
+
+:global(
+    .Toastify__progress-bar-theme--colored.Toastify__progress-bar--success
+  ) {
+  height: 4px;
+  background-color: #9ebbff;
+  border-radius: 2px;
+}
+
+:root {
+  --toastify-icon-color-success: #407bff;
+}
+
 .btnClose {
   position: absolute;
   top: 28px;
@@ -126,13 +153,7 @@
   font-weight: 500;
   font-size: 18px;
 }
-/* .inputTime {
-  border: 1px solid var(--secondary-color---5);
-  border-radius: 6px;
-  padding: 12px 10px;
-  width: 120px;
-  height: 44px;
-} */
+
 .inputQuantity {
   border: 1px solid var(--secondary-color---5);
   border-radius: 6px;
