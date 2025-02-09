@@ -1,14 +1,20 @@
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import AuthPagesWrapper from "../../components/AuthPagesWrapper/AuthPagesWrapper";
+import toast from "react-hot-toast";
+import axios from "axios";
+import clsx from "clsx";
 import { ErrorMessage, Field, Formik, Form } from "formik";
+
+import AuthPagesWrapper from "../../components/AuthPagesWrapper/AuthPagesWrapper";
+import { Icon } from "../../components/Icon/Icon";
+
 import { resetPasswordSchema, sendEmailSchema } from "../../validation/auth";
 
 import css from "./ForgotPasswordPage.module.css";
-import clsx from "clsx";
-import { Icon } from "../../components/Icon/Icon";
-import { useState } from "react";
+import Loader from "../../components/Loader/Loader";
 
 const ForgotPasswordPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [isRepeatPasswordShown, setIsRepeatPasswordShown] = useState(false);
   const [searchParams] = useSearchParams();
@@ -23,11 +29,34 @@ const ForgotPasswordPage = () => {
     repeatPassword: "",
   };
 
-  const onSendEmail = () => {};
-  const onResetPassword = () => {};
+  const onSendEmail = async (values, actions) => {
+    setIsLoading(true);
+    try {
+      await axios.post("auth/request-reset-password", values);
+      actions.resetForm();
+      toast.success(
+        "Email sent! Check your inbox and click the link to reset your password.",
+        {
+          duration: 10000,
+        }
+      );
+    } catch (error) {
+      if (error.status === 400 || error.status === 404) {
+        toast.error("This email is not registered");
+        return;
+      }
+      toast.error(error.response.data.data.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const onResetPassword = (values) => {
+    console.log(values);
+  };
 
   return (
     <AuthPagesWrapper>
+      {isLoading && <Loader />}
       <div className={css.formWrapper}>
         <Formik
           initialValues={!token ? sendEmailValues : resetPasswordValues}
@@ -115,6 +144,9 @@ const ForgotPasswordPage = () => {
                     </label>
                   </>
                 )}
+                <button className={css.btn} type="submit">
+                  {token ? "Get New Password" : "Request Password Reset"}
+                </button>
               </Form>
             );
           }}

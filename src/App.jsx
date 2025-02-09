@@ -50,7 +50,15 @@ const App = () => {
               <PrivateRoute redirectTo="/signin" component={<HomePage />} />
             }
           />
-          <Route path="/auth/reset-password" element={<ForgotPasswordPage />} />
+          <Route
+            path="/auth/reset-password"
+            element={
+              <RestrictedRoute
+                redirectTo="/signin"
+                component={<ForgotPasswordPage />}
+              />
+            }
+          />
         </Routes>
       </Layout>
     </>

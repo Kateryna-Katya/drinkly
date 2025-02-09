@@ -46,6 +46,10 @@ const AuthForm = ({ signin }) => {
       actions.resetForm();
       navigate("/signin");
     } catch (error) {
+      if (error.status === 400) {
+        toast.error("Check entered data");
+        return;
+      }
       toast.error(error.data.message);
     }
   };
@@ -58,6 +62,10 @@ const AuthForm = ({ signin }) => {
       dispatch(currenthUser());
       navigate("/home");
     } catch (error) {
+      if (error.status === 401 || error.status === 404) {
+        toast.error("Wrong email or password");
+        return;
+      }
       toast.error(error.data.message);
     }
   };
@@ -73,7 +81,7 @@ const AuthForm = ({ signin }) => {
         validationSchema={signin ? signinSchema : signupSchema}
       >
         {({ touched, errors }) => (
-          <Form className={css.form} noValidate>
+          <Form className={css.form}>
             <label>
               <span className={css.labelText}>Enter your email</span>
               <Field
