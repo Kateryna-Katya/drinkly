@@ -1,13 +1,13 @@
 import { useState } from "react";
 import Modal from "react-modal";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Icon } from "../Icon/Icon.jsx";
 import * as Yup from "yup";
 import css from "./Setting.module.css";
 
 Modal.setAppElement("#root");
 
-const Setting = ({ user }) => {
-  const [isOpen, setIsOpen] = useState(true); // Модальное окно открыто для тестирования
+const Setting = ({ user, onClose }) => {
   const [photoPreview, setPhotoPreview] = useState(user.photo || "");
 
   const initialValues = {
@@ -33,7 +33,7 @@ const Setting = ({ user }) => {
     ),
 
     newPassword: Yup.string()
-      .min(6, "Password must be at least 6 characters")
+      .min(8, "Password must be at least 8 characters")
       .test(
         "newPasswordRequired",
         "New password is required",
@@ -70,7 +70,7 @@ const Setting = ({ user }) => {
   const handleSubmit = (values) => {
     console.log(values);
     alert("Profile updated successfully!");
-    setIsOpen(false);
+    onClose();
   };
 
   const [passwordVisibility, setPasswordVisibility] = useState({
@@ -88,21 +88,21 @@ const Setting = ({ user }) => {
 
   return (
     <Modal
-      isOpen={isOpen}
-      onRequestClose={() => setIsOpen(false)}
+      isOpen={true}
+      onRequestClose={onClose}
       className={css.modalContent}
       overlayClassName={css.modalOverlay}
     >
       <h2 className={css.title}>Setting</h2>
-      <button className={css.closeButton} onClick={() => setIsOpen(false)}>
-        ✖
+      <button className={css.closeButton} onClick={onClose}>
+        <Icon className={css.closeIcon} id="icon-cross" />
       </button>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ setFieldValue }) => (
+        {({ setFieldValue, errors, touched }) => (
           <Form>
             {/* Фото */}
             <div className={css.settingContainer}>
@@ -113,17 +113,24 @@ const Setting = ({ user }) => {
                   alt="User"
                   className={css.photoPreview}
                 />
-                <label className={css.uploadContainer}>
-                  <span>
-                    {" "}
-                    <span className={css.photoIcon}>📁</span> Upload a photo
-                  </span>
+                <div className={css.aploadPhotoContainer}>
+                  <button
+                    type="button"
+                    className={css.uploadButton}
+                    onClick={() =>
+                      document.getElementById("fileUpload").click()
+                    }
+                  >
+                    <Icon className={css.photoIcon} id="icon-arrow-up-tray" />
+                    Upload a photo
+                  </button>
                   <input
+                    id="fileUpload"
                     type="file"
                     className={css.hiddenInput}
                     onChange={(e) => handlePhotoUpload(e, setFieldValue)}
                   />
-                </label>
+                </div>
               </div>
             </div>
             <div className={css.formContainer}>
@@ -154,12 +161,14 @@ const Setting = ({ user }) => {
                     type="text"
                     name="name"
                     placeholder="Name"
-                    className={css.inputs}
+                    className={`${css.inputs} ${
+                      errors.name && touched.name ? css.error : ""
+                    }`}
                   />
                   <ErrorMessage
                     name="name"
                     component="div"
-                    className={css.ErrorMessage}
+                    className={css.errorMessage}
                   />
                 </div>
 
@@ -175,7 +184,7 @@ const Setting = ({ user }) => {
                   <ErrorMessage
                     name="email"
                     component="div"
-                    className={css.ErrorMessage}
+                    className={css.errorMessage}
                   />
                 </div>
               </div>
@@ -186,7 +195,6 @@ const Setting = ({ user }) => {
                   {["outdatedPassword", "newPassword", "repeatNewPassword"].map(
                     (field, index) => (
                       <div key={index} className={css.fieldContainer}>
-                        {/* Лейбл для текущего поля */}
                         <label htmlFor={field} className={css.fieldLabel}>
                           {field === "outdatedPassword"
                             ? "Outdated password"
@@ -194,7 +202,6 @@ const Setting = ({ user }) => {
                             ? "New password"
                             : "Repeat new password"}
                         </label>
-                        {/* Инпут и иконка */}
                         <div className={css.inputWithIcon}>
                           <Field
                             id={field}
@@ -202,7 +209,9 @@ const Setting = ({ user }) => {
                             type={
                               passwordVisibility[field] ? "text" : "password"
                             }
-                            className={css.inputs}
+                            className={`${css.inputs} ${
+                              errors[field] && touched[field] ? css.error : ""
+                            }`}
                             placeholder="Password"
                           />
                           <button
@@ -210,7 +219,14 @@ const Setting = ({ user }) => {
                             className={css.iconButton}
                             onClick={() => passwordVisibilityToggle(field)}
                           >
-                            👁️
+                            <Icon
+                              className={css.closeIcon}
+                              id={
+                                passwordVisibility[field]
+                                  ? "icon-eye"
+                                  : "icon-eye-slash"
+                              }
+                            />
                           </button>
                         </div>
                         <ErrorMessage
