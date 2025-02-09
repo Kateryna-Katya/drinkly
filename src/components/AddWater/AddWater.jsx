@@ -6,6 +6,7 @@ import TimeInput from "../TimeInput/TimeInput.jsx";
 import { useDispatch } from "react-redux";
 import { saveWaterCup } from "../../redux/water/operations.js";
 import { Field, Formik, Form } from "formik";
+import { toast } from "react-toastify";
 
 const Modal = ({ isOpen, onClose }) => {
   const [quantity, setQuantity] = useState(50);
@@ -18,7 +19,6 @@ const Modal = ({ isOpen, onClose }) => {
   const handleIncrement = () => {
     if (quantity < 15000) setQuantity((prevQuantity) => prevQuantity + 50);
   };
-
   const handleDecrement = () => {
     setQuantity((prevQuantity) => Math.max(0, prevQuantity - 50));
   };
@@ -41,8 +41,9 @@ const Modal = ({ isOpen, onClose }) => {
   const date = new Date().toISOString();
 
   const handleSave = () => {
-    console.log({ amount: quantity, date, time });
     dispatch(saveWaterCup({ amount: quantity, date, time }));
+    toast.success("Water saved", { className: styles.toast });
+    onClose();
   };
 
   return (
@@ -108,5 +109,3 @@ const Modal = ({ isOpen, onClose }) => {
 };
 
 export default Modal;
-
-// "date": "2023-12-01T12:00:00.000Z",
