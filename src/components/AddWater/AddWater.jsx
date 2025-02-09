@@ -9,10 +9,10 @@ import { Field, Formik, Form } from "formik";
 import { toast } from "react-toastify";
 
 const Modal = ({ isOpen, onClose }) => {
+  const dispatch = useDispatch();
+
   const [quantity, setQuantity] = useState(50);
   const [time, setTime] = useState("");
-
-  const dispatch = useDispatch();
 
   const { handleBackdropClick } = useModalClose(isOpen, onClose);
 
@@ -40,10 +40,20 @@ const Modal = ({ isOpen, onClose }) => {
 
   const date = new Date().toISOString();
 
-  const handleSave = () => {
-    dispatch(saveWaterCup({ amount: quantity, date, time }));
-    toast.success("Water saved", { className: styles.toast });
+  const handleSave = async () => {
     onClose();
+
+    const resultAction = await dispatch(
+      saveWaterCup({ amount: quantity, date, time })
+    );
+    if (saveWaterCup.fulfilled.match(resultAction)) {
+      console.log(time),
+        toast.success("Water saved", { className: styles.toast });
+    } else {
+      toast.error("Failed to save water", {
+        className: styles.toast,
+      });
+    }
   };
 
   return (

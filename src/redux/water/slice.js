@@ -37,7 +37,7 @@ const waterSlice = createSlice({
         state.loading = false;
         state.error = null;
         state.waterRecords = state.waterRecords.filter(
-          (record) => record._id !== action.payload // Видаляємо запис за _id
+          (record) => record._id !== action.payload
         );
       })
       .addCase(deleteWaterCup.rejected, handleRejected)

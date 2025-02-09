@@ -5,12 +5,9 @@ import { Field } from "formik";
 const TimeInput = ({ time, setTime }) => {
   useEffect(() => {
     const now = new Date();
-    const formattedTime = now.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    const formattedTime = now.toTimeString().slice(0, 5);
     setTime(formattedTime);
-  }, []);
+  }, [setTime]);
 
   return (
     <Field
