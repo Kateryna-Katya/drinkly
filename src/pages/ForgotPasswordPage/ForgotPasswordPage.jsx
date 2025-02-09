@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 import clsx from "clsx";
@@ -19,6 +19,7 @@ const ForgotPasswordPage = () => {
   const [isRepeatPasswordShown, setIsRepeatPasswordShown] = useState(false);
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
+  const navigate = useNavigate();
 
   const sendEmailValues = {
     email: "",
@@ -50,14 +51,33 @@ const ForgotPasswordPage = () => {
       setIsLoading(false);
     }
   };
-  const onResetPassword = (values) => {
-    console.log(values);
+
+  const onResetPassword = async (values, actions) => {
+    setIsLoading(true);
+    try {
+      await axios.post("auth/reset-password", {
+        password: values.password,
+        token,
+      });
+      actions.resetForm();
+      toast.success("Your password has been changed", {
+        duration: 10000,
+      });
+      navigate("/signin");
+    } catch (error) {
+      toast.error(error.response.data.data.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <AuthPagesWrapper>
       {isLoading && <Loader />}
       <div className={css.formWrapper}>
+        <h2 className={css.title}>
+          {token ? "Set your new password" : "Reset Your Password"}
+        </h2>
         <Formik
           initialValues={!token ? sendEmailValues : resetPasswordValues}
           onSubmit={!token ? onSendEmail : onResetPassword}
@@ -145,7 +165,7 @@ const ForgotPasswordPage = () => {
                   </>
                 )}
                 <button className={css.btn} type="submit">
-                  {token ? "Get New Password" : "Request Password Reset"}
+                  {token ? "Get New Password" : "Send Email"}
                 </button>
               </Form>
             );
