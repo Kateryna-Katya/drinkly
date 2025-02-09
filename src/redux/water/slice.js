@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { logoutUser } from '../auth/operations';
-import { fetchWaterCupsToday, deleteWaterCup } from "./operations";
+import { logoutUser } from "../auth/operations";
+import {
+  fetchWaterCupsToday,
+  deleteWaterCup,
+  fetchWaterRecord,
+} from "./operations";
 
 const handlePending = (state) => {
   state.loading = true;
@@ -12,7 +16,7 @@ const handleRejected = (state, action) => {
 };
 
 const waterSlice = createSlice({
-  name: 'water',
+  name: "water",
   initialState: {
     waterRecords: [],
     loading: false,
@@ -27,7 +31,7 @@ const waterSlice = createSlice({
         state.waterRecords = action.payload;
       })
       .addCase(fetchWaterCupsToday.rejected, handleRejected)
-      
+
       .addCase(deleteWaterCup.pending, handlePending)
       .addCase(deleteWaterCup.fulfilled, (state, action) => {
         state.loading = false;
@@ -42,6 +46,19 @@ const waterSlice = createSlice({
         state.waterRecords = [];
         state.error = null;
         state.loading = false;
+      })
+
+      .addCase(fetchWaterRecord.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchWaterRecord.fulfilled, (state, action) => {
+        state.loading = false;
+        state.waterRecords = action.payload;
+      })
+      .addCase(fetchWaterRecord.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });
