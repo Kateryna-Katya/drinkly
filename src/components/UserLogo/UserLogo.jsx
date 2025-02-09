@@ -4,9 +4,14 @@ import { Icon } from "../Icon/Icon.jsx";
 import styles from "./UserLogo.module.css";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/auth/selectors.js";
+import UserLogoutModal from "../UserLogoutModal/UserLogoutModal.jsx";
+import Setting from "../Setting/Setting";
 
 const UserLogo = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [isSettingOpen, setIsSettingOpen] = useState(false);
+
   const user = useSelector(selectUser);
 
   const toggleModal = () => {
@@ -48,7 +53,22 @@ const UserLogo = () => {
       {isModalOpen && (
         <UserLogoModal
           onClose={toggleModal}
+          onSettingOpen={() => setIsSettingOpen(true)}
+          onLogoutOpen={() => setIsLogoutModalOpen(true)}
           parentClass={styles.userLogoContainer}
+        />
+      )}
+      {isSettingOpen && (
+        <Setting
+          isOpen={isSettingOpen}
+          user={user}
+          onClose={() => setIsSettingOpen(false)}
+        />
+      )}
+      {isLogoutModalOpen && (
+        <UserLogoutModal
+          isOpen={isLogoutModalOpen}
+          onClose={() => setIsLogoutModalOpen(false)}
         />
       )}
     </div>

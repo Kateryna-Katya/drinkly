@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
-import Setting from "../Setting/Setting";
-import UserLogoutModal from "../UserLogoutModal/UserLogoutModal";
+import { useEffect } from "react";
 import { Icon } from "../Icon/Icon.jsx";
 import styles from "./UserLogoModal.module.css";
 
-const UserLogoModal = ({ onClose, parentClass }) => {
-  const [isSettingOpen, setIsSettingOpen] = useState(false);
-  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
-
+const UserLogoModal = ({
+  onClose,
+  parentClass,
+  onSettingOpen,
+  onLogoutOpen,
+}) => {
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (!event.target.closest(`.${parentClass}`)) {
@@ -32,10 +32,7 @@ const UserLogoModal = ({ onClose, parentClass }) => {
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.userLogoModal}>
-        <button
-          onClick={() => setIsSettingOpen(true)}
-          className={styles.modalBtn}
-        >
+        <button onClick={onSettingOpen} className={styles.modalBtn}>
           <Icon
             className={styles.icon}
             id="icon-cog-6-tooth"
@@ -44,10 +41,7 @@ const UserLogoModal = ({ onClose, parentClass }) => {
           />
           Setting
         </button>
-        <button
-          onClick={() => setIsLogoutModalOpen(true)}
-          className={styles.modalBtn}
-        >
+        <button onClick={onLogoutOpen} className={styles.modalBtn}>
           <Icon
             className={styles.icon}
             id="icon-arrow-right-on-rectanglesvg"
@@ -56,18 +50,6 @@ const UserLogoModal = ({ onClose, parentClass }) => {
           />
           Logout
         </button>
-        {isSettingOpen && (
-          <Setting
-            isOpen={isSettingOpen}
-            onClose={() => setIsSettingOpen(false)}
-          />
-        )}
-        {isLogoutModalOpen && (
-          <UserLogoutModal
-            isOpen={isLogoutModalOpen}
-            onClose={() => setIsLogoutModalOpen(false)}
-          />
-        )}
       </div>
     </div>
   );
