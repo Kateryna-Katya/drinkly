@@ -25,8 +25,8 @@ const WaterNote = ({id, waterVolume, time }) => {
                 id="icon-cup"
                 width="26"
                 height="26"/>
-                <p className={css.waterNoteVolume}>{waterVolume}</p> 
-                <p className={css.waterNoteTime}>{time}</p>  
+                <p className={css.waterNoteVolume}>{waterVolume} ml</p> 
+                <p className={css.waterNoteTime}>{time.substring(0, 5)}</p>  
             </div>
             <div className={css.waterNoteBtnsWrapper}>
                 <button className={css.waterNoteEditBtn} onClick={openEditWaterNoteModal}><Icon
