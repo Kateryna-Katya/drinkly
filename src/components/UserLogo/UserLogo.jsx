@@ -61,6 +61,7 @@ const UserLogo = () => {
       {isSettingOpen && (
         <Setting
           isOpen={isSettingOpen}
+          user={user}
           onClose={() => setIsSettingOpen(false)}
         />
       )}
