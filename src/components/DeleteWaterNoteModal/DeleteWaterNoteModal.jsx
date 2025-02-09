@@ -6,11 +6,12 @@ import { Icon } from '../Icon/Icon';
 
 import css from "./DeleteWaterNoteModal.module.css"
 
-const DeleteWaterNoteModal = ({ isOpen, onRequestClose, _id }) => {
+const DeleteWaterNoteModal = ({ isOpen, onRequestClose, id }) => {
     const dispatch = useDispatch();
 
-   const handleDelete = () => {
-    dispatch(deleteWaterCup(_id));
+    const handleDelete = () => {
+       
+    dispatch(deleteWaterCup(id));
     onRequestClose(); 
 };
      

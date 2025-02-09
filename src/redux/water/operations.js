@@ -19,8 +19,8 @@ export const deleteWaterCup = createAsyncThunk(
   "water/deleteWaterCup",
   async (_id, thunkAPI) => {
     try {
-      const response = await axios.delete(`/water/${_id}`);
-      return response.data;
+      await axios.delete(`/water/${_id}`);
+      return _id;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
