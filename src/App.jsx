@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import RestrictedRoute from "./components/RestrictedRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import { currenthUser } from "./redux/auth/operations";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage/ForgotPasswordPage";
 
 const WelcomePage = lazy(() => import("./pages/WelcomePage/WelcomePage"));
 const SignUpPage = lazy(() => import("./pages/SignUpPage/SignUpPage"));
@@ -58,6 +59,16 @@ const App = () => {
               <PrivateRoute redirectTo="/signin" component={<HomePage />} />
             }
           />
+          <Route
+            path="/auth/reset-password"
+            element={
+              <RestrictedRoute
+                redirectTo="/signin"
+                component={<ForgotPasswordPage />}
+              />
+            }
+          />
+
         </Routes>
       </Layout>
     </>
