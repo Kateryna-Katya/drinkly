@@ -9,10 +9,15 @@ import {
   subMonths,
 } from "date-fns";
 import { useEffect, useState } from "react";
-import css from "./MonthStatsTable.module.css";
+import css from "./MonthStatsTableS.module.css";
 import axios from "axios";
 
+import { Icon } from "../Icon/Icon";
+import clsx from "clsx";
+import DaysGeneralStatsS from "../DaysGeneralStatsS/DaysGeneralStatsS";
+
 const MonthStatsTable = () => {
+  const [offsetLeft, setOffsetLeft] = useState(0);
   const [currentDate, setCurrentDate] = useState(new Date().toString());
   const [monthStats, setMonthStats] = useState(null);
   const [currentMonthStats, setCurrentMonthStats] = useState(null);
@@ -70,12 +75,22 @@ const MonthStatsTable = () => {
       <div className={css.wrapper}>
         <h2 className={css.title}>Month</h2>
         <div className={css.control}>
-          <button type="button" onClick={prevMonth}>
-            P
+          <button type="button" onClick={prevMonth} className={css.btn}>
+            <Icon
+              id="icon-chevron-double-up"
+              width="14"
+              height="14"
+              className={css.iconsBack}
+            />
           </button>
-          <div>{format(currentDate, "MMMM yyyy")}</div>
-          <button type="button" onClick={nextMonth}>
-            N
+          <div className={css.text}>{format(currentDate, "MMMM, yyyy")}</div>
+          <button type="button" onClick={nextMonth} className={css.btn}>
+            <Icon
+              id="icon-chevron-double-up"
+              width="14"
+              height="14"
+              className={css.iconsFront}
+            />
           </button>
         </div>
       </div>
@@ -83,21 +98,37 @@ const MonthStatsTable = () => {
         <ul className={css.list}>
           {currentMonthStats.map((item, index) => {
             return (
-              <li
-                onClick={() => {
-                  setOpenGeneralStats({
-                    isOpen: !openGeneralStats.isOpen,
-                    day: Number(format(parseISO(item.date), "d")),
-                  });
-                }}
-                key={item.date}
-              >
-                {index + 1} {item.percentage}
-                {openGeneralStats.isOpen &&
-                  openGeneralStats.day ===
-                    Number(format(parseISO(item.date), "d")) && (
-                    <div>{item.date}</div>
-                  )}
+              <li key={item.date}>
+                <button
+                  onClick={(event) => {
+                    setOpenGeneralStats({
+                      isOpen: !openGeneralStats.isOpen,
+                      day: Number(format(parseISO(item.date), "d")),
+                    });
+                    const liRect = event.target.getBoundingClientRect();
+                    const ulRect =
+                      event.currentTarget.parentNode.getBoundingClientRect();
+                    const offsetLeftPosition = liRect.left - ulRect.left;
+
+                    setOffsetLeft(offsetLeftPosition);
+                  }}
+                  className={css.item}
+                >
+                  <p
+                    className={clsx(
+                      css.day,
+                      item.percentage > 100 && css.fullStat
+                    )}
+                  >
+                    {index + 1}
+                  </p>
+                  <p className={css.percentage}>{`${item.percentage}%`}</p>
+                  {openGeneralStats.isOpen &&
+                    openGeneralStats.day ===
+                      Number(format(parseISO(item.date), "d")) && (
+                      <DaysGeneralStatsS item={item} offsetLeft={offsetLeft} />
+                    )}
+                </button>
               </li>
             );
           })}
