@@ -16,9 +16,37 @@ export const fetchWaterCupsToday = createAsyncThunk(
   }
 );
 
+export const fetchWaterToday = createAsyncThunk(
+  "water/fetchToday",
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await axios.get("/water/today");
+      // console.log("Fetched data:", response.data);
+      return {
+        totalWaterAmount: data.data.totalWaterAmount,
+        dailyNorm: data.data.dailyNorm,
+        percentage: data.data.percentage,
+      };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateWaterRecord = createAsyncThunk(
+  "water/updateWaterRecord",
+  async ({ recordId, updatedData }, thunkAPI) => {
+    try {
+      const response = await axios.put(`/water/${recordId}`, updatedData);
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
 export const getWaterMonth = createAsyncThunk(
-  'water/getMonthIntake',
+  "water/getMonthIntake",
   async (_, thunkAPI) => {
     try {
       const response = await axios.get("/water/month");
@@ -28,7 +56,6 @@ export const getWaterMonth = createAsyncThunk(
     }
   }
 );
-
 
 export const deleteWaterCup = createAsyncThunk(
   "water/deleteWaterCup",
@@ -59,11 +86,10 @@ export const fetchWaterRecord = createAsyncThunk(
   "/water/fetchWaterRecord",
   async (_id, thunkAPI) => {
     try {
-      const response = await axios.put(`/water/${_id}`);
+      const response = await axios.get(`/water/${_id}`);
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
-

@@ -3,14 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import s from "./EditWaterNoteModal.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { fetchWaterRecord } from "../../redux/water/operations";
+import {
+  fetchWaterRecord,
+  updateWaterRecord,
+} from "../../redux/water/operations";
 import {
   selectWaterRecord,
   selectWaterError,
   selectWaterLoading,
 } from "../../redux/water/selectors";
 
-const EditWaterNoteModal = ({ onClose }) => {
+const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
+  if (!isOpen) return null;
+
   const dispatch = useDispatch();
   const waterRecord = useSelector(selectWaterRecord);
   const loading = useSelector(selectWaterLoading);
@@ -23,9 +28,13 @@ const EditWaterNoteModal = ({ onClose }) => {
     time: "07:00",
   });
 
+  console.log(waterRecord);
+
   useEffect(() => {
-    dispatch(fetchWaterRecord());
-  }, [dispatch]);
+    if (recordId) {
+      dispatch(fetchWaterRecord(recordId));
+    }
+  }, [dispatch, recordId]);
 
   useEffect(() => {
     if (waterRecord) {
@@ -58,12 +67,34 @@ const EditWaterNoteModal = ({ onClose }) => {
 
   const handleSubmit = (values, { setSubmitting }) => {
     console.log("Submitted values:", values);
-    setMessage("✅Changes adopted!");
-    setTimeout(() => {
-      setMessage("");
-      onClose();
-    }, 2000);
-    setSubmitting(false);
+
+    if (!recordId) {
+      console.error("Error: recordId is missing");
+      return;
+    }
+
+    const updatedData = {
+      waterVolume: values.amount,
+      time: values.time,
+      date: new Date().toISOString(),
+    };
+
+    dispatch(updateWaterRecord({ recordId, updatedData }))
+      .unwrap()
+      .then(() => {
+        setMessage("Changes saved successfully!");
+        setTimeout(() => {
+          setMessage("");
+          onClose();
+        }, 2000);
+      })
+      .catch((error) => {
+        console.error("Update error:", error);
+        setMessage("Failed to update record.");
+      })
+      .finally(() => {
+        setSubmitting(false);
+      });
   };
 
   return (
