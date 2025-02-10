@@ -3,8 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import SvgSprite from "./components/SvgSprite/SvgSprite";
 import Layout from "./components/Layout/Layout";
-import { useDispatch} from "react-redux";
-
+import { useDispatch } from "react-redux";
 import RestrictedRoute from "./components/RestrictedRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import { currenthUser } from "./redux/auth/operations";
@@ -17,51 +16,51 @@ const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 
 const App = () => {
   const dispatch = useDispatch();
- 
+
   useEffect(() => {
     dispatch(currenthUser());
   }, [dispatch]);
   return (
     <>
       <SvgSprite />
-              <Layout>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <RestrictedRoute
-                  redirectTo="/home"
-                  component={<WelcomePage />}
-                />
-              }
-            />
-            <Route
-              path="/signup"
-              element={
-                <RestrictedRoute
-                  redirectTo="/home"
-                  component={<SignUpPage />}
-                />
-              }
-            />
-            <Route
-              path="/signin"
-              element={
-                <RestrictedRoute
-                  redirectTo="/home"
-                  component={<SignInPage />}
-                />
-              }
-            />
-            <Route
-              path="/home"
-              element={
-                <PrivateRoute redirectTo="/signin" component={<HomePage />} />
-              }
-            />
-          </Routes>
-        </Layout>
-      
+      <Layout>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <RestrictedRoute
+                redirectTo="/home"
+                component={<WelcomePage />}
+              />
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <RestrictedRoute
+                redirectTo="/home"
+                component={<SignUpPage />}
+              />
+            }
+          />
+          <Route
+            path="/signin"
+            element={
+              <RestrictedRoute
+                redirectTo="/home"
+                component={<SignInPage />}
+              />
+            }
+          />
+          <Route
+            path="/home"
+            element={
+              <PrivateRoute redirectTo="/signin" component={<HomePage />} />
+            }
+          />
+        </Routes>
+      </Layout>
+
     </>
   );
 };
