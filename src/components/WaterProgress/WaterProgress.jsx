@@ -1,24 +1,28 @@
 import React, { useEffect } from "react";
 import s from "./WaterProgress.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { selectWaterRecordsToday } from "../../redux/water/selectors";
-import { fetchWaterCupsToday } from "../../redux/water/operations";
+import { useState } from "react";
+import {
+  selectTotalWaterAmount,
+  selectDailyNorm,
+  selectPercentage,
+} from "../../redux/water/selectors";
+import { fetchWaterToday } from "../../redux/water/operations";
+import Modal from "../AddWater/AddWater";
 
 const WaterProgress = () => {
   const dispatch = useDispatch();
-  const waterStats = useSelector(selectWaterRecordsToday);
+  // const totalWaterAmount = useSelector(selectTotalWaterAmount);
+  // const dailyNorm = useSelector(selectDailyNorm);
+  const percentage = useSelector(selectPercentage);
+
+  // console.log("Redux percentage:", percentage);
 
   useEffect(() => {
-    dispatch(fetchWaterCupsToday());
+    dispatch(fetchWaterToday());
   }, [dispatch]);
 
-  if (!waterStats) {
-    return <p>Loading...</p>;
-  }
-
-  const { totalWaterAmount, dailyNorm, percentage } = waterStats;
-
-  //   const percentage = Math.min((totalWaterAmount / dailyNorm) * 100);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className={s.container}>
@@ -54,7 +58,7 @@ const WaterProgress = () => {
 
       <button
         type="button"
-        onClick={() => dispatch(addWater())}
+        onClick={() => setIsModalOpen(true)}
         className={s.button}
       >
         {" "}
@@ -70,6 +74,14 @@ const WaterProgress = () => {
         </svg>
         <p className={s.buttonText}>Add Water</p>
       </button>
+      {isModalOpen && (
+        <Modal
+          onClose={() => {
+            setIsModalOpen(false);
+            dispatch(fetchWaterToday()); // Оновлення Redux-стану після додавання води
+          }}
+        />
+      )}
     </div>
   );
 };
