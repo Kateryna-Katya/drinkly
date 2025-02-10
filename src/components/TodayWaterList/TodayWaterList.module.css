@@ -54,26 +54,23 @@
   box-sizing: border-box;
   overflow-y: auto;
   scrollbar-width: thin;
-  /* Firefox */
   scrollbar-color: #9ebbff transparent;
-  /* Повзунок + прозорий фон (Firefox) */
 }
-
-/* Для Chrome, Edge, Safari */
 .scrollableList::-webkit-scrollbar {
   width: 4px;
 }
-
-/* Прибираємо фон */
 .scrollableList::-webkit-scrollbar-track {
-  background: 2px solid #d7e3ff;
+  background: transparent;
+  border-radius: 8px;
+  
 }
-
-/* Стилі для повзунка */
 .scrollableList::-webkit-scrollbar-thumb {
   background: #9ebbff;
   border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
+
 
 @media (min-width: 768px) {
   .scrollableList {

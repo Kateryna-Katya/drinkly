@@ -25,8 +25,8 @@ const HomePage = () => {
       <DailyNorma />
       <div className={css.todayAndCalendarWrapper}>
         <div>{isLoading && <Loader />}</div>
-        <MonthStatsTable />
         <TodayWaterList />
+        <MonthStatsTable />
       </div>
     </div>
   );
