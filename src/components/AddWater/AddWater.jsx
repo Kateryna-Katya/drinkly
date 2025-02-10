@@ -6,19 +6,19 @@ import TimeInput from "../TimeInput/TimeInput.jsx";
 import { useDispatch } from "react-redux";
 import { saveWaterCup } from "../../redux/water/operations.js";
 import { Field, Formik, Form } from "formik";
+import { toast } from "react-toastify";
 
 const Modal = ({ isOpen, onClose }) => {
+  const dispatch = useDispatch();
+
   const [quantity, setQuantity] = useState(50);
   const [time, setTime] = useState("");
-
-  const dispatch = useDispatch();
 
   const { handleBackdropClick } = useModalClose(isOpen, onClose);
 
   const handleIncrement = () => {
     if (quantity < 15000) setQuantity((prevQuantity) => prevQuantity + 50);
   };
-
   const handleDecrement = () => {
     setQuantity((prevQuantity) => Math.max(0, prevQuantity - 50));
   };
@@ -40,9 +40,20 @@ const Modal = ({ isOpen, onClose }) => {
 
   const date = new Date().toISOString();
 
-  const handleSave = () => {
-    console.log({ amount: quantity, date, time });
-    dispatch(saveWaterCup({ amount: quantity, date, time }));
+  const handleSave = async () => {
+    onClose();
+
+    const resultAction = await dispatch(
+      saveWaterCup({ amount: quantity, date, time })
+    );
+    if (saveWaterCup.fulfilled.match(resultAction)) {
+      console.log(time),
+        toast.success("Water saved", { className: styles.toast });
+    } else {
+      toast.error("Failed to save water", {
+        className: styles.toast,
+      });
+    }
   };
 
   return (
@@ -108,5 +119,3 @@ const Modal = ({ isOpen, onClose }) => {
 };
 
 export default Modal;
-
-// "date": "2023-12-01T12:00:00.000Z",

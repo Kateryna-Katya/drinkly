@@ -23,10 +23,8 @@ const HomePage = () => {
   return (
     <div className={css.homePage}>
       <DailyNorma />
-
       <div className={css.todayAndCalendarWrapper}>
         <div>{isLoading && <Loader />}</div>
-
         <TodayWaterList />
         <MonthStatsTable />
       </div>

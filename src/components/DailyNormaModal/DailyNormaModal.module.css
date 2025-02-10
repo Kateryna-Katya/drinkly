@@ -24,10 +24,22 @@
 }
 
 .title_daily_modal {
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 123%;
   margin: 0;
 }
 
-.title_h3_modal {
+.daily_norma_madal_gender {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+}
+
+.title_daily_modal_calc {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 111%;
   padding-top: 24px;
   padding-bottom: 16px;
 }
@@ -36,6 +48,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  height: 24px;
 }
 
 .daily_norma_modal_formula {
@@ -47,10 +60,16 @@
 }
 
 .daily_norma_modal_span {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 133%;
   color: #407bff;
 }
 
 .formula_text_daily_modal {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 133%;
   width: 256px;
   height: 100px;
   font-size: 12px;
@@ -81,6 +100,9 @@
 }
 
 .radio_daily_modal {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
   display: flex;
   gap: 3px;
 }
@@ -88,6 +110,20 @@
 .radio_div {
   display: flex;
   gap: 24px;
+  margin-bottom: 16px;
+}
+
+.daily_modal_weight {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+}
+
+.title_daily_modal_water_rate {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 111%;
+  margin-top: 24px;
   margin-bottom: 16px;
 }
 
@@ -104,7 +140,11 @@
   cursor: pointer;
   border-radius: 6px;
   margin-left: auto;
-  margin-top: 5px;
+  box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
+}
+
+.btn_save_daily_modal:active {
+  box-shadow: none;
 }
 
 .iconClose {
@@ -117,7 +157,7 @@
   color: red;
   font-size: 12px;
   position: absolute;
-  top: 91%;
+  top: 90%;
   left: 30px;
 }
 
@@ -144,6 +184,7 @@
   .btn_save_daily_modal {
     width: 160px;
     height: 44px;
+    margin-top: 5px;
   }
 }
 

@@ -3,6 +3,7 @@ import { logoutUser } from "../auth/operations";
 import {
   fetchWaterCupsToday,
   deleteWaterCup,
+  fetchWaterRecord,
   saveWaterCup,
   getWaterMonth,
 } from "./operations";
@@ -40,7 +41,7 @@ const waterSlice = createSlice({
         state.loading = false;
         state.error = null;
         state.waterRecords = state.waterRecords.filter(
-          (record) => record._id !== action.payload // Удаляем запись по _id
+          (record) => record._id !== action.payload
         );
       })
       .addCase(deleteWaterCup.rejected, handleRejected)
@@ -48,6 +49,18 @@ const waterSlice = createSlice({
         state.waterRecords = [];
         state.error = null;
         state.loading = false;
+      })
+      .addCase(fetchWaterRecord.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchWaterRecord.fulfilled, (state, action) => {
+        state.loading = false;
+        state.waterRecords = action.payload;
+      })
+      .addCase(fetchWaterRecord.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       })
       .addCase(saveWaterCup.pending, handlePending)
       .addCase(saveWaterCup.fulfilled, (state, action) => {

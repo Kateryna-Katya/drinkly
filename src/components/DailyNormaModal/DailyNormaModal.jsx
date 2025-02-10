@@ -3,12 +3,13 @@ import { Icon } from "../Icon/Icon.jsx";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useSelector } from "react-redux";
 import { dailyNormaSchema } from "../DailyNormaSchema/DailyNormaSchema.js";
+
 import styles from "./DailyNormaModal.module.css";
 import toast from "react-hot-toast";
 import Loader from "../Loader/Loader.jsx";
 import axios from "axios";
 
-const DailyNormaModal = ({ onCloseDailyModal }) => {
+const DailyNormaModal = ({ onCloseDailyModal, userWaterRate }) => {
   const token = useSelector((state) => state.auth.token);
   const userGender = useSelector((state) => state.auth.user.gender);
 
@@ -40,6 +41,7 @@ const DailyNormaModal = ({ onCloseDailyModal }) => {
           },
         }
       );
+      userWaterRate(values.water * 1000);
       onCloseDailyModal();
     } catch (error) {
       toast.error("Something went wrong");
@@ -96,13 +98,13 @@ const DailyNormaModal = ({ onCloseDailyModal }) => {
           </button>
         </div>
         <div className={styles.daily_norma_modal_formula}>
-          <p>
+          <p className={styles.daily_norma_madal_gender}>
             For woman:{" "}
             <span className={styles.daily_norma_modal_span}>
               V=(M*0.03) + (T*0.4)
             </span>
           </p>
-          <p>
+          <p className={styles.daily_norma_madal_gender}>
             For man:{" "}
             <span className={styles.daily_norma_modal_span}>
               V=(M*0.04) + (T*0.6)
@@ -122,7 +124,9 @@ const DailyNormaModal = ({ onCloseDailyModal }) => {
           validationSchema={dailyNormaSchema}
         >
           <Form className={styles.form_daily_modal}>
-            <h3 className={styles.title_h3_modal}>Calculate your rate:</h3>
+            <h3 className={styles.title_daily_modal_calc}>
+              Calculate your rate:
+            </h3>
             <div className={styles.radio_div}>
               <label className={styles.radio_daily_modal}>
                 <input
@@ -146,7 +150,9 @@ const DailyNormaModal = ({ onCloseDailyModal }) => {
               </label>
             </div>
             <label className={styles.label_daily_modal}>
-              <span>Your weight in kilograms:</span>
+              <span className={styles.daily_modal_weight}>
+                Your weight in kilograms:
+              </span>
               <input
                 className={styles.input_daily_modal}
                 placeholder="0"
@@ -174,7 +180,7 @@ const DailyNormaModal = ({ onCloseDailyModal }) => {
             </p>
             <div>
               <label className={styles.label_daily_modal}>
-                <h3 className={styles.title_h3_modal}>
+                <h3 className={styles.title_daily_modal_water_rate}>
                   Write down how much water you will drink:
                 </h3>
                 <Field

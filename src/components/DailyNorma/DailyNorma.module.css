@@ -1,17 +1,36 @@
 .wrapper_daily_norma {
   padding: 8px 20px;
+  border: 2px solid #ecf2ff;
+  font-size: 18px;
+  margin-left: 20px;
+  margin-top: 4px;
+  border-radius: 10px;
+  width: 164px;
+  height: 76px;
+  box-shadow: 0 4px 8px 0 rgba(158, 187, 255, 0.12);
 }
 
 .title_daily_norma {
+  font-weight: 500;
   font-size: 18px;
+  line-height: 133%;
+  width: 124px;
+  white-space: nowrap;
+  height: 32px;
 }
 
 .water_title_daily_norma {
+  font-weight: 700;
   font-size: 24px;
+  line-height: 100%;
   color: #407bff;
 }
 
 .btm_daily_norma {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
   background-color: transparent;
   border: none;
   color: #8baeff;
@@ -22,4 +41,18 @@
 .div_daily_norma {
   display: flex;
   column-gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .wrapper_daily_norma {
+    margin-left: 32px;
+    margin-top: 20px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .wrapper_daily_norma {
+    margin-left: 112px;
+    margin-top: 32px;
+  }
 }

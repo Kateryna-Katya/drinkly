@@ -1,11 +1,11 @@
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .logoContainer {
   display: flex;
-  align-items: center;
 }
 
 .authBtn {
@@ -36,15 +36,9 @@
 
   .icon {
   }
-}
-@media (min-width: 1440px) {
+} */
+/* @media (min-width: 1440px) {
   .header {
-  }
-  .logoContainer {
-  }
-  .authBtn {
-  }
-
-  .icon {
+    max-width: 1216px;
   }
 } */
