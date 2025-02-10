@@ -98,37 +98,36 @@ const MonthStatsTable = () => {
         <ul className={css.list}>
           {currentMonthStats.map((item, index) => {
             return (
-              <li key={item.date}>
-                <button
-                  onClick={(event) => {
-                    setOpenGeneralStats({
-                      isOpen: !openGeneralStats.isOpen,
-                      day: Number(format(parseISO(item.date), "d")),
-                    });
-                    const liRect = event.target.getBoundingClientRect();
-                    const ulRect =
-                      event.currentTarget.parentNode.getBoundingClientRect();
-                    const offsetLeftPosition = liRect.left - ulRect.left;
+              <li
+                key={item.date}
+                onClick={(event) => {
+                  setOpenGeneralStats({
+                    isOpen: !openGeneralStats.isOpen,
+                    day: Number(format(parseISO(item.date), "d")),
+                  });
+                  const liRect = event.target.getBoundingClientRect();
+                  const ulRect =
+                    event.currentTarget.parentNode.getBoundingClientRect();
+                  const offsetLeftPosition = liRect.left - ulRect.left;
 
-                    setOffsetLeft(offsetLeftPosition);
-                  }}
-                  className={css.item}
+                  setOffsetLeft(offsetLeftPosition);
+                }}
+                className={css.item}
+              >
+                <p
+                  className={clsx(
+                    css.day,
+                    item.percentage > 100 && css.fullStat
+                  )}
                 >
-                  <p
-                    className={clsx(
-                      css.day,
-                      item.percentage > 100 && css.fullStat
-                    )}
-                  >
-                    {index + 1}
-                  </p>
-                  <p className={css.percentage}>{`${item.percentage}%`}</p>
-                  {openGeneralStats.isOpen &&
-                    openGeneralStats.day ===
-                      Number(format(parseISO(item.date), "d")) && (
-                      <DaysGeneralStats item={item} offsetLeft={offsetLeft} />
-                    )}
-                </button>
+                  {index + 1}
+                </p>
+                <p className={css.percentage}>{`${item.percentage}%`}</p>
+                {openGeneralStats.isOpen &&
+                  openGeneralStats.day ===
+                    Number(format(parseISO(item.date), "d")) && (
+                    <DaysGeneralStats item={item} offsetLeft={offsetLeft} />
+                  )}
               </li>
             );
           })}
