@@ -1,0 +1,91 @@
+.section {
+  max-width: 100%;
+  background-color: #ecf2ff;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+}
+
+.title {
+  color: #2f2f2f;
+  font-family: Roboto, sans-serif;
+  font-size: 24px;
+  line-height: 1.25em;
+}
+
+.text {
+  color: #407bff;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.25em;
+  width: 120px;
+  text-align: center;
+}
+
+.textMargin {
+  margin-right: 26px;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px 26px;
+}
+
+.monthBox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.iconsBack {
+  width: 14px;
+  height: 14px;
+  rotate: 90deg;
+  fill: rgba(64, 123, 255, 1);
+}
+
+.iconsFront {
+  width: 14px;
+  height: 14px;
+  rotate: -90deg;
+  fill: rgba(64, 123, 255, 1);
+}
+
+.btn {
+  height: 14px;
+}
+
+@media screen and (min-width: 768px) {
+  /* .section {
+    max-width: 656px;
+  } */
+
+  .title {
+    font-size: 26px;
+    line-height: 1.23em;
+  }
+
+  .list {
+    gap: 20px 34px;
+  }
+}
+
+
+@media screen and (min-width: 1440px) {
+  /* .section {
+    max-width: 544px;
+  } */
+
+  .list {
+    gap: 20px 22px;
+  }
+}
