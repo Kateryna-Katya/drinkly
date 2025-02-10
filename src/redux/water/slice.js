@@ -4,6 +4,7 @@ import {
   fetchWaterCupsToday,
   deleteWaterCup,
   fetchWaterRecord,
+  saveWaterCup,
 } from "./operations";
 
 const handlePending = (state) => {
@@ -28,7 +29,7 @@ const waterSlice = createSlice({
       .addCase(fetchWaterCupsToday.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.waterRecords = action.payload;
+        state.waterRecords = action.payload.data.waterRecords;
       })
       .addCase(fetchWaterCupsToday.rejected, handleRejected)
 
@@ -36,10 +37,9 @@ const waterSlice = createSlice({
       .addCase(deleteWaterCup.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        const index = state.waterRecords.findIndex(
-          (waterRecord) => waterRecord._id === action.payload._id
+        state.waterRecords = state.waterRecords.filter(
+          (record) => record._id !== action.payload
         );
-        state.waterRecords.splice(index, 1);
       })
       .addCase(deleteWaterCup.rejected, handleRejected)
       .addCase(logoutUser.fulfilled, (state) => {
@@ -47,7 +47,6 @@ const waterSlice = createSlice({
         state.error = null;
         state.loading = false;
       })
-
       .addCase(fetchWaterRecord.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -60,6 +59,13 @@ const waterSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       });
+      .addCase(saveWaterCup.pending, handlePending)
+      .addCase(saveWaterCup.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.waterRecords.push(action.payload.data);
+      })
+      .addCase(saveWaterCup.rejected, handleRejected);
   },
 });
 

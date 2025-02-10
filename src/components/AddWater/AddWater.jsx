@@ -1,27 +1,66 @@
 import styles from "./AddWater.module.css";
 import { Icon } from "../Icon/Icon.jsx";
 import { useState } from "react";
-const Modal = () => {
-  const [quantity, setQuantity] = useState(0);
+import useModalClose from "../../hooks/useModalClose";
+import TimeInput from "../TimeInput/TimeInput.jsx";
+import { useDispatch } from "react-redux";
+import { saveWaterCup } from "../../redux/water/operations.js";
+import { Field, Formik, Form } from "formik";
+import { toast } from "react-toastify";
+
+const Modal = ({ isOpen, onClose }) => {
+  const dispatch = useDispatch();
+
+  const [quantity, setQuantity] = useState(50);
+  const [time, setTime] = useState("");
+
+  const { handleBackdropClick } = useModalClose(isOpen, onClose);
 
   const handleIncrement = () => {
-    setQuantity((prevQuantity) => prevQuantity + 50);
+    if (quantity < 15000) setQuantity((prevQuantity) => prevQuantity + 50);
+  };
+  const handleDecrement = () => {
+    setQuantity((prevQuantity) => Math.max(0, prevQuantity - 50));
   };
 
-  const handleDecrement = () => {
-    if (quantity > 0) setQuantity((prevQuantity) => prevQuantity - 50);
+  const handleInputChange = (event) => {
+    let value = event.target.value;
+
+    if (value === "") {
+      setQuantity(0);
+      return;
+    }
+
+    value = Number(value);
+
+    if (!isNaN(value) && value >= 50 && value <= 15000) {
+      setQuantity(value);
+    }
+  };
+
+  const date = new Date().toISOString();
+
+  const handleSave = async () => {
+    onClose();
+
+    const resultAction = await dispatch(
+      saveWaterCup({ amount: quantity, date, time })
+    );
+    if (saveWaterCup.fulfilled.match(resultAction)) {
+      console.log(time),
+        toast.success("Water saved", { className: styles.toast });
+    } else {
+      toast.error("Failed to save water", {
+        className: styles.toast,
+      });
+    }
   };
 
   return (
-    <div className={styles.backdrop}>
-      <div className={styles.modal}>
-        <button className={styles.btnClose}>
-          <Icon
-            id="icon-trash"
-            width="24"
-            height="24"
-            className={styles.iconClose}
-          />
+    <div className={styles.backdrop} onClick={handleBackdropClick}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <button className={styles.btnClose} onClick={onClose}>
+          <div className={styles.cross}></div>
         </button>
 
         <h2 className={styles.title}>Add water</h2>
@@ -48,20 +87,31 @@ const Modal = () => {
           </button>
         </div>
 
-        <form className={styles.form}>
-          <label className={styles.labelTime}>
-            Recording time:
-            <input type="time" className={styles.inputTime} />
-          </label>
-          <label className={styles.labelQuantity}>
-            Enter the value of the water used:
-            <input type="number" className={styles.inputQuantity} />
-          </label>
-        </form>
+        <Formik>
+          <Form className={styles.form}>
+            <label className={styles.labelTime}>
+              Recording time:
+              <TimeInput time={time} setTime={setTime} />
+            </label>
+            <label className={styles.labelQuantity}>
+              Enter the value of the water used:
+              <Field
+                type="number"
+                className={styles.inputQuantity}
+                onChange={handleInputChange}
+                min="50"
+                max="15000"
+                maxLength="5"
+              />
+            </label>
+          </Form>
+        </Formik>
 
         <div className={styles.wrapperSave}>
           <span className={styles.quantitySave}>{quantity}ml</span>
-          <button className={styles.btnSave}>Save</button>
+          <button className={styles.btnSave} onClick={handleSave}>
+            Save
+          </button>
         </div>
       </div>
     </div>

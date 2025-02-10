@@ -1,0 +1,204 @@
+.backdrop {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.daily_norma_modal {
+  background-color: white;
+  width: 280px;
+  height: 816px;
+  padding: 24px 12px;
+  border-radius: 16px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btn_close_daily_modal {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.title_daily_modal {
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 123%;
+  margin: 0;
+}
+
+.daily_norma_madal_gender {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+}
+
+.title_daily_modal_calc {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 111%;
+  padding-top: 24px;
+  padding-bottom: 16px;
+}
+
+.daily_title_btn_modal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.daily_norma_modal_formula {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 24px;
+  padding-bottom: 12px;
+}
+
+.daily_norma_modal_span {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 133%;
+  color: #407bff;
+}
+
+.formula_text_daily_modal {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 133%;
+  width: 256px;
+  height: 100px;
+  font-size: 12px;
+  padding: 10px;
+  color: #407bff;
+  border-radius: 10px;
+  border: 1px solid #d7e3ff;
+}
+
+.input_daily_modal {
+  height: 44px;
+  color: #407bff;
+  border: 1px solid #d7e3ff;
+  outline: none;
+  margin-bottom: 16px;
+}
+
+.form_daily_modal {
+  display: flex;
+  flex-direction: column;
+  width: 256px;
+}
+
+.label_daily_modal {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.radio_daily_modal {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+  display: flex;
+  gap: 3px;
+}
+
+.radio_div {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.daily_modal_weight {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+}
+
+.title_daily_modal_water_rate {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 111%;
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.amount_span_daily_modal {
+  color: #407bff;
+}
+
+.btn_save_daily_modal {
+  width: 256px;
+  height: 36px;
+  background-color: #407bff;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  margin-left: auto;
+  box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
+}
+
+.btn_save_daily_modal:active {
+  box-shadow: none;
+}
+
+.iconClose {
+  stroke: #407bff;
+}
+
+.errorMessage {
+  display: block;
+  width: 200px;
+  color: red;
+  font-size: 12px;
+  position: absolute;
+  top: 90%;
+  left: 30px;
+}
+
+@media (min-width: 768px) {
+  .daily_norma_modal {
+    width: 696px;
+    height: 704px;
+    padding: 32px 24px;
+  }
+
+  .daily_norma_modal_formula {
+    flex-direction: row;
+  }
+
+  .form_daily_modal {
+    width: 652px;
+  }
+
+  .formula_text_daily_modal {
+    width: 656px;
+    height: 52px;
+  }
+
+  .btn_save_daily_modal {
+    width: 160px;
+    height: 44px;
+    margin-top: 5px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .daily_norma_modal {
+    width: 592px;
+    height: 712px;
+  }
+
+  .formula_text_daily_modal {
+    width: 544px;
+    height: 68px;
+  }
+
+  .form_daily_modal {
+    width: 544px;
+  }
+}

@@ -13,7 +13,9 @@ const Header = ({ onLogoClick }) => {
     <header className={styles.header}>
       <div className={styles.logoContainer}>
         <div onClick={onLogoClick}>
-          <Logo />
+          <Link to={isAuthenticated ? "/home" : "/"}>
+            <Logo />
+          </Link>
         </div>
       </div>
 

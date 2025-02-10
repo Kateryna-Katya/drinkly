@@ -1,36 +1,46 @@
 .homePage {
-    padding-top: 52px;
+  padding-top: 24px;
+  background: url("../../img/home-page/bubbles-mob.png") no-repeat top 52px
+      center,
+    url("../../img/home-page/bottle-mob.png") no-repeat top 106px center;
+  height: 100vh;
 }
 .todayAndCalendarWrapper {
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-direction: column;
-    gap: 24px;
-    border-radius: 10px;
-    padding: 24px 8px;
-    width: 280px;
-    box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.3);
-    background: #ecf2ff;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 24px;
+  border-radius: 10px;
+  padding: 24px 8px;
+  width: 280px;
+  box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.3);
+  background: #ecf2ff;
 }
 @media (min-width: 768px) {
-    .homePage {
-            padding-top: 24px;
-        }
-    .todayAndCalendarWrapper {
-        padding: 32px 24px;
-        width: 704px;
-    }
+  .homePage {
+    padding-top: 40px;
+    background: url("../../img/home-page/bottle-tablet.png") no-repeat top 40px
+        center,
+      url("../../img/home-page/bubbles-tablet.png") no-repeat top 24px center;
+  }
+  .todayAndCalendarWrapper {
+    padding: 32px 24px;
+    width: 704px;
+  }
 }
 
 @media (min-width: 1440px) {
-    .homePage {
-            padding-top: 20px;
-        }
-    .todayAndCalendarWrapper {
-            width: 592px;
-            margin-right: 112px;
-    }
+  .homePage {
+    padding-top: 20px;
+    background: url("../../img/home-page/bottle-desk.png") no-repeat top 22px
+        left 39px,
+      url("../../img/home-page/bubbles-desk.png") no-repeat top 59px left 10px;
+  }
+  .todayAndCalendarWrapper {
+    width: 592px;
+    margin-right: 112px;
+  }
 }

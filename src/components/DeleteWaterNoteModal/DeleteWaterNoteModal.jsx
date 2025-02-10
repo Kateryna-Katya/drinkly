@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { deleteWaterCup } from "../../redux/water/operations";
 import Modal from "react-modal";
+import { toast } from "react-toastify";
 
 import { Icon } from "../Icon/Icon";
 
@@ -12,6 +13,15 @@ const DeleteWaterNoteModal = ({ isOpen, onRequestClose, _id }) => {
   const handleDelete = () => {
     dispatch(deleteWaterCup(_id));
     onRequestClose();
+    const resultAction = await dispatch(deleteWaterCup(id));
+
+    if (deleteWaterCup.fulfilled.match(resultAction)) {
+      toast.success("Water entry successfully deleted", {
+        className: css.toast,
+      });
+    } else {
+      toast.error("Failed to delete water entry", { className: css.toast });
+    }
   };
 
   return (
