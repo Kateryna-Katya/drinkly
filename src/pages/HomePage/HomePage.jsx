@@ -9,7 +9,7 @@ import { selectWaterLoading } from "../../redux/water/selectors";
 
 import css from "./HomePage.module.css";
 import DailyNorma from "../../components/DailyNorma/DailyNorma";
-import MonthStatsTable from "../../components/MonthStatsTable/MonthStatsTable";
+import MonthStatsTableS from "../../components/MonthStatsTableS/MonthStatsTableS";
 import WaterProgress from "../../components/WaterProgress/WaterProgress";
 
 const HomePage = () => {
@@ -29,7 +29,7 @@ const HomePage = () => {
       <div className={css.todayAndCalendarWrapper}>
         <div>{isLoading && <Loader />}</div>
         <TodayWaterList />
-        <MonthStatsTable />
+        <MonthStatsTableS />
       </div>
     </div>
   );
