@@ -10,11 +10,11 @@ import css from "./DeleteWaterNoteModal.module.css";
 const DeleteWaterNoteModal = ({ isOpen, onRequestClose, _id }) => {
   const dispatch = useDispatch();
 
-  const handleDelete = () => {
-    dispatch(deleteWaterCup(_id));
-    onRequestClose();
-    const resultAction = await dispatch(deleteWaterCup(id));
-
+  const handleDelete = async() => {
+    
+    
+    const resultAction = await dispatch(deleteWaterCup(_id));
+onRequestClose();
     if (deleteWaterCup.fulfilled.match(resultAction)) {
       toast.success("Water entry successfully deleted", {
         className: css.toast,

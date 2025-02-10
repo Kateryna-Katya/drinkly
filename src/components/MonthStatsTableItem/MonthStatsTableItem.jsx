@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import css from './MonthStatsTableItem.module.css';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';

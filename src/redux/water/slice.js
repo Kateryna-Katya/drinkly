@@ -61,7 +61,7 @@ const waterSlice = createSlice({
       .addCase(fetchWaterRecord.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
       .addCase(saveWaterCup.pending, handlePending)
       .addCase(saveWaterCup.fulfilled, (state, action) => {
         state.loading = false;

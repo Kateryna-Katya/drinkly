@@ -136,9 +136,9 @@ const SvgSprite = () => {
         </symbol>
         <symbol id="icon-VectorX" viewBox="0 0 32 32">
           <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="3.429"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="3.429"
             d="M2.286 29.714 29.715 2.285m-27.429.001 27.429 27.429"
           />
         </symbol>
@@ -220,9 +220,9 @@ const SvgSprite = () => {
 
         <symbol id="icon-icon-close" viewBox="0 0 32 32">
           <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="3.429"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="3.429"
             d="M2.286 29.714 29.715 2.285m-27.429.001 27.429 27.429"
           />
         </symbol>
