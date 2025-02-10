@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import WaterNote from "../WaterNote/WaterNote";
 import Modal from "../AddWater/AddWater";
-
 import { selectWaterRecordsToday } from "../../redux/water/selectors";
 
 import { Icon } from "../Icon/Icon";
@@ -10,7 +9,7 @@ import { Icon } from "../Icon/Icon";
 import css from "./TodayWaterList.module.css";
 
 const TodayWaterList = () => {
-  const waterRecords = useSelector(selectWaterRecordsToday);
+    const waterRecords = useSelector(selectWaterRecordsToday);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     
@@ -47,7 +46,7 @@ const TodayWaterList = () => {
       </button>
       {isModalOpen && <Modal onClose={() => setIsModalOpen(false)} />}
     </div>
-  );
+    );
 };
 
 export default TodayWaterList;
