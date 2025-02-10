@@ -3,26 +3,35 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import SvgSprite from "./components/SvgSprite/SvgSprite";
 import Layout from "./components/Layout/Layout";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import RestrictedRoute from "./components/RestrictedRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import { currenthUser } from "./redux/auth/operations";
-import ForgotPasswordPage from "./pages/ForgotPasswordPage/ForgotPasswordPage";
+
+import { selectUserToken } from "./redux/auth/selectors";
+
+
+
 
 const WelcomePage = lazy(() => import("./pages/WelcomePage/WelcomePage"));
 const SignUpPage = lazy(() => import("./pages/SignUpPage/SignUpPage"));
 const SignInPage = lazy(() => import("./pages/SignInPage/SignInPage"));
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
+const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage/ForgotPasswordPage"));
 
 const App = () => {
   const dispatch = useDispatch();
+  const token = useSelector(selectUserToken);
 
   useEffect(() => {
-    dispatch(currenthUser());
-  }, [dispatch]);
+    if (token) {
+      dispatch(currenthUser());
+    }
+  }, [dispatch, token]);
+
   return (
     <>
       <ToastContainer

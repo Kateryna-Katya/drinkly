@@ -20,19 +20,6 @@
   overflow: auto;
 }
 
-.hiddenScrollbar {
-  overflow: auto; /* Сохраняем прокрутку */
-}
-
-.hiddenScrollbar::-webkit-scrollbar {
-  display: none; /* Полностью скрываем скроллбар */
-}
-
-.hiddenScrollbar {
-  -ms-overflow-style: none; /* Убираем скроллбар в IE и Edge */
-  scrollbar-width: none; /* Убираем скроллбар в Firefox */
-}
-
 .title {
   font-weight: 500;
   font-size: 26px;
@@ -42,9 +29,13 @@
 
 .closeButton {
   position: absolute;
+  display: flex;
+  text-align: center;
+  align-items: center;
   top: 36px;
   right: 12px;
-  cursor: pointer;
+  width: 24px;
+  height: 24px;
   background-color: transparent;
   border: none;
 }
@@ -57,6 +48,19 @@
 
 .settingContainer {
   margin-bottom: 24px;
+}
+
+.avatarFallback {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #cccccc;
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .photoLabelContainer {
@@ -162,13 +166,19 @@
 
 .iconButton {
   position: absolute;
+  display: flex;
+  align-items: center;
+  text-align: center;
   right: 12px;
   background: none;
   border: none;
-  cursor: pointer;
   font-size: 18px;
-  color: #999;
   padding: 0;
+}
+
+.passwordIcon {
+  width: 16px;
+  height: 16px;
 }
 
 .saveBtn {
