@@ -1,19 +1,18 @@
 .headerContainer {
-    width: 280px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 8px;
+  width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 8px;
 }
 @media (min-width: 768px) {
-    .headerContainer {
-      width: 704px;
-      margin-top: 16px;
-     
-    }
+  .headerContainer {
+    width: 704px;
+    margin-top: 16px;
+  }
 }
 @media (min-width: 1440px) {
-    .headerContainer {
-      width: 1014px;
-      margin-top: 12px;
-    }
+  .headerContainer {
+    width: 1216px;
+    margin-top: 12px;
+  }
 }
