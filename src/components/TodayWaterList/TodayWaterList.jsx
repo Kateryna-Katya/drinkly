@@ -25,7 +25,7 @@ const TodayWaterList = () => {
         {sortedWaterRecords.length > 0 ? (
           <ul className={css.scrollableList}>
             {sortedWaterRecords.map((waterRecord) => (
-              <li className={css.waterRecordDataWrapper} key={waterRecord._id}>
+              <li key={waterRecord._id}>
                 <WaterNote
                   id={waterRecord._id}
                   waterVolume={waterRecord.waterVolume}
