@@ -3,6 +3,7 @@ import { logoutUser } from "../auth/operations";
 import {
   fetchWaterCupsToday,
   deleteWaterCup,
+  fetchWaterRecord,
   saveWaterCup,
 } from "./operations";
 
@@ -46,6 +47,18 @@ const waterSlice = createSlice({
         state.error = null;
         state.loading = false;
       })
+      .addCase(fetchWaterRecord.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchWaterRecord.fulfilled, (state, action) => {
+        state.loading = false;
+        state.waterRecords = action.payload;
+      })
+      .addCase(fetchWaterRecord.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
       .addCase(saveWaterCup.pending, handlePending)
       .addCase(saveWaterCup.fulfilled, (state, action) => {
         state.loading = false;

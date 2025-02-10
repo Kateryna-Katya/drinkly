@@ -39,3 +39,16 @@ export const saveWaterCup = createAsyncThunk(
     }
   }
 );
+
+export const fetchWaterRecord = createAsyncThunk(
+  "/water/fetchWaterRecord",
+  async (_id, thunkAPI) => {
+    try {
+      const response = await axios.put(`/water/${_id}`);
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+

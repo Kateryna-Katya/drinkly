@@ -7,12 +7,12 @@ import { Icon } from "../Icon/Icon";
 
 import css from "./DeleteWaterNoteModal.module.css";
 
-const DeleteWaterNoteModal = ({ isOpen, onRequestClose, id }) => {
+const DeleteWaterNoteModal = ({ isOpen, onRequestClose, _id }) => {
   const dispatch = useDispatch();
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
+    dispatch(deleteWaterCup(_id));
     onRequestClose();
-
     const resultAction = await dispatch(deleteWaterCup(id));
 
     if (deleteWaterCup.fulfilled.match(resultAction)) {
