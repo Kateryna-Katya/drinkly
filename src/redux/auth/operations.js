@@ -80,3 +80,22 @@ export const logoutUser = createAsyncThunk(
     }
   }
 );
+
+export const updateUser = createAsyncThunk(
+  "auth/updateUser",
+  async (userData, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
+      if (!token) return thunkAPI.rejectWithValue("Invalid token");
+
+      const { data } = await axios.patch("/users", userData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);

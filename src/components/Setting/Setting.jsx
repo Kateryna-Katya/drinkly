@@ -2,57 +2,44 @@ import { useState } from "react";
 import Modal from "react-modal";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Icon } from "../Icon/Icon.jsx";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser } from "../../redux/auth/selectors.js";
+import { updateUser, currenthUser } from "../../redux/auth/operations.js";
 import * as Yup from "yup";
 import css from "./Setting.module.css";
 
 Modal.setAppElement("#root");
 
-const Setting = ({ user, onClose }) => {
-  const [photoPreview, setPhotoPreview] = useState(user.photo || "");
+const Setting = ({ onClose }) => {
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   const initialValues = {
-    gender: user.gender || "Woman",
-    name: user.name || "",
-    email: user.email || "",
+    gender: user?.gender === "Man" ? "Man" : "Woman",
+    name: user.name || user.email.charAt(0).toUpperCase(),
+    email: user.email,
     outdatedPassword: "",
     newPassword: "",
     repeatNewPassword: "",
+    photo: user.photo || "",
   };
 
   const validationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
-
-    outdatedPassword: Yup.string().test(
-      "outdatedPasswordRequired",
-      "Outdated password is required",
-      function (value) {
-        const { newPassword, repeatNewPassword } = this.parent;
-        return !(newPassword || repeatNewPassword) || !!value;
-      }
-    ),
-
+    outdatedPassword: Yup.string(),
     newPassword: Yup.string()
       .min(8, "Password must be at least 8 characters")
-      .test(
-        "newPasswordRequired",
-        "New password is required",
-        function (value) {
-          const { outdatedPassword, repeatNewPassword } = this.parent;
-          return !(outdatedPassword || repeatNewPassword) || !!value;
-        }
-      ),
-
+      .when("outdatedPassword", {
+        is: (outdatedPassword) => !!outdatedPassword,
+        then: (schema) => schema.required("New password is required"),
+      }),
     repeatNewPassword: Yup.string()
       .oneOf([Yup.ref("newPassword"), null], "Passwords must match")
-      .test(
-        "repeatNewPasswordRequired",
-        "Repeat new password is required",
-        function (value) {
-          const { outdatedPassword, newPassword } = this.parent;
-          return !(outdatedPassword || newPassword) || !!value;
-        }
-      ),
+      .when("newPassword", {
+        is: (newPassword) => !!newPassword,
+        then: (schema) => schema.required("Repeat new password is required"),
+      }),
   });
 
   const handlePhotoUpload = (e, setFieldValue) => {
@@ -60,17 +47,51 @@ const Setting = ({ user, onClose }) => {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setPhotoPreview(reader.result);
         setFieldValue("photo", reader.result);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleSubmit = (values) => {
-    console.log(values);
-    alert("Profile updated successfully!");
-    onClose();
+  const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
+    try {
+      const requestData = {
+        ...values,
+        oldPassword: values.outdatedPassword,
+      };
+      delete requestData.outdatedPassword;
+
+      const resultAction = await dispatch(updateUser(requestData));
+
+      if (updateUser.fulfilled.match(resultAction)) {
+        await dispatch(currenthUser());
+        onClose();
+      } else {
+        const errorResponse = resultAction.payload || {
+          message: "Something went wrong",
+        };
+
+        const errorMessage =
+          typeof errorResponse === "string"
+            ? errorResponse
+            : errorResponse.message;
+
+        if (errorMessage.includes("Invalid current password")) {
+          setFieldError("outdatedPassword", "Incorrect old password");
+        } else if (errorMessage.includes("New password must be different")) {
+          setFieldError(
+            "newPassword",
+            "New password must not match the old one"
+          );
+        } else {
+          console.error(errorMessage);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const [passwordVisibility, setPasswordVisibility] = useState({
@@ -101,18 +122,26 @@ const Setting = ({ user, onClose }) => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
+        enableReinitialize={true}
       >
-        {({ setFieldValue, errors, touched }) => (
+        {({ setFieldValue, values, errors, touched }) => (
           <Form>
-            {/* Фото */}
             <div className={css.settingContainer}>
               <label className={css.photoLabel}>Your photo</label>
               <div className={css.photoLabelContainer}>
-                <img
-                  src={photoPreview}
-                  alt="User"
-                  className={css.photoPreview}
-                />
+                {values.photo ? (
+                  <img
+                    src={values.photo}
+                    alt="User"
+                    className={css.photoPreview}
+                  />
+                ) : (
+                  <div className={css.avatarFallback}>
+                    {user.name
+                      ? user.name.charAt(0).toUpperCase()
+                      : user.email.charAt(0).toUpperCase()}
+                  </div>
+                )}
                 <div className={css.aploadPhotoContainer}>
                   <button
                     type="button"
@@ -133,8 +162,8 @@ const Setting = ({ user, onClose }) => {
                 </div>
               </div>
             </div>
+
             <div className={css.formContainer}>
-              {/* Гендер */}
               <div className={css.leftContainer}>
                 <div
                   className={`${css.settingContainer} ${css.containerForMargin}`}
@@ -144,17 +173,26 @@ const Setting = ({ user, onClose }) => {
                   </label>
                   <div>
                     <label className={css.genderRadio}>
-                      <Field type="radio" name="gender" value="Woman" />
+                      <Field
+                        type="radio"
+                        name="gender"
+                        value="Woman"
+                        checked={values.gender === "Woman"}
+                      />
                       <span className={css.genderSpan}>Woman</span>
                     </label>
                     <label className={css.genderRadio}>
-                      <Field type="radio" name="gender" value="Man" />{" "}
+                      <Field
+                        type="radio"
+                        name="gender"
+                        value="Man"
+                        checked={values.gender === "Man"}
+                      />
                       <span className={css.genderSpan}>Man</span>
                     </label>
                   </div>
                 </div>
 
-                {/* Имя */}
                 <div className={css.settingContainer}>
                   <label className={css.nameLabel}>Your name</label>
                   <Field
@@ -172,7 +210,6 @@ const Setting = ({ user, onClose }) => {
                   />
                 </div>
 
-                {/* Email */}
                 <div className={css.settingContainer}>
                   <label className={css.emailLabel}>E-mail</label>
                   <Field
@@ -188,7 +225,7 @@ const Setting = ({ user, onClose }) => {
                   />
                 </div>
               </div>
-              {/* Пароль */}
+
               <div className={css.rightContainer}>
                 <div className={css.settingContainer}>
                   <label className={css.passwordLabel}>Password</label>
@@ -220,7 +257,7 @@ const Setting = ({ user, onClose }) => {
                             onClick={() => passwordVisibilityToggle(field)}
                           >
                             <Icon
-                              className={css.closeIcon}
+                              className={css.passwordIcon}
                               id={
                                 passwordVisibility[field]
                                   ? "icon-eye"

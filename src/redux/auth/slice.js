@@ -7,6 +7,7 @@ import {
   logoutUser,
   refreshUser,
   currenthUser,
+  updateUser,
 } from "./operations";
 
 axios.defaults.baseURL = "https://water-app-backend.onrender.com";
@@ -87,6 +88,18 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(logoutUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = { ...state.user, ...action.payload };
+      })
+      .addCase(updateUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
