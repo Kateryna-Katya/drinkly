@@ -1,43 +1,40 @@
-.container {
-  width: 280px;
-  padding: 24px 13px;
-  background-color: var(--primary-white);
+.wrapper {
+  position: absolute;
+  top: -202px;
   border-radius: 10px;
-  box-shadow: 0px 4px 4px 0px #407bff4d;
-  box-sizing: border-box;
+  padding: 24px 13px;
+  width: 280px;
+  height: 188px;
+  z-index: 1111;
+  background-color: #ffffff;
+  box-shadow: 0 4px 4px 0 rgba(64, 123, 255, 0.3);
 }
 
-.allText {
-  font-family: 'Roboto';
-  font-size: 16px;
+.text:not(:last-child) {
+  margin-bottom: 16px;
+}
+
+.text:first-child {
   font-weight: 400;
-  line-height: 20px;
-  text-align: left;
-  color: var(--primary-black);
+  font-size: 16px;
+  line-height: 1.25;
+  color: #407bff;
 }
 
-.date {
-  margin-bottom: 16px;
-  color: var(--primary-blue);
-}
-
-.dailyNorm,
-.fulfillment,
-.servings {
-  margin-bottom: 16px;
-}
-
-.value {
-  color: var(--primary-blue);
-  font-size: 18px;
+.accent {
   font-weight: 500;
-}
-@media screen and (min-width: 768px) {
-  .container {
-    width: 292px;
-    padding: 24px 16px;
-  }
+  font-size: 18px;
+  line-height: 1.33;
+  color: #407bff;
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 768px) {
+  .wrapper {
+    top: -188px;
+    left: 0;
+  }
+
+  .wrapper.goLeft {
+    left: -260px;
+  }
 }
