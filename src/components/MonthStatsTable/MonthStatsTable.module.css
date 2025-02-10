@@ -1,0 +1,16 @@
+.wrapper {
+  display: flex;
+  gap: 66px;
+}
+
+.control {
+  display: flex;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 16px;
+  column-gap: 28px;
+  background-color: aqua;
+}
