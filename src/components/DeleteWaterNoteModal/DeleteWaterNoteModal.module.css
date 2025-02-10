@@ -1,122 +1,125 @@
 .modalOverlay {
-    background-color: rgba(0, 0, 0, 0.8);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 1000;
+}
+
+.toast {
+  background-color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px 15px;
 }
 
 .modalContent {
-    position: relative;
-    top: 80px;
-    border-radius: 10px;
-    padding: 32px 24px;
-    width: 280px;
-    height: 280px;
-    background: #fff;
+  position: relative;
+  top: 80px;
+  border-radius: 10px;
+  padding: 32px 24px;
+  width: 280px;
+  height: 280px;
+  background: #fff;
 }
 .deleteEntryHeaderWrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
 }
 .deleteEntryHeader {
-    font-weight: 500px;
-    font-size: 26px;
-    line-height: 1.23;
+  font-weight: 500px;
+  font-size: 26px;
+  line-height: 1.23;
 }
 .closeBtn {
-    fill: none;
-    stroke: #407BFF;
-    border: none;
-    background-color: transparent;
+  fill: none;
+  stroke: #407bff;
+  border: none;
+  background-color: transparent;
 }
 .text {
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 1.11;
-    
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.11;
 }
 .btnsWrapper {
-    margin-top: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 24px;
-    width: 232px;
-    height: 96px;
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 24px;
+  width: 232px;
+  height: 96px;
 }
 .deleteBtn {
-    width: 100%;
-    height: 36px;
-    border: none;
-    border-radius: 10px;
-    padding: 8px 30px;
-    box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
-    background: #ef5050;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.25;
-    text-align: center;
-    color: #fff;
-
+  width: 100%;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 30px;
+  box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
+  background: #ef5050;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  text-align: center;
+  color: #fff;
 }
 .deleteBtn:hover {
-    cursor: url(../../img/mdi_cursor_pointer.png), auto;
+  cursor: url(../../img/mdi_cursor_pointer.png), auto;
 }
 .deleteBtn:active {
-    box-shadow: none;
+  box-shadow: none;
 }
 .cancelBtn {
-width: 100%;
-height: 36px;
-border: none;
-border-radius: 10px;
-padding: 8px 30px;
-background: #d7e3ff;
-font-weight: 500;
-font-size: 16px;
-line-height: 1.25;
-text-align: center;
-color: #407bff;
+  width: 100%;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 30px;
+  background: #d7e3ff;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  text-align: center;
+  color: #407bff;
 }
 .cancelBtn:hover {
-    cursor: url(../../img/mdi_cursor_pointer.png), auto;
+  cursor: url(../../img/mdi_cursor_pointer.png), auto;
 }
 @media (min-width: 768px) {
-    .modalContent {
-        top: 200px;
-        width: 592px;
-        height: 208px;
-    }
-    .btnsWrapper {
+  .modalContent {
+    top: 200px;
+    width: 592px;
+    height: 208px;
+  }
+  .btnsWrapper {
     flex-direction: row-reverse;
     justify-content: flex-start;
     width: 344px;
     height: 44px;
-   justify-self: self-end;
-    }
-    .btnsWrapper btn {
-        width: 160px;
-        height: 44px;
-    }
-
-   
+    justify-self: self-end;
+  }
+  .btnsWrapper btn {
+    width: 160px;
+    height: 44px;
+  }
 }
 
 @media (min-width: 1440px) {
-    .modalContent {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        }
+  .modalContent {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }

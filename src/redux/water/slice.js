@@ -3,7 +3,9 @@ import { logoutUser } from "../auth/operations";
 import {
   fetchWaterCupsToday,
   deleteWaterCup,
+  fetchWaterRecord,
   saveWaterCup,
+  getWaterMonth,
 } from "./operations";
 
 const handlePending = (state) => {
@@ -19,6 +21,8 @@ const waterSlice = createSlice({
   name: "water",
   initialState: {
     waterRecords: [],
+    dailyWater: null,
+    monthStats: [],
     loading: false,
     error: null,
   },
@@ -37,7 +41,7 @@ const waterSlice = createSlice({
         state.loading = false;
         state.error = null;
         state.waterRecords = state.waterRecords.filter(
-          (record) => record._id !== action.payload // Видаляємо запис за _id
+          (record) => record._id !== action.payload
         );
       })
       .addCase(deleteWaterCup.rejected, handleRejected)
@@ -46,14 +50,34 @@ const waterSlice = createSlice({
         state.error = null;
         state.loading = false;
       })
+      .addCase(fetchWaterRecord.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchWaterRecord.fulfilled, (state, action) => {
+        state.loading = false;
+        state.waterRecords = action.payload;
+      })
+      .addCase(fetchWaterRecord.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
       .addCase(saveWaterCup.pending, handlePending)
       .addCase(saveWaterCup.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
         state.waterRecords.push(action.payload.data);
       })
-      .addCase(saveWaterCup.rejected, handleRejected);
-  },
+      .addCase(saveWaterCup.rejected, handleRejected)
+
+      .addCase(getWaterMonth.pending, handlePending)
+      .addCase(getWaterMonth.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.monthStats = action.payload;
+      })
+      .addCase(getWaterMonth.rejected, handleRejected);
+  }
 });
 
 export const waterReducer = waterSlice.reducer;

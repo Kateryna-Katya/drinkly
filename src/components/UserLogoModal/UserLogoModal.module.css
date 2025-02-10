@@ -1,8 +1,9 @@
 .modalOverlay {
   position: absolute;
-  transform: translateX(-48%);
+  transform: translateX(28%);
   display: flex;
   align-items: center;
+  min-width: 118px;
   padding: 16px;
   gap: 16px;
   border-radius: 10px;
