@@ -42,25 +42,18 @@ body {
   color: #2f2f2f;
 }
 
-
 .container {
-max-width: 320px;
+  max-width: 320px;
 }
-
 
 @media (min-width: 768px) {
   .container {
-  max-width: 768px;
-  
+    max-width: 768px;
   }
 }
-
 
 @media (min-width: 1440px) {
   .container {
     max-width: 1440px;
-    
   }
-
 }
-
