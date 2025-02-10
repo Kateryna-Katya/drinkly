@@ -1,6 +1,5 @@
 .userLogoContainer {
-
-  }
+}
 
 .userLogo {
   margin-top: 10px;
@@ -16,7 +15,6 @@
 .userLogo:focus {
   outline: none;
 }
-
 
 .avatar {
   display: flex;

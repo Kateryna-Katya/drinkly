@@ -4,7 +4,17 @@
       center,
     url("../../img/home-page/bottle-mob.png") no-repeat top 106px center;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+
+.leftBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 280px;
+}
+
 .todayAndCalendarWrapper {
   margin-left: auto;
   margin-right: auto;
@@ -19,6 +29,7 @@
   box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.3);
   background: #ecf2ff;
 }
+
 @media (min-width: 768px) {
   .homePage {
     padding-top: 40px;
@@ -34,10 +45,19 @@
 
 @media (min-width: 1440px) {
   .homePage {
+    display: flex;
+    flex-direction: row;
+    height: 800px;
     padding-top: 20px;
     background: url("../../img/home-page/bottle-desk.png") no-repeat top 22px
         left 39px,
       url("../../img/home-page/bubbles-desk.png") no-repeat top 59px left 10px;
+  }
+
+  .leftBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   .todayAndCalendarWrapper {
     width: 592px;

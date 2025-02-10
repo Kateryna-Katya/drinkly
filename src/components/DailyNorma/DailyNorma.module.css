@@ -5,6 +5,9 @@
   margin-left: 20px;
   margin-top: 4px;
   border-radius: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   width: 164px;
   height: 76px;
   box-shadow: 0 4px 8px 0 rgba(158, 187, 255, 0.12);
@@ -16,7 +19,7 @@
   line-height: 133%;
   width: 124px;
   white-space: nowrap;
-  margin-bottom: 12px;
+  height: 32px;
 }
 
 .water_title_daily_norma {
@@ -36,6 +39,7 @@
   color: #8baeff;
   cursor: pointer;
   outline: none;
+  padding-bottom: 10px;
 }
 
 .div_daily_norma {
