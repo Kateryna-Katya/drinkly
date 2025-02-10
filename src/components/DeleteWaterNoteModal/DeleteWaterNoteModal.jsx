@@ -10,11 +10,9 @@ import css from "./DeleteWaterNoteModal.module.css";
 const DeleteWaterNoteModal = ({ isOpen, onRequestClose, _id }) => {
   const dispatch = useDispatch();
 
-  const handleDelete = async() => {
-    
-    
+  const handleDelete = async () => {
     const resultAction = await dispatch(deleteWaterCup(_id));
-onRequestClose();
+    onRequestClose();
     if (deleteWaterCup.fulfilled.match(resultAction)) {
       toast.success("Water entry successfully deleted", {
         className: css.toast,
@@ -55,4 +53,3 @@ onRequestClose();
 };
 
 export default DeleteWaterNoteModal;
-
