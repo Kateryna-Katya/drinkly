@@ -5,11 +5,6 @@
   max-width: 264px;
 }
 
-button {
-  border: none;
-  background-color: transparent;
-}
-
 .item {
   position: relative;
 }
