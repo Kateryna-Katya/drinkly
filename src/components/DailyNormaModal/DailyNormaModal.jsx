@@ -104,7 +104,7 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate }) => {
               V=(M*0.03) + (T*0.4)
             </span>
           </p>
-          <p>
+          <p className={styles.daily_norma_madal_gender}>
             For man:{" "}
             <span className={styles.daily_norma_modal_span}>
               V=(M*0.04) + (T*0.6)

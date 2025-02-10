@@ -1,17 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Toaster } from "react-hot-toast";
 
 import DailyNormaModal from "../DailyNormaModal/DailyNormaModal";
 import styles from "./DailyNorma.module.css";
+import axios from "axios";
 
 const DailyNorma = () => {
-  const waterRate = useSelector((state) => state.auth.user.waterRate);
+  const token = useSelector((state) => state.auth.token);
   const [openDailyModal, setOpenDailyModal] = useState(false);
-  const [water, setWater] = useState(waterRate);
+  const [water, setWater] = useState("");
 
   const onOpenDailyModal = () => setOpenDailyModal(true);
   const onCloseDailyModal = () => setOpenDailyModal(false);
+
+  useEffect(() => {
+    const fetchDailyNorm = async () => {
+      try {
+        const { data } = await axios.get(
+          `https://water-app-backend.onrender.com/users`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        setWater(data.data.waterRate.toFixed(1));
+      } catch (error) {
+        console.error("Failed to fetch water data:", error);
+      }
+    };
+
+    fetchDailyNorm();
+  }, [token]);
 
   const userWaterRate = (value) => {
     setWater(value);
