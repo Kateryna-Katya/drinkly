@@ -52,7 +52,7 @@ const WaterNote = ({ id, waterVolume, time }) => {
       <DeleteWaterNoteModal
         isOpen={isDeleteWaterNoteModalOpen}
         onRequestClose={closeDeleteWaterNoteModal}
-        id={id}
+        _id={id}
       />
     </div>
   );
