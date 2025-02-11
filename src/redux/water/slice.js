@@ -19,6 +19,10 @@ const handleRejected = (state, action) => {
   state.error = action.payload;
 };
 
+const initialState = {
+  refreshTrigger: false,
+};
+
 const waterSlice = createSlice({
   name: "water",
   initialState: {
@@ -31,6 +35,12 @@ const waterSlice = createSlice({
     percentage: 0,
     loading: false,
     error: null,
+    refreshTrigger: false,
+  },
+  reducers: {
+    toggleRefreshTrigger: (state) => {
+      state.refreshTrigger = !state.refreshTrigger;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -118,4 +128,5 @@ const waterSlice = createSlice({
   },
 });
 
+export const { toggleRefreshTrigger } = waterSlice.actions;
 export const waterReducer = waterSlice.reducer;
