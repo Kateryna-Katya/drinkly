@@ -54,6 +54,9 @@ const Modal = ({ isOpen, onClose }) => {
         className: styles.toast,
       });
     }
+    setTimeout(() => {
+      window.location.reload(); 
+    }, 0);
   };
 
   return (
