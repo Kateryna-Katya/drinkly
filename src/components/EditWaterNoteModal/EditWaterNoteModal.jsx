@@ -83,10 +83,7 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
       .unwrap()
       .then(() => {
         setMessage("Changes saved successfully!");
-        setTimeout(() => {
-          setMessage("");
-          onClose();
-        }, 2000);
+        onClose();
       })
       .catch((error) => {
         console.error("Update error:", error);

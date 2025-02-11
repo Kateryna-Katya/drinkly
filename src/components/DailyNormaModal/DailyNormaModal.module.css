@@ -99,6 +99,13 @@
   gap: 4px;
 }
 
+.daily_modal_time {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+  margin-bottom: 8px;
+}
+
 .radio_daily_modal {
   font-weight: 400;
   font-size: 16px;
@@ -114,6 +121,13 @@
 }
 
 .daily_modal_weight {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+  margin-bottom: 8px;
+}
+
+.daily_modal_amount_of_water {
   font-weight: 400;
   font-size: 16px;
   line-height: 125%;
