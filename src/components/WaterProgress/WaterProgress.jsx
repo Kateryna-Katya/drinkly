@@ -16,29 +16,39 @@ const WaterProgress = () => {
   // const dailyNorm = useSelector(selectDailyNorm);
   const percentage = useSelector(selectPercentage);
 
-  // console.log("Redux percentage:", percentage);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     dispatch(fetchWaterToday());
   }, [dispatch]);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const displayPercentage = isNaN(percentage) ? 0 : percentage;
+
+  const refreshData = () => {
+    dispatch(fetchWaterToday());
+  };
 
   return (
     <div className={s.container}>
       <div className={s.wrap}>
         <h3>Today</h3>
-        <p className={s.percentage}>{percentage}%</p>
+        {/* <p className={s.percentage}>{percentage}%</p> */}
         <div className={s.sliderContainer}>
           <input
             type="range"
             min="0"
             max="100"
-            value={percentage}
+            value={displayPercentage}
             readOnly
             className={s.slider}
             style={{ "--progress": `${percentage}%` }}
           />
+          <div
+            className={s.sliderValue}
+            style={{ left: `calc(${percentage}% - 20px)` }}
+          >
+            {percentage}%
+          </div>
           <div className={s.labelContainer}>
             <div className={s.wrapLabel}>
               <span className={s.labelOne}>|</span>
@@ -78,7 +88,7 @@ const WaterProgress = () => {
         <Modal
           onClose={() => {
             setIsModalOpen(false);
-            dispatch(fetchWaterToday()); // Оновлення Redux-стану після додавання води
+            dispatch(fetchWaterToday());
           }}
         />
       )}
