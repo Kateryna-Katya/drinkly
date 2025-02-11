@@ -9,18 +9,36 @@ import toast from "react-hot-toast";
 import Loader from "../Loader/Loader.jsx";
 import axios from "axios";
 
-const DailyNormaModal = ({ onCloseDailyModal, userWaterRate }) => {
+const DailyNormaModal = ({ onCloseDailyModal, userWaterRate, waterNew }) => {
   const token = useSelector((state) => state.auth.token);
   const userGender = useSelector((state) => state.auth.user.gender);
 
   const [gender, setGender] = useState(userGender);
-  const [weight, setWeight] = useState("");
-  const [activity, setActivity] = useState("");
+  const [weight, setWeight] = useState(0);
+  const [activity, setActivity] = useState(0);
+  const [required, setRequired] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const calculateWaterIntake = (weight, activity) => {
+    const M = parseFloat(weight);
+    const T = parseFloat(activity);
+    if (isNaN(M) || isNaN(T) || !gender) return "0";
+    return gender === "woman"
+      ? (M * 0.03 + T * 0.4).toFixed(2)
+      : (M * 0.04 + T * 0.6).toFixed(2);
+  };
+
+  useEffect(() => {
+    if (gender.toLowerCase() === "woman") {
+      setRequired(Number(weight * 0.03 + activity * 0.4));
+    } else if (gender.toLowerCase() === "man") {
+      setRequired(Number(weight * 0.04 + activity * 0.6));
+    }
+  }, [weight, activity, gender]);
+
   const INITIAL_VALUE = {
-    water: "",
+    water: waterNew / 1000,
   };
 
   const handleSubmit = async (values) => {
@@ -48,15 +66,6 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate }) => {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const calculateWaterIntake = () => {
-    const M = parseFloat(weight);
-    const T = parseFloat(activity);
-    if (isNaN(M) || isNaN(T) || !gender) return "0";
-    return gender === "woman"
-      ? (M * 0.03 + T * 0.4).toFixed(2)
-      : (M * 0.04 + T * 0.6).toFixed(2);
   };
 
   useEffect(() => {
@@ -133,7 +142,7 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate }) => {
                   type="radio"
                   name="gender"
                   value="woman"
-                  checked={gender === "woman"}
+                  checked={gender.toLowerCase() === "woman"}
                   onChange={(e) => setGender(e.target.value)}
                 />
                 For woman
@@ -143,7 +152,7 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate }) => {
                   type="radio"
                   name="gender"
                   value="man"
-                  checked={gender === "man"}
+                  checked={gender.toLowerCase() === "man"}
                   onChange={(e) => setGender(e.target.value)}
                 />
                 For man
@@ -175,7 +184,7 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate }) => {
             <p className={styles.daily_modal_amount_of_water}>
               The required amount of water in liters per day:{" "}
               <span className={styles.amount_span_daily_modal}>
-                {calculateWaterIntake()} L
+                {required} L
               </span>
             </p>
             <div>

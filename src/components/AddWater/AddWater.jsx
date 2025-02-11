@@ -24,18 +24,7 @@ const Modal = ({ isOpen, onClose }) => {
   };
 
   const handleInputChange = (event) => {
-    let value = event.target.value;
-
-    if (value === "") {
-      setQuantity(0);
-      return;
-    }
-
-    value = Number(value);
-
-    if (!isNaN(value) && value >= 50 && value <= 15000) {
-      setQuantity(value);
-    }
+    setQuantity(Number(event.target.value));
   };
 
   const date = new Date().toISOString();
@@ -54,7 +43,6 @@ const Modal = ({ isOpen, onClose }) => {
         className: styles.toast,
       });
     }
-
   };
 
   return (
@@ -97,7 +85,9 @@ const Modal = ({ isOpen, onClose }) => {
             <label className={styles.labelQuantity}>
               Enter the value of the water used:
               <Field
+                value={quantity === 0 ? null : quantity}
                 type="number"
+                name="entervalue"
                 className={styles.inputQuantity}
                 onChange={handleInputChange}
                 min="50"

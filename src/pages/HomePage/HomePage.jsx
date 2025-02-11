@@ -27,7 +27,7 @@ const HomePage = () => {
         <WaterProgress />
       </div>
       <div className={css.todayAndCalendarWrapper}>
-        <div>{isLoading && <Loader />}</div>
+        {isLoading && <Loader />}
         <TodayWaterList />
         <MonthStatsTable />
       </div>

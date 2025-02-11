@@ -13,14 +13,13 @@ import { currenthUser } from "./redux/auth/operations";
 
 import { selectUserToken } from "./redux/auth/selectors";
 
-
-
-
 const WelcomePage = lazy(() => import("./pages/WelcomePage/WelcomePage"));
 const SignUpPage = lazy(() => import("./pages/SignUpPage/SignUpPage"));
 const SignInPage = lazy(() => import("./pages/SignInPage/SignInPage"));
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
-const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage/ForgotPasswordPage"));
+const ForgotPasswordPage = lazy(() =>
+  import("./pages/ForgotPasswordPage/ForgotPasswordPage")
+);
 
 const App = () => {
   const dispatch = useDispatch();
@@ -77,7 +76,6 @@ const App = () => {
               />
             }
           />
-
         </Routes>
       </Layout>
     </>
