@@ -5,7 +5,7 @@ import css from "./DaysGeneralStats.module.css";
 import clsx from "clsx";
 
 const DaysGeneralStats = ({ item, offsetLeft }) => {
-  const [isMobile] = useState(innerWidth <= 768);
+  const [isMobile] = useState(innerWidth < 768);
 
   return (
     <ul

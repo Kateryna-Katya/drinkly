@@ -65,8 +65,8 @@ const Setting = ({ onClose }) => {
 
       if (updateUser.fulfilled.match(resultAction)) {
         await dispatch(updateUserPhoto());
+        
         onClose();
-      
       } else {
         const errorResponse = resultAction.payload || {
           message: "Something went wrong",
