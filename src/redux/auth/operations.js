@@ -53,7 +53,7 @@ export const currenthUser = createAsyncThunk(
 );
 
 export const refreshUser = createAsyncThunk(
-  "/auth/refreshUser",
+  "auth/refreshUser",
   async (__, thunkAPI) => {
     const state = thunkAPI.getState();
     if (state.auth.token === null) {
@@ -70,7 +70,7 @@ export const refreshUser = createAsyncThunk(
 );
 
 export const logoutUser = createAsyncThunk(
-  "/auth/logoutUser",
+  "auth/logoutUser",
   async (__, thunkAPI) => {
     try {
       await axios.post("/auth/logout");
