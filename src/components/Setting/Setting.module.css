@@ -15,7 +15,7 @@
   background: #fff;
   padding: 32px 12px;
   width: 280px;
-  height: 852px;
+  /* height: 90%; */
   border-radius: 10px;
   overflow: auto;
 }
@@ -237,7 +237,7 @@
   .modalContent {
     padding: 32px 24px;
     width: 704px;
-    height: 860px;
+    /* height: 860px; */
   }
 
   .closeButton {
@@ -266,7 +266,7 @@
 @media screen and (min-width: 1440px) {
   .modalContent {
     width: 1008px;
-    height: 592px;
+    /* height: 592px; */
   }
   .formContainer {
     display: flex;
@@ -275,7 +275,7 @@
   .containerForMargin {
     margin-bottom: 47px;
   }
-  .saveBtn {
+  /* .saveBtn {
     margin-bottom: 32px;
-  }
+  } */
 }
