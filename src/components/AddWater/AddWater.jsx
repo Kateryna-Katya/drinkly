@@ -54,6 +54,7 @@ const Modal = ({ isOpen, onClose }) => {
         className: styles.toast,
       });
     }
+
   };
 
   return (

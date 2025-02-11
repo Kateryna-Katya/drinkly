@@ -16,6 +16,7 @@
     "@reduxjs/toolkit": "^2.5.1",
     "axios": "^1.7.9",
     "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
     "formik": "^2.4.6",
     "immer": "^10.1.1",

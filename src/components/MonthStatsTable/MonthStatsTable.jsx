@@ -1,122 +1,175 @@
-import dayjs from 'dayjs';
-import clsx from 'clsx';
-import { Icon } from "../Icon/Icon";
-import css from './MonthStatsTable.module.css';
-import MonthStatsTableItem from '../MonthStatsTableItem/MonthStatsTableItem';
-import Loader from '../Loader/Loader';
-import { useState, useEffect } from 'react';
-import { getWaterMonth } from '../../redux/water/operations';
-import { useDispatch, useSelector } from 'react-redux';
 import {
-    selectWaterLoading,
-    selectDailyWaterIntake,
-    selectMonthIntake
-} from '../../redux/water/selectors';
+  addMonths,
+  format,
+  formatISO,
+  getDaysInMonth,
+  getMonth,
+  getYear,
+  parseISO,
+  subMonths,
+} from "date-fns";
+import { useEffect, useState } from "react";
+import css from "./MonthStatsTable.module.css";
+import axios from "axios";
 
-export default function MonthStatsTable() {
-    const loader = useSelector(selectWaterLoading);
-    const todayWater = useSelector(selectDailyWaterIntake);
-    const monthIntake = useSelector(selectMonthIntake);
-    const [month, setMonth] = useState(dayjs().month());
-    const [daysInMonth, setDaysInMonth] = useState(0);
-    const [fullMonth, setFullMonth] = useState('');
-    const [btnTrigger, setBtnTrigger] = useState(true);
-    const [activeDay, setActiveDay] = useState(null);
-    const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-    const year = new Date().getFullYear();
-    const dispatch = useDispatch();
-    let currentMonth;
+import { Icon } from "../Icon/Icon";
+import clsx from "clsx";
+import DaysGeneralStats from "../DaysGeneralStats/DaysGeneralStats";
+import Loader from "../Loader/Loader";
 
-    useEffect(() => {
-        dispatch(getWaterMonth({ month: month + 1 }));
-        setDaysInMonth(dayjs(`${currentYear}-${month + 1}-10`).daysInMonth());
-        if (month === dayjs().month() && currentYear === year) {
-            setBtnTrigger(true);
-        } else {
-            setBtnTrigger(false);
-        }
+const MonthStatsTable = () => {
+  const [offsetLeft, setOffsetLeft] = useState(0);
+  const [loader, setLoader] = useState(false);
+  const [currentDate, setCurrentDate] = useState(new Date().toString());
+  const [monthStats, setMonthStats] = useState(null);
+  const [currentMonthStats, setCurrentMonthStats] = useState(null);
+  const [openGeneralStats, setOpenGeneralStats] = useState({
+    isOpen: false,
+    day: null,
+  });
 
+  useEffect(() => {
+    const getMonthStats = async () => {
+      setLoader(true);
+      try {
+        const { data } = await axios.get(
+          `/water/month/${format(currentDate, "yyyy-MM")}`
+        );
+        setMonthStats(data.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoader(false);
+      }
+    };
+    getMonthStats();
+  }, [currentDate]);
 
-        if (month === 0) setFullMonth('January');
-        if (month === 1) setFullMonth('February');
-        if (month === 2) setFullMonth('March');
-        if (month === 3) setFullMonth('April');
-        if (month === 4) setFullMonth('May');
-        if (month === 5) setFullMonth('June');
-        if (month === 6) setFullMonth('July');
-        if (month === 7) setFullMonth('August');
-        if (month === 8) setFullMonth('September');
-        if (month === 9) setFullMonth('October');
-        if (month === 10) setFullMonth('November');
-        if (month === 11) setFullMonth('December');
-    }, [dispatch, month, currentYear, year, todayWater]);
-
-    return (
-        <section className={css.section}>
-            <div className={css.container}>
-                <h2 className={css.title}>Month</h2>
-                <div className={css.monthBox}>
-                    {month !== 0 || currentYear !== year ? (
-                        <button
-                            type="button"
-                            className={css.btn}
-                            onClick={() => {
-                                if (month === 0) {
-
-                                    setMonth(11);
-                                    setCurrentYear(prevYear => prevYear - 1);
-                                } else {
-                                    currentMonth = month - 1;
-                                    setMonth(currentMonth);
-                                }
-                            }}
-                        >
-                            <Icon id="icon-chevron-double-up" width="14" height="14" className={css.iconsBack} />
-                        </button>
-                    ) : null}
-
-                    <p className={clsx(css.text, btnTrigger && css.textMargin)}>
-                        {`${fullMonth},  ${currentYear}`}
-                    </p>
-
-                    {!btnTrigger && (
-                        <button
-                            type="button"
-                            className={css.btn}
-                            onClick={() => {
-                                if (month === 11) {
-
-                                    setMonth(0);
-                                    setCurrentYear(prevYear => prevYear + 1);
-                                } else {
-                                    currentMonth = month + 1;
-                                    setMonth(currentMonth);
-                                }
-                            }}
-                        >
-                            <Icon id="icon-chevron-double-up" width="14" height="14" className={css.iconsFront} />
-                        </button>
-                    )}
-                </div>
-            </div>
-            {loader && <Loader />}
-            {!loader && (
-                <ul className={css.list}>
-                    {Array(daysInMonth)
-                        .fill(0)
-                        .map((item, index) => (
-                            <li key={index}>
-                                <MonthStatsTableItem
-                                    day={index + 1}
-                                    monthName={fullMonth}
-                                    activeDay={activeDay}
-                                    setActiveDay={setActiveDay}
-                                    monthIntake={monthIntake}
-                                />
-                            </li>
-                        ))}
-                </ul>
-            )}
-        </section>
+  useEffect(() => {
+    if (monthStats === null) return;
+    const year = getYear(currentDate);
+    const month = getMonth(currentDate);
+    const fullMonthStats = new Array(getDaysInMonth(currentDate) + 1)
+      .fill(0)
+      .map((item, index) => {
+        const foundDay = monthStats.find((item) => {
+          return Number(format(parseISO(item.date), "d")) === index;
+        });
+        if (foundDay) return foundDay;
+        return {
+          date: formatISO(new Date(year, month, index)),
+          waterRecords: [],
+          totalAmount: 0,
+          dailyNorm: 0,
+          percentage: 0,
+        };
+      });
+    const fullMonthStatsToMap = fullMonthStats.filter(
+      (item, index, arr) => arr.indexOf(item) !== 0
     );
-}
+    setCurrentMonthStats(fullMonthStatsToMap);
+  }, [currentDate, monthStats]);
+
+  const prevMonth = () => {
+    setCurrentDate((prev) => subMonths(prev, 1).toString());
+  };
+  const nextMonth = () => {
+    setCurrentDate((prev) => addMonths(prev, 1).toString());
+  };
+
+  return (
+    <>
+      {loader && <Loader />}
+      <div className={css.wrapper}>
+        <h2 className={css.title}>Month</h2>
+        <div className={css.control}>
+          <button type="button" onClick={prevMonth} className={css.btn}>
+            <Icon
+              id="icon-chevron-double-up"
+              width="14"
+              height="14"
+              className={css.iconsBack}
+            />
+          </button>
+          <div className={css.text}>{format(currentDate, "MMMM, yyyy")}</div>
+          <button
+            type="button"
+            onClick={nextMonth}
+            className={css.btn}
+            style={
+              format(currentDate, "MMMM") ===
+              format(new Date().toString(), "MMMM")
+                ? {
+                    pointerEvents: "none",
+                    opacity: 0,
+                  }
+                : {
+                    pointerEvents: "auto",
+                    opacity: 1,
+                  }
+            }
+          >
+            <Icon
+              id="icon-chevron-double-up"
+              width="14"
+              height="14"
+              className={css.iconsFront}
+            />
+          </button>
+        </div>
+      </div>
+      {currentMonthStats !== null && (
+        <ul className={css.list}>
+          {currentMonthStats.map((item, index) => {
+            return (
+              <li
+                key={item.date}
+                onClick={(event) => {
+                  setOpenGeneralStats({
+                    isOpen: !openGeneralStats.isOpen,
+                    day: Number(format(parseISO(item.date), "d")),
+                  });
+                  const liRect = event.target.getBoundingClientRect();
+                  const ulRect =
+                    event.currentTarget.parentNode.getBoundingClientRect();
+                  const offsetLeftPosition = liRect.left - ulRect.left;
+
+                  setOffsetLeft(offsetLeftPosition);
+                }}
+                className={css.item}
+                style={
+                  Date.parse(item.date) > Date.now()
+                    ? {
+                        pointerEvents: "none",
+                        opacity: 0.4,
+                      }
+                    : {
+                        pointerEvents: "auto",
+                        opacity: 1,
+                      }
+                }
+              >
+                <p
+                  className={clsx(
+                    css.day,
+                    item.percentage > 100 && css.fullStat
+                  )}
+                >
+                  {index + 1}
+                </p>
+                <p className={css.percentage}>{`${item.percentage}%`}</p>
+                {openGeneralStats.isOpen &&
+                  openGeneralStats.day ===
+                    Number(format(parseISO(item.date), "d")) && (
+                    <DaysGeneralStats item={item} offsetLeft={offsetLeft} />
+                  )}
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </>
+  );
+};
+
+export default MonthStatsTable;

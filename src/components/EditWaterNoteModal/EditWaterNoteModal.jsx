@@ -90,15 +90,12 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
     dispatch(updateWaterRecord({ recordId, updatedData }))
       .unwrap()
       .then(() => {
-        toast.success("Water saved", { className: s.toast });
-
-        dispatch(toggleRefreshTrigger());
-
-        setTimeout(() => {
+setMessage("Changes saved successfully!");
+         setTimeout(() => {
           setMessage("");
           onClose();
         }, 2000);
-      })
+})
       .catch((error) => {
         console.error("Update error:", error);
         toast.error("Failed to save water", {

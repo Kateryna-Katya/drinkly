@@ -53,7 +53,7 @@ export const currenthUser = createAsyncThunk(
 );
 
 export const refreshUser = createAsyncThunk(
-  "/auth/refreshUser",
+  "auth/refreshUser",
   async (__, thunkAPI) => {
     const state = thunkAPI.getState();
     if (state.auth.token === null) {
@@ -70,7 +70,7 @@ export const refreshUser = createAsyncThunk(
 );
 
 export const logoutUser = createAsyncThunk(
-  "/auth/logoutUser",
+  "auth/logoutUser",
   async (__, thunkAPI) => {
     try {
       await axios.post("/auth/logout");
@@ -91,6 +91,33 @@ export const updateUser = createAsyncThunk(
 
       const { data } = await axios.patch("/users", userData, {
         headers: { Authorization: `Bearer ${token}` },
+      });
+
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const updateUserPhoto = createAsyncThunk(
+  "auth/updatePhoto",
+  async (photoFile, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      if (!state.auth.token) {
+        return thunkAPI.rejectWithValue("Invalid token");
+      }
+
+      const formData = new FormData();
+      formData.append("avatar", photoFile);
+
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${state.auth.token}`;
+
+      const { data } = await axios.patch(`/users`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
       return data;

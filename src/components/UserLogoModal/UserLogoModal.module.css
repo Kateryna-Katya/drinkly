@@ -1,6 +1,6 @@
 .modalOverlay {
   position: absolute;
-  transform: translateX(28%);
+  /* transform: translateX(28%); */
   display: flex;
   align-items: center;
   min-width: 118px;
