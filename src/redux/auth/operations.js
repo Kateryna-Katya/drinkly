@@ -99,3 +99,30 @@ export const updateUser = createAsyncThunk(
     }
   }
 );
+
+export const updateUserPhoto = createAsyncThunk(
+  "auth/updatePhoto",
+  async (photoFile, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      if (!state.auth.token) {
+        return thunkAPI.rejectWithValue("Invalid token");
+      }
+
+      const formData = new FormData();
+      formData.append("avatar", photoFile);
+
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${state.auth.token}`;
+
+      const { data } = await axios.patch(`/users`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);

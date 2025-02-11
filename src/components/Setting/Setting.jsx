@@ -4,7 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Icon } from "../Icon/Icon.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../../redux/auth/selectors.js";
-import { updateUser, currenthUser } from "../../redux/auth/operations.js";
+import { updateUser, updateUserPhoto } from "../../redux/auth/operations.js";
 import * as Yup from "yup";
 import css from "./Setting.module.css";
 
@@ -64,7 +64,7 @@ const Setting = ({ onClose }) => {
       const resultAction = await dispatch(updateUser(requestData));
 
       if (updateUser.fulfilled.match(resultAction)) {
-        await dispatch(currenthUser());
+        await dispatch(updateUserPhoto());
         onClose();
       } else {
         const errorResponse = resultAction.payload || {
