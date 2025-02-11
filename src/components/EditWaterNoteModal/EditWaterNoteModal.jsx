@@ -91,9 +91,6 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
       .unwrap()
       .then(() => {
         toast.success("Water saved", { className: s.toast });
-
-        dispatch(toggleRefreshTrigger());
-
         setTimeout(() => {
           setMessage("");
           onClose();
@@ -108,10 +105,6 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
       .finally(() => {
         setSubmitting(false);
       });
-  };
-
-  const refreshData = () => {
-    dispatch(fetchWaterToday());
   };
 
   return (

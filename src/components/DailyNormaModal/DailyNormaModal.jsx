@@ -124,9 +124,9 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate }) => {
           validationSchema={dailyNormaSchema}
         >
           <Form className={styles.form_daily_modal}>
-            <h3 className={styles.title_daily_modal_calc}>
+            <p className={styles.title_daily_modal_calc}>
               Calculate your rate:
-            </h3>
+            </p>
             <div className={styles.radio_div}>
               <label className={styles.radio_daily_modal}>
                 <input
@@ -161,7 +161,7 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate }) => {
               />
             </label>
             <label className={styles.label_daily_modal}>
-              <span>
+              <span className={styles.daily_modal_time}>
                 The time of active participation in sports or other activities
                 with a high physical. load in hours:
               </span>
@@ -172,7 +172,7 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate }) => {
                 onChange={(e) => setActivity(e.target.value)}
               />
             </label>
-            <p>
+            <p className={styles.daily_modal_amount_of_water}>
               The required amount of water in liters per day:{" "}
               <span className={styles.amount_span_daily_modal}>
                 {calculateWaterIntake()} L
@@ -180,9 +180,9 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate }) => {
             </p>
             <div>
               <label className={styles.label_daily_modal}>
-                <h3 className={styles.title_daily_modal_water_rate}>
+                <p className={styles.title_daily_modal_water_rate}>
                   Write down how much water you will drink:
-                </h3>
+                </p>
                 <Field
                   type="text"
                   name="water"
