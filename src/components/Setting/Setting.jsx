@@ -67,6 +67,7 @@ const Setting = ({ onClose }) => {
         await dispatch(updateUserPhoto());
         onClose();
       } else {
+        
         const errorResponse = resultAction.payload || {
           message: "Something went wrong",
         };
