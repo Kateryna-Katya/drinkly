@@ -23,11 +23,6 @@ const WaterProgress = () => {
   }, [dispatch]);
 
   const displayPercentage = isNaN(percentage) ? 0 : percentage;
-
-  const refreshData = () => {
-    dispatch(fetchWaterToday());
-  };
-
   return (
     <div className={s.container}>
       <div className={s.wrap}>
@@ -88,7 +83,9 @@ const WaterProgress = () => {
         <Modal
           onClose={() => {
             setIsModalOpen(false);
-            }}
+
+            dispatch(fetchWaterToday());
+          }}
         />
       )}
     </div>
