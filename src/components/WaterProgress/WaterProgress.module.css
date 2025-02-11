@@ -416,12 +416,12 @@ h3 {
     border-radius: 10px;
     justify-content: center;
     align-items: center;
-    gap: 3px;
+    gap: 10px;
     /* padding: 10px 30px; */
     width: 178px;
     height: 44px;
     box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
-    background: #407bff;
+    background: var(--primery-color-blue);
     margin-top: 50px;
     cursor: pointer;
   }

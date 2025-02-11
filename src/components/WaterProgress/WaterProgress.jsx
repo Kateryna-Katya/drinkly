@@ -37,13 +37,13 @@ const WaterProgress = () => {
             value={displayPercentage}
             readOnly
             className={s.slider}
-            style={{ "--progress": `${percentage}%` }}
+            style={{ "--progress": `${displayPercentage}%` }}
           />
           <div
             className={s.sliderValue}
-            style={{ left: `calc(${percentage}% - 20px)` }}
+            style={{ left: `calc(${displayPercentage}% - 20px)` }}
           >
-            {percentage}%
+            {displayPercentage}%
           </div>
           <div className={s.labelContainer}>
             <div className={s.wrapLabel}>
