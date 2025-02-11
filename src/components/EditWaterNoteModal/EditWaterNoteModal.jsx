@@ -107,6 +107,10 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
       });
   };
 
+  const refreshData = () => {
+    dispatch(fetchWaterToday());
+  };
+
   return (
     <div className={s.container} onClick={handleBackdropClick}>
       <div className={s.wrap}>
