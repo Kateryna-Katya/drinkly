@@ -54,6 +54,7 @@ const DailyNorma = () => {
       </div>
       {openDailyModal && (
         <DailyNormaModal
+          waterNew={water}
           onCloseDailyModal={onCloseDailyModal}
           userWaterRate={userWaterRate}
         />
