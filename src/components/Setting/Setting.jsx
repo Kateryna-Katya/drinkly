@@ -65,9 +65,6 @@ const Setting = ({ onClose }) => {
 
       if (updateUser.fulfilled.match(resultAction)) {
         await dispatch(updateUserPhoto());
-          setTimeout(() => {
-          window.location.reload(); 
-        }, 0);
         onClose();
       
       } else {

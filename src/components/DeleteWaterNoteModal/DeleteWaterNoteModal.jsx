@@ -12,9 +12,7 @@ const DeleteWaterNoteModal = ({ isOpen, onRequestClose, _id }) => {
 
   const handleDelete = async () => {
     const resultAction = await dispatch(deleteWaterCup(_id));
-    setTimeout(() => {
-      window.location.reload(); 
-    }, 0);
+    
     onRequestClose();
     if (deleteWaterCup.fulfilled.match(resultAction)) {
       toast.success("Water entry successfully deleted", {
