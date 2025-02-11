@@ -31,8 +31,9 @@
 .deleteEntryHeaderWrapper {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   margin-bottom: 24px;
+  height: 32px;
 }
 .deleteEntryHeader {
   font-weight: 500px;
