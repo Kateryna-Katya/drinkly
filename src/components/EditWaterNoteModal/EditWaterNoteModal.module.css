@@ -76,10 +76,20 @@ h4 {
 .iconSecond {
   width: 14px;
   height: 14px;
+  stroke: #407bff;
+  font: #407bff;
 }
 
 .waterInfo {
   color: #2f2f2f;
+}
+
+.toast {
+  background-color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px 15px;
 }
 
 .amount {

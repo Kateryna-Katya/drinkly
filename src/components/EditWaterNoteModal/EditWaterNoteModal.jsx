@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import s from "./EditWaterNoteModal.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import useModalClose from "../../hooks/useModalClose.js";
+import { Icon } from "../Icon/Icon.jsx";
+import { toast } from "react-toastify";
 import {
   fetchWaterRecord,
   updateWaterRecord,
@@ -12,6 +15,7 @@ import {
   selectWaterError,
   selectWaterLoading,
 } from "../../redux/water/selectors";
+import { toggleRefreshTrigger } from "../../redux/water/slice";
 
 const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
   if (!isOpen) return null;
@@ -23,12 +27,13 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
 
   const [message, setMessage] = useState("");
 
+  const [initialAmount, setInitialAmount] = useState();
+  const [initialTime, setInitialTime] = useState();
+
   const [initialValues, setInitialValues] = useState({
     amount: 250,
     time: "07:00",
   });
-
-  console.log(waterRecord);
 
   useEffect(() => {
     if (recordId) {
@@ -38,10 +43,11 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
 
   useEffect(() => {
     if (waterRecord) {
-      setInitialValues({
-        amount: waterRecord.waterVolume || 250,
-        time: waterRecord.time || "07:00",
-      });
+      const amount = waterRecord.waterVolume || 250;
+      const time = waterRecord.time || "07:00";
+      setInitialAmount(amount);
+      setInitialTime(time);
+      setInitialValues({ amount, time });
     }
   }, [waterRecord]);
 
@@ -56,6 +62,8 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [onClose]);
+
+  const { handleBackdropClick } = useModalClose(isOpen, onClose);
 
   const validationSchema = Yup.object({
     amount: Yup.number()
@@ -82,25 +90,34 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
     dispatch(updateWaterRecord({ recordId, updatedData }))
       .unwrap()
       .then(() => {
-        setMessage("Changes saved successfully!");
-        onClose();
+        toast.success("Water saved", { className: s.toast });
+        setTimeout(() => {
+          setMessage("");
+          onClose();
+        }, 2000);
       })
       .catch((error) => {
         console.error("Update error:", error);
-        setMessage("Failed to update record.");
+        toast.error("Failed to save water", {
+          className: s.toast,
+        });
       })
       .finally(() => {
         setSubmitting(false);
       });
   };
 
+  const refreshData = () => {
+    dispatch(fetchWaterToday());
+  };
+
   return (
-    <div className={s.container}>
+    <div className={s.container} onClick={handleBackdropClick}>
       <div className={s.wrap}>
         <span className={s.wrapFirst}>
           <h2>Edit the entered amount of water</h2>
           <button type="button" className={s.closeBtn} onClick={onClose}>
-            <svg width="14" height="14">
+            <svg className={s.iconSecond}>
               <use xlinkHref={`#${"icon-icon-close"}`}></use>
             </svg>
           </button>
@@ -122,8 +139,8 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
                     <use xlinkHref={`#${"icon-cup"}`}></use>
                   </svg>
 
-                  <span className={s.amount}>{values.amount} ml</span>
-                  <span className={s.time}>{values.time}</span>
+                  <span className={s.amount}>{initialAmount} ml</span>
+                  <span className={s.time}>{initialTime}</span>
                 </div>
 
                 {/* Кнопки  */}
@@ -136,9 +153,12 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
                       setFieldValue("amount", Math.max(values.amount - 50, 50))
                     }
                   >
-                    <svg className={s.iconSecond}>
-                      <use xlinkHref={`#${"icon-icon-menos"}`}></use>
-                    </svg>
+                    <Icon
+                      id="icon-minus-small"
+                      width="24"
+                      height="24"
+                      className={s.iconSecond}
+                    />
                   </button>
                   <span className={s.currentWater}>{values.amount} ml</span>
                   <button
@@ -150,9 +170,12 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
                       )
                     }
                   >
-                    <svg className={s.iconSecond}>
-                      <use xlinkHref={`#${"icon-Vector-plus"}`}></use>
-                    </svg>
+                    <Icon
+                      id="icon-plus-small"
+                      width="24"
+                      height="24"
+                      className={s.iconSecond}
+                    />
                   </button>
                 </div>
 
