@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import {
   fetchWaterRecord,
   updateWaterRecord,
+  fetchWaterToday,
 } from "../../redux/water/operations";
 import {
   selectWaterRecord,
@@ -91,6 +92,9 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
       .unwrap()
       .then(() => {
         toast.success("Water saved", { className: s.toast });
+
+        dispatch(fetchWaterToday());
+
         setTimeout(() => {
           setMessage("");
           onClose();
