@@ -62,6 +62,6 @@
   .todayAndCalendarWrapper {
     width: 592px;
     margin-right: 112px;
-    
+    max-height: 670px;
   }
 }
