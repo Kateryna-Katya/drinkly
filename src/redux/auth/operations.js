@@ -86,7 +86,7 @@ export const updateUser = createAsyncThunk(
   async (formData, thunkAPI) => {
     try {
       const { data } = await axios.patch("/users", formData);
-      console.log(data);
+
 
       return data;
     } catch (error) {
