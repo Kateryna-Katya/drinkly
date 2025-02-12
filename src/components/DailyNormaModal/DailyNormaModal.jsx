@@ -19,7 +19,6 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate, waterNew }) => {
   const [weight, setWeight] = useState(0);
   const [activity, setActivity] = useState(0);
   const [required, setRequired] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const calculateWaterIntake = (weight, activity) => {
@@ -46,7 +45,6 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate, waterNew }) => {
   const handleSubmit = async (values) => {
     triggerRefresh();
     try {
-      setIsLoading(true);
       setError(null);
 
       const payload = {
@@ -66,8 +64,6 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate, waterNew }) => {
       onCloseDailyModal();
     } catch (error) {
       toast.error("Something went wrong");
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -92,7 +88,6 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate, waterNew }) => {
 
   return (
     <div onClick={onBackDropClick} className={styles.backdrop}>
-      {isLoading && <Loader />}
       <div className={styles.daily_norma_modal}>
         <div className={styles.daily_title_btn_modal}>
           <h2 className={styles.title_daily_modal}>My daily norma</h2>

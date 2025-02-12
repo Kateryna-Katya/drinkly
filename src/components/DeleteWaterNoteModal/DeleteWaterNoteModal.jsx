@@ -13,7 +13,6 @@ const DeleteWaterNoteModal = ({ isOpen, onRequestClose, _id }) => {
   const { triggerRefresh } = useRefresh();
   const handleDelete = async () => {
     const resultAction = await dispatch(deleteWaterCup(_id));
-    triggerRefresh();
 
     onRequestClose();
     if (deleteWaterCup.fulfilled.match(resultAction)) {
@@ -23,6 +22,7 @@ const DeleteWaterNoteModal = ({ isOpen, onRequestClose, _id }) => {
     } else {
       toast.error("Failed to delete water entry", { className: css.toast });
     }
+    triggerRefresh();
   };
 
   return (

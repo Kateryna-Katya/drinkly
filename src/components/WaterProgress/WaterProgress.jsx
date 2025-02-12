@@ -20,6 +20,7 @@ const WaterProgress = () => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get("/water/today");
+
         setPercentage(data.data.percentage);
       } catch (error) {
         console.log(error);
