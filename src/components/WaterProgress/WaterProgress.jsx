@@ -1,15 +1,16 @@
 import { useEffect } from "react";
 import s from "./WaterProgress.module.css";
 import { useState } from "react";
-
 import { fetchWaterToday } from "../../redux/water/operations";
 import Modal from "../AddWater/AddWater";
 import { useRefresh } from "../useRefresh";
 import axios from "axios";
 
 const WaterProgress = () => {
+  // const dispatch = useDispatch();
   // const totalWaterAmount = useSelector(selectTotalWaterAmount);
   // const dailyNorm = useSelector(selectDailyNorm);
+  // const percentage = useSelector(selectPercentage);
   const { refresh } = useRefresh();
 
   const [percentage, setPercentage] = useState();
@@ -20,6 +21,7 @@ const WaterProgress = () => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get("/water/today");
+
         setPercentage(data.data.percentage);
       } catch (error) {
         console.log(error);
@@ -28,11 +30,11 @@ const WaterProgress = () => {
     fetchData();
   }, [refresh]);
 
-  const displayPercentage = isNaN(percentage) ? 0 : percentage;
+  const displayPercentage = percentage ? Math.min(Math.max(0, percentage)) : 0;
   return (
     <div className={s.container}>
       <div className={s.wrap}>
-        <h3 className={s.titel}>Today</h3>
+        <h3 className={s.title}>Today</h3>
         {/* <p className={s.percentage}>{percentage}%</p> */}
         <div className={s.sliderContainer}>
           <input
@@ -46,7 +48,10 @@ const WaterProgress = () => {
           />
           <div
             className={s.sliderValue}
-            style={{ left: `calc(${displayPercentage}% - 20px)` }}
+            style={{
+              left: `calc(${Math.max(5, Math.min(displayPercentage, 95))}%)`,
+              transform: "translateX(-50%)",
+            }}
           >
             {displayPercentage}%
           </div>

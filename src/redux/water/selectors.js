@@ -7,3 +7,4 @@ export const selectWaterRecord = (state) => state.water.waterRecord;
 export const selectTotalWaterAmount = (state) => state.water.totalWaterAmount;
 export const selectDailyNorm = (state) => state.water.dailyNorm;
 export const selectPercentage = (state) => state.water.percentage;
+export const selectRefreshTrigger = (state) => state.refreshTrigger;

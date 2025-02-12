@@ -19,9 +19,9 @@ const handleRejected = (state, action) => {
   state.error = action.payload;
 };
 
-const initialState = {
-  refreshTrigger: false,
-};
+// const initialState = {
+//   refreshTrigger: false,
+// };
 
 const waterSlice = createSlice({
   name: "water",

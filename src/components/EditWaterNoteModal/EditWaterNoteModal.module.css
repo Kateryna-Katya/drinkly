@@ -34,6 +34,10 @@
   color: #2f2f2f;
 }
 
+.modal {
+  overflow: hidden;
+}
+
 .modalSubtitle {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
@@ -170,6 +174,7 @@
   line-height: 133%;
   text-align: center;
   color: #407bff;
+  box-sizing: content-box;
 }
 
 .wrapTime {
@@ -259,7 +264,7 @@
     justify-content: space-between;
   }
 
- .modalTitle {
+  .modalTitle {
     width: 382px;
     height: 32px;
     font-family: "Roboto", sans-serif;
@@ -480,7 +485,7 @@
     justify-content: space-between;
   }
 
-.modalTitle {
+  .modalTitle {
     width: 384px;
     height: 32px;
     font-family: "Roboto", sans-serif;
@@ -490,7 +495,7 @@
     color: #2f2f2f;
   }
 
-.modalSubtitle {
+  .modalSubtitle {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-size: 16px;
