@@ -3,9 +3,10 @@
   background: url("../../img/home-page/bubbles-mob.png") no-repeat top 52px
       center,
     url("../../img/home-page/bottle-mob.png") no-repeat top 106px center;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .leftBlock {
