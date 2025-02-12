@@ -17,14 +17,14 @@ import {
   selectWaterLoading,
 } from "../../redux/water/selectors";
 import { toggleRefreshTrigger } from "../../redux/water/slice";
+import { useRefresh } from "../useRefresh.js";
 
 const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
-  if (!isOpen) return null;
-
   const dispatch = useDispatch();
   const waterRecord = useSelector(selectWaterRecord);
   const loading = useSelector(selectWaterLoading);
   const error = useSelector(selectWaterError);
+  const { triggerRefresh } = useRefresh();
 
   const [message, setMessage] = useState("");
 
@@ -108,13 +108,14 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
       })
       .finally(() => {
         setSubmitting(false);
+        triggerRefresh();
       });
   };
 
   const refreshData = () => {
     dispatch(fetchWaterToday());
   };
-
+  if (!isOpen) return null;
   return (
     <div className={s.container} onClick={handleBackdropClick}>
       <div className={s.wrap}>
