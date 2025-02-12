@@ -1,6 +1,6 @@
-.container{
+.monthContainer{
   width: 100%;
-  height: 100%;
+min-height: 396px;
   /* margin-bottom: 40px; */
 }
 .wrapper {
@@ -100,8 +100,9 @@
 }
 
 @media screen and (min-width: 768px) {
-   .container{
-  width: 704px;;
+   .monthContainer{
+  width: 704px;
+  min-height: 240px;
   /* margin-bottom: 40px; */
 }
   .title {
@@ -128,9 +129,10 @@
 }
 
 @media screen and (min-width: 1440px) {
-  .container{
+  .monthContainer{
   width: 592px;
-  height:680px;
+  min-height: 220px;
+  
   /* margin-bottom: 40px; */
 }
   .wrapper {
