@@ -141,7 +141,7 @@ const MonthStatsTable = () => {
                 }}
                 className={css.item}
                 style={
-                  Date.parse(item.date) > Date.now()
+                  Date.parse(item.date.split("T")[0]) > Date.now()
                     ? {
                         pointerEvents: "none",
                         opacity: 0.4,
