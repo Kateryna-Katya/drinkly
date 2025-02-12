@@ -78,7 +78,7 @@ const MonthStatsTable = () => {
   };
 
   return (
-    <>
+    <div className={css.container}>
       {loader && <Loader />}
       <div className={css.wrapper}>
         <h2 className={css.title}>Month</h2>
@@ -98,15 +98,15 @@ const MonthStatsTable = () => {
             className={css.btn}
             style={
               format(currentDate, "MMMM") ===
-              format(new Date().toString(), "MMMM")
+                format(new Date().toString(), "MMMM")
                 ? {
-                    pointerEvents: "none",
-                    opacity: 0,
-                  }
+                  pointerEvents: "none",
+                  opacity: 0,
+                }
                 : {
-                    pointerEvents: "auto",
-                    opacity: 1,
-                  }
+                  pointerEvents: "auto",
+                  opacity: 1,
+                }
             }
           >
             <Icon
@@ -140,13 +140,13 @@ const MonthStatsTable = () => {
                 style={
                   Date.parse(item.date) > Date.now()
                     ? {
-                        pointerEvents: "none",
-                        opacity: 0.4,
-                      }
+                      pointerEvents: "none",
+                      opacity: 0.4,
+                    }
                     : {
-                        pointerEvents: "auto",
-                        opacity: 1,
-                      }
+                      pointerEvents: "auto",
+                      opacity: 1,
+                    }
                 }
               >
                 <p
@@ -160,7 +160,7 @@ const MonthStatsTable = () => {
                 <p className={css.percentage}>{`${item.percentage}%`}</p>
                 {openGeneralStats.isOpen &&
                   openGeneralStats.day ===
-                    Number(format(parseISO(item.date), "d")) && (
+                  Number(format(parseISO(item.date), "d")) && (
                     <DaysGeneralStats item={item} offsetLeft={offsetLeft} />
                   )}
               </li>
@@ -168,7 +168,7 @@ const MonthStatsTable = () => {
           })}
         </ul>
       )}
-    </>
+    </div>
   );
 };
 

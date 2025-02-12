@@ -26,7 +26,7 @@ const WaterProgress = () => {
   return (
     <div className={s.container}>
       <div className={s.wrap}>
-        <h3>Today</h3>
+        <h3 className={s.titel}>Today</h3>
         {/* <p className={s.percentage}>{percentage}%</p> */}
         <div className={s.sliderContainer}>
           <input

@@ -119,7 +119,7 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
     <div className={s.container} onClick={handleBackdropClick}>
       <div className={s.wrap}>
         <span className={s.wrapFirst}>
-          <h2>Edit the entered amount of water</h2>
+          <h2 className={s.modalTitle}>Edit the entered amount of water</h2>
           <button type="button" className={s.closeBtn} onClick={onClose}>
             <svg className={s.iconSecond}>
               <use xlinkHref={`#${"icon-icon-close"}`}></use>
@@ -149,7 +149,7 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
 
                 {/* Кнопки  */}
                 <label className={s.labelTitle}>Correct entered data:</label>
-                <h4>Amount of water:</h4>
+                <h4 className={s.modalSubtitle}>Amount of water:</h4>
                 <div className={s.waterAmountBtnBox}>
                   <button
                     type="button"
