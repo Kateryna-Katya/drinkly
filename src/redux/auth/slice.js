@@ -38,6 +38,7 @@ const authSlice = createSlice({
       .addCase(signupUser.fulfilled, (state, action) => {
         state.user.email = action.payload.data.email;
         state.user._id = action.payload.data._id;
+        state.token = action.payload.data.accessToken;
         state.loading = false;
       })
       .addCase(signupUser.rejected, (state) => {
