@@ -1,4 +1,4 @@
-.container {
+.waterProgressContainer {
   display: flex;
   width: 280px;
   flex-direction: column;
@@ -169,7 +169,7 @@
 }
 
 @media (min-width: 768px) {
-  .container {
+  .waterProgressContainer {
     display: flex;
     flex-direction: row;
     width: 704px;
@@ -317,7 +317,7 @@
 }
 
 @media (min-width: 1440px) {
-  .container {
+  .waterProgressContainer {
     display: flex;
     gap: 23px;
     width: 592px;
@@ -325,7 +325,7 @@
     flex-direction: row;
     margin-left: 112px;
     /* gap: 12px; */
-    margin-bottom: 120px;
+    margin-bottom: 30px;
   }
   .wrap {
     width: 391px;

@@ -32,7 +32,7 @@ const WaterProgress = () => {
 
   const displayPercentage = percentage ? Math.min(Math.max(0, percentage)) : 0;
   return (
-    <div className={s.container}>
+    <div className={s.waterProgressContainer}>
       <div className={s.wrap}>
         <h3 className={s.title}>Today</h3>
         {/* <p className={s.percentage}>{percentage}%</p> */}
