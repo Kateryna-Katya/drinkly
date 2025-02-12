@@ -24,7 +24,7 @@
   display: flex;
   flex-direction: row;
 }
-h2 {
+.modalTitle {
   width: 256px;
   height: 64px;
   font-family: "Roboto", sans-serif;
@@ -34,7 +34,7 @@ h2 {
   color: #2f2f2f;
 }
 
-h4 {
+.modalSubtitle {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 16px;
@@ -259,7 +259,7 @@ h4 {
     justify-content: space-between;
   }
 
-  h2 {
+ .modalTitle {
     width: 382px;
     height: 32px;
     font-family: "Roboto", sans-serif;
@@ -269,7 +269,7 @@ h4 {
     color: #2f2f2f;
   }
 
-  h4 {
+  .modalSubtitle {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-size: 16px;
@@ -480,7 +480,7 @@ h4 {
     justify-content: space-between;
   }
 
-  h2 {
+.modalTitle {
     width: 384px;
     height: 32px;
     font-family: "Roboto", sans-serif;
@@ -490,7 +490,7 @@ h4 {
     color: #2f2f2f;
   }
 
-  h4 {
+.modalSubtitle {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-size: 16px;

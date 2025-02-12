@@ -1,8 +1,14 @@
+.container{
+  width: 100%;
+  height: 100%;
+  /* margin-bottom: 40px; */
+}
 .wrapper {
   display: flex;
   gap: 50px;
   align-items: center;
   max-width: 264px;
+  margin-bottom: 16px;
 }
 
 .item {
@@ -94,6 +100,10 @@
 }
 
 @media screen and (min-width: 768px) {
+   .container{
+  width: 704px;;
+  /* margin-bottom: 40px; */
+}
   .title {
     font-size: 26px;
   }
@@ -118,6 +128,11 @@
 }
 
 @media screen and (min-width: 1440px) {
+  .container{
+  width: 592px;
+  height:680px;
+  /* margin-bottom: 40px; */
+}
   .wrapper {
     gap: 330px;
   }

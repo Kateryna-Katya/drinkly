@@ -13,9 +13,12 @@
 .modalContent {
   position: relative;
   background: #fff;
-  padding: 32px 12px;
-  width: 280px;
-  /* height: 90%; */
+  padding-left: 12px;
+  padding-right:12px;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  min-width: 280px;
+  min-height: 852px;
   border-radius: 10px;
   overflow: auto;
 }
@@ -237,7 +240,7 @@
   .modalContent {
     padding: 32px 24px;
     width: 704px;
-    /* height: 860px; */
+    min-height: 860px;
   }
 
   .closeButton {
@@ -266,7 +269,7 @@
 @media screen and (min-width: 1440px) {
   .modalContent {
     width: 1008px;
-    /* height: 592px; */
+    min-height: 592px;
   }
   .formContainer {
     display: flex;

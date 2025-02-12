@@ -5,6 +5,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
+  margin-bottom: 24px;
 }
 .todayWaterListWrapper {
   width: 100%;
@@ -15,6 +16,7 @@
   padding-top: 0;
   padding-left: 0;
   margin-bottom: 16px;
+  
 }
 
 .todayWaterListBtn {
