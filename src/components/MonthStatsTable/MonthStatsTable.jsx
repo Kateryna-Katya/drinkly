@@ -15,9 +15,14 @@ import axios from "axios";
 import { Icon } from "../Icon/Icon";
 import clsx from "clsx";
 import DaysGeneralStats from "../DaysGeneralStats/DaysGeneralStats";
+import Loader from "../Loader/Loader";
+import { useRefresh } from "../useRefresh";
 
 const MonthStatsTable = () => {
   const [offsetLeft, setOffsetLeft] = useState(0);
+  const { refresh } = useRefresh();
+
+  const [loader, setLoader] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date().toString());
   const [monthStats, setMonthStats] = useState(null);
   const [currentMonthStats, setCurrentMonthStats] = useState(null);
@@ -28,6 +33,7 @@ const MonthStatsTable = () => {
 
   useEffect(() => {
     const getMonthStats = async () => {
+      setLoader(true);
       try {
         const { data } = await axios.get(
           `/water/month/${format(currentDate, "yyyy-MM")}`
@@ -35,10 +41,12 @@ const MonthStatsTable = () => {
         setMonthStats(data.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoader(false);
       }
     };
     getMonthStats();
-  }, [currentDate]);
+  }, [currentDate, refresh]);
 
   useEffect(() => {
     if (monthStats === null) return;
@@ -59,8 +67,10 @@ const MonthStatsTable = () => {
           percentage: 0,
         };
       });
-    fullMonthStats.shift();
-    setCurrentMonthStats(fullMonthStats);
+    const fullMonthStatsToMap = fullMonthStats.filter(
+      (item, index, arr) => arr.indexOf(item) !== 0
+    );
+    setCurrentMonthStats(fullMonthStatsToMap);
   }, [currentDate, monthStats]);
 
   const prevMonth = () => {
@@ -71,7 +81,8 @@ const MonthStatsTable = () => {
   };
 
   return (
-    <>
+    <div className={css.container}>
+      {loader && <Loader />}
       <div className={css.wrapper}>
         <h2 className={css.title}>Month</h2>
         <div className={css.control}>
@@ -84,7 +95,23 @@ const MonthStatsTable = () => {
             />
           </button>
           <div className={css.text}>{format(currentDate, "MMMM, yyyy")}</div>
-          <button type="button" onClick={nextMonth} className={css.btn}>
+          <button
+            type="button"
+            onClick={nextMonth}
+            className={css.btn}
+            style={
+              format(currentDate, "MMMM") ===
+                format(new Date().toString(), "MMMM")
+                ? {
+                  pointerEvents: "none",
+                  opacity: 0,
+                }
+                : {
+                  pointerEvents: "auto",
+                  opacity: 1,
+                }
+            }
+          >
             <Icon
               id="icon-chevron-double-up"
               width="14"
@@ -113,6 +140,17 @@ const MonthStatsTable = () => {
                   setOffsetLeft(offsetLeftPosition);
                 }}
                 className={css.item}
+                style={
+                  Date.parse(item.date.split("T")[0]) > Date.now()
+                    ? {
+                      pointerEvents: "none",
+                      opacity: 0.4,
+                    }
+                    : {
+                      pointerEvents: "auto",
+                      opacity: 1,
+                    }
+                }
               >
                 <p
                   className={clsx(
@@ -125,7 +163,7 @@ const MonthStatsTable = () => {
                 <p className={css.percentage}>{`${item.percentage}%`}</p>
                 {openGeneralStats.isOpen &&
                   openGeneralStats.day ===
-                    Number(format(parseISO(item.date), "d")) && (
+                  Number(format(parseISO(item.date), "d")) && (
                     <DaysGeneralStats item={item} offsetLeft={offsetLeft} />
                   )}
               </li>
@@ -133,7 +171,7 @@ const MonthStatsTable = () => {
           })}
         </ul>
       )}
-    </>
+    </div>
   );
 };
 

@@ -7,9 +7,11 @@ import { useDispatch } from "react-redux";
 import { saveWaterCup } from "../../redux/water/operations.js";
 import { Field, Formik, Form } from "formik";
 import { toast } from "react-toastify";
+import { useRefresh } from "../useRefresh.js";
 
 const Modal = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
+  const { triggerRefresh } = useRefresh();
 
   const [quantity, setQuantity] = useState(50);
   const [time, setTime] = useState("");
@@ -24,39 +26,25 @@ const Modal = ({ isOpen, onClose }) => {
   };
 
   const handleInputChange = (event) => {
-    let value = event.target.value;
-
-    if (value === "") {
-      setQuantity(0);
-      return;
-    }
-
-    value = Number(value);
-
-    if (!isNaN(value) && value >= 50 && value <= 15000) {
-      setQuantity(value);
-    }
+    setQuantity(Number(event.target.value));
   };
 
   const date = new Date().toISOString();
 
   const handleSave = async () => {
     onClose();
+    triggerRefresh();
 
     const resultAction = await dispatch(
       saveWaterCup({ amount: quantity, date, time })
     );
     if (saveWaterCup.fulfilled.match(resultAction)) {
-      console.log(time),
-        toast.success("Water saved", { className: styles.toast });
+      toast.success("Water saved", { className: styles.toast });
     } else {
       toast.error("Failed to save water", {
         className: styles.toast,
       });
     }
-    setTimeout(() => {
-      window.location.reload(); 
-    }, 0);
   };
 
   return (
@@ -99,7 +87,9 @@ const Modal = ({ isOpen, onClose }) => {
             <label className={styles.labelQuantity}>
               Enter the value of the water used:
               <Field
+                value={quantity === 0 ? null : quantity}
                 type="number"
+                name="entervalue"
                 className={styles.inputQuantity}
                 onChange={handleInputChange}
                 min="50"

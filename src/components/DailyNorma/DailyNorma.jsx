@@ -8,6 +8,7 @@ import axios from "axios";
 
 const DailyNorma = () => {
   const token = useSelector((state) => state.auth.token);
+
   const [openDailyModal, setOpenDailyModal] = useState(false);
   const [water, setWater] = useState("");
 
@@ -54,6 +55,7 @@ const DailyNorma = () => {
       </div>
       {openDailyModal && (
         <DailyNormaModal
+          waterNew={water}
           onCloseDailyModal={onCloseDailyModal}
           userWaterRate={userWaterRate}
         />

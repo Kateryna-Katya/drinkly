@@ -6,15 +6,15 @@ import { toast } from "react-toastify";
 import { Icon } from "../Icon/Icon";
 
 import css from "./DeleteWaterNoteModal.module.css";
+import { useRefresh } from "../useRefresh";
 
 const DeleteWaterNoteModal = ({ isOpen, onRequestClose, _id }) => {
   const dispatch = useDispatch();
-
+  const { triggerRefresh } = useRefresh();
   const handleDelete = async () => {
     const resultAction = await dispatch(deleteWaterCup(_id));
-    setTimeout(() => {
-      window.location.reload(); 
-    }, 0);
+    triggerRefresh();
+
     onRequestClose();
     if (deleteWaterCup.fulfilled.match(resultAction)) {
       toast.success("Water entry successfully deleted", {

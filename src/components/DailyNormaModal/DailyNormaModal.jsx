@@ -7,46 +7,42 @@ import styles from "./DailyNormaModal.module.css";
 import toast from "react-hot-toast";
 import Loader from "../Loader/Loader.jsx";
 import axios from "axios";
+import { useRefresh } from "../useRefresh.js";
 
-const DailyNormaModal = ({ onCloseDailyModal, userWaterRate }) => {
+const DailyNormaModal = ({ onCloseDailyModal, userWaterRate, waterNew }) => {
   const token = useSelector((state) => state.auth.token);
   const userGender = useSelector((state) => state.auth.user.gender);
+  const { refresh, triggerRefresh } = useRefresh();
 
   const [gender, setGender] = useState(userGender);
-  const [weight, setWeight] = useState("");
-  const [activity, setActivity] = useState("");
-  const [waterRate, setWaterRate] = useState("");
+  const [weight, setWeight] = useState(0);
+  const [activity, setActivity] = useState(0);
+  const [required, setRequired] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  const calculatedWater = useMemo(() => {
-    const M = parseFloat(weight) || 0;
-    const T = parseFloat(activity) || 0;
-    if (!gender || !M) return "0";
+  const calculateWaterIntake = (weight, activity) => {
+    const M = parseFloat(weight);
+    const T = parseFloat(activity);
+    if (isNaN(M) || isNaN(T) || !gender) return "0";
     return gender === "woman"
-      ? (M * 0.03 + T * 0.4).toFixed(1)
-      : (M * 0.04 + T * 0.6).toFixed(1);
-  }, [weight, gender, activity]);
+      ? (M * 0.03 + T * 0.4).toFixed(2)
+      : (M * 0.04 + T * 0.6).toFixed(2);
+  };
 
   useEffect(() => {
-    const fetchDailyNorm = async () => {
-      try {
-        const { data } = await axios.get(
-          `https://water-app-backend.onrender.com/users`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+    if (gender.toLowerCase() === "woman") {
+      setRequired(Number(weight * 0.03 + activity * 0.4));
+    } else if (gender.toLowerCase() === "man") {
+      setRequired(Number(weight * 0.04 + activity * 0.6));
+    }
+  }, [weight, activity, gender]);
 
-        setWaterRate(data.data.waterRate.toFixed(1));
-      } catch (error) {
-        console.error("Failed to fetch water data:", error);
-      }
-    };
+  const INITIAL_VALUE = {
+    water: waterNew / 1000,
+  };
 
-    fetchDailyNorm();
-  }, [token]);
-
-  const handleSubmit = async (values, { setSubmitting }) => {
+  const handleSubmit = async (values) => {
+    triggerRefresh();
     try {
       setIsLoading(true);
       const payload = { waterRate: values.water * 1000 };
@@ -66,13 +62,6 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate }) => {
       setSubmitting(false);
     }
   };
-
-  const onKeyDown = useCallback(
-    (event) => {
-      if (event.code === "Escape") onCloseDailyModal();
-    },
-    [onCloseDailyModal]
-  );
 
   useEffect(() => {
     window.addEventListener("keydown", onKeyDown);
@@ -165,10 +154,11 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate }) => {
                   Your weight in kilograms:
                 </span>
                 <input
-                  className={styles.input_daily_modal}
-                  placeholder="0"
-                  value={weight}
-                  onChange={(e) => setWeight(e.target.value)}
+                  type="radio"
+                  name="gender"
+                  value="woman"
+                  checked={gender.toLowerCase() === "woman"}
+                  onChange={(e) => setGender(e.target.value)}
                 />
               </label>
 
@@ -178,20 +168,44 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate }) => {
                   with a high physical load in hours:
                 </span>
                 <input
-                  className={styles.input_daily_modal}
-                  placeholder="0"
-                  value={activity}
-                  onChange={(e) => setActivity(e.target.value)}
+                  type="radio"
+                  name="gender"
+                  value="man"
+                  checked={gender.toLowerCase() === "man"}
+                  onChange={(e) => setGender(e.target.value)}
                 />
               </label>
-
-              <p className={styles.daily_modal_amount_of_water}>
-                The required amount of water in liters per day:{" "}
-                <span className={styles.amount_span_daily_modal}>
-                  {calculatedWater} L
-                </span>
-              </p>
-
+            </div>
+            <label className={styles.label_daily_modal}>
+              <span className={styles.daily_modal_weight}>
+                Your weight in kilograms:
+              </span>
+              <input
+                className={styles.input_daily_modal}
+                placeholder="0"
+                value={weight}
+                onChange={(e) => setWeight(e.target.value)}
+              />
+            </label>
+            <label className={styles.label_daily_modal}>
+              <span className={styles.daily_modal_time}>
+                The time of active participation in sports or other activities
+                with a high physical. load in hours:
+              </span>
+              <input
+                className={styles.input_daily_modal}
+                placeholder="0"
+                value={activity}
+                onChange={(e) => setActivity(e.target.value)}
+              />
+            </label>
+            <p className={styles.daily_modal_amount_of_water}>
+              The required amount of water in liters per day:{" "}
+              <span className={styles.amount_span_daily_modal}>
+                {required} L
+              </span>
+            </p>
+            <div>
               <label className={styles.label_daily_modal}>
                 <p className={styles.title_daily_modal_water_rate}>
                   Write down how much water you will drink:

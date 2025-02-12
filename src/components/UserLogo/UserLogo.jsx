@@ -27,9 +27,9 @@ const UserLogo = () => {
             : user.email !== null && user.email.split("@")[0]}
         </span>
         <div className={styles.avatar}>
-          {user.avatar ? (
+          {user.photo ? (
             <img
-              src={user.avatar}
+              src={user.photo}
               alt="User Avatar"
               className={styles.avatarImage}
             />

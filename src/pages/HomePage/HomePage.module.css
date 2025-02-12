@@ -15,14 +15,14 @@
   gap: 280px;
 }
 
-.todayAndCalendarWrapper {
+.todayAndCalendarWrapper { 
   margin-left: auto;
   margin-right: auto;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: column;
-  gap: 24px;
+  /* display: flex; */
+  /* align-items: flex-start; */
+  /* justify-content: flex-start; */
+  /* flex-direction: column; */
+  /* gap: 24px; */
   border-radius: 10px;
   padding: 24px 8px;
   width: 280px;
@@ -40,7 +40,7 @@
   .todayAndCalendarWrapper {
     padding: 32px 24px;
     width: 704px;
-  }
+    }
 }
 
 @media (min-width: 1440px) {
@@ -62,5 +62,6 @@
   .todayAndCalendarWrapper {
     width: 592px;
     margin-right: 112px;
+    max-height: 670px;
   }
 }
