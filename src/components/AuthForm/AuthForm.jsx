@@ -50,7 +50,7 @@ const AuthForm = ({ signin }) => {
         toast.error("Check entered data");
         return;
       }
-      toast.error(error.data.message);
+      toast.error(error.message);
     }
   };
 

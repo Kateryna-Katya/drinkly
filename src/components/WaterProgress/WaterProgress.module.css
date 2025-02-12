@@ -123,6 +123,7 @@ h3 {
 }
 
 .button {
+  border: none;
   display: flex;
   flex-direction: row;
   border-radius: 10px;
@@ -153,12 +154,12 @@ h3 {
 }
 
 .buttonText {
+  margin-left: 10px;
   color: #fff;
   font-weight: 500;
   font-size: 16px;
   line-height: 125%;
   text-align: center;
-  text-transform: uppercase;
   border: none;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
@@ -307,7 +308,6 @@ h3 {
     font-size: 18px;
     line-height: 133%;
     text-align: center;
-    text-transform: uppercase;
     border: none;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
@@ -323,7 +323,7 @@ h3 {
     flex-direction: row;
     margin-left: 112px;
     /* gap: 12px; */
-    margin-bottom: 56px;
+    margin-bottom: 120px;
   }
   .wrap {
     width: 391px;
@@ -441,7 +441,6 @@ h3 {
     font-size: 18px;
     line-height: 133%;
     text-align: center;
-    text-transform: uppercase;
     border: none;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;

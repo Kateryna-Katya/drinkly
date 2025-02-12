@@ -16,9 +16,12 @@ import { Icon } from "../Icon/Icon";
 import clsx from "clsx";
 import DaysGeneralStats from "../DaysGeneralStats/DaysGeneralStats";
 import Loader from "../Loader/Loader";
+import { useRefresh } from "../useRefresh";
 
 const MonthStatsTable = () => {
   const [offsetLeft, setOffsetLeft] = useState(0);
+  const { refresh } = useRefresh();
+
   const [loader, setLoader] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date().toString());
   const [monthStats, setMonthStats] = useState(null);
@@ -43,7 +46,7 @@ const MonthStatsTable = () => {
       }
     };
     getMonthStats();
-  }, [currentDate]);
+  }, [currentDate, refresh]);
 
   useEffect(() => {
     if (monthStats === null) return;

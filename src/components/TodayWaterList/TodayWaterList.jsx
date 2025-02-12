@@ -8,13 +8,13 @@ import { Icon } from "../Icon/Icon";
 
 import css from "./TodayWaterList.module.css";
 
-const TodayWaterList = () => {
-    const waterRecords = useSelector(selectWaterRecordsToday);
+const TodayWaterList = ({ setRefresh, refresh }) => {
+  const waterRecords = useSelector(selectWaterRecordsToday);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    
-    const sortedWaterRecords = [...waterRecords].sort((a, b) => {
-    return a.time.localeCompare(b.time); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const sortedWaterRecords = [...waterRecords].sort((a, b) => {
+    return a.time.localeCompare(b.time);
   });
 
   return (
@@ -26,6 +26,8 @@ const TodayWaterList = () => {
             {sortedWaterRecords.map((waterRecord) => (
               <li key={waterRecord._id}>
                 <WaterNote
+                  setRefresh={setRefresh}
+                  refresh={refresh}
                   id={waterRecord._id}
                   waterVolume={waterRecord.waterVolume}
                   time={waterRecord.time}
@@ -44,9 +46,15 @@ const TodayWaterList = () => {
         <Icon id="icon-plus-small" width="16" height="16" viewBox="0 0 16 16" />
         Add water
       </button>
-      {isModalOpen && <Modal onClose={() => setIsModalOpen(false)} />}
+      {isModalOpen && (
+        <Modal
+          setRefresh={setRefresh}
+          refresh={refresh}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
-    );
+  );
 };
 
 export default TodayWaterList;

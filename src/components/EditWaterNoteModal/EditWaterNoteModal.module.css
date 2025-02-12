@@ -219,6 +219,7 @@ h4 {
 }
 
 .saveBtn {
+  border: none;
   border-radius: 10px;
   padding: 8px 30px;
   width: 256px;

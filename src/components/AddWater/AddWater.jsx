@@ -7,9 +7,11 @@ import { useDispatch } from "react-redux";
 import { saveWaterCup } from "../../redux/water/operations.js";
 import { Field, Formik, Form } from "formik";
 import { toast } from "react-toastify";
+import { useRefresh } from "../useRefresh.js";
 
 const Modal = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
+  const { triggerRefresh } = useRefresh();
 
   const [quantity, setQuantity] = useState(50);
   const [time, setTime] = useState("");
@@ -31,13 +33,13 @@ const Modal = ({ isOpen, onClose }) => {
 
   const handleSave = async () => {
     onClose();
+    triggerRefresh();
 
     const resultAction = await dispatch(
       saveWaterCup({ amount: quantity, date, time })
     );
     if (saveWaterCup.fulfilled.match(resultAction)) {
-      console.log(time),
-        toast.success("Water saved", { className: styles.toast });
+      toast.success("Water saved", { className: styles.toast });
     } else {
       toast.error("Failed to save water", {
         className: styles.toast,

@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-
 axios.defaults.baseURL = "https://water-app-backend.onrender.com";
 
 export const fetchWaterCupsToday = createAsyncThunk(
@@ -74,7 +73,6 @@ export const saveWaterCup = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await axios.post("/water", data);
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
