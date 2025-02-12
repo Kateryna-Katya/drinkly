@@ -11,6 +11,7 @@ import css from "./HomePage.module.css";
 import DailyNorma from "../../components/DailyNorma/DailyNorma";
 import MonthStatsTable from "../../components/MonthStatsTable/MonthStatsTable";
 import WaterProgress from "../../components/WaterProgress/WaterProgress";
+import { RefreshProvider } from "../../components/refreshContext";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -21,17 +22,19 @@ const HomePage = () => {
   }, [dispatch]);
 
   return (
-    <div className={css.homePage}>
-      <div className={css.leftBlock}>
-        <DailyNorma />
-        <WaterProgress />
+    <RefreshProvider>
+      <div className={css.homePage}>
+        <div className={css.leftBlock}>
+          <DailyNorma />
+          <WaterProgress />
+        </div>
+        <div className={css.todayAndCalendarWrapper}>
+          {isLoading && <Loader />}
+          <TodayWaterList />
+          <MonthStatsTable />
+        </div>
       </div>
-      <div className={css.todayAndCalendarWrapper}>
-        {isLoading && <Loader />}
-        <TodayWaterList />
-        <MonthStatsTable />
-      </div>
-    </div>
+    </RefreshProvider>
   );
 };
 

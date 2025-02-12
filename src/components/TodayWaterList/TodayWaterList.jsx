@@ -9,12 +9,12 @@ import { Icon } from "../Icon/Icon";
 import css from "./TodayWaterList.module.css";
 
 const TodayWaterList = () => {
-    const waterRecords = useSelector(selectWaterRecordsToday);
+  const waterRecords = useSelector(selectWaterRecordsToday);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    
-    const sortedWaterRecords = [...waterRecords].sort((a, b) => {
-    return a.time.localeCompare(b.time); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const sortedWaterRecords = [...waterRecords].sort((a, b) => {
+    return a.time.localeCompare(b.time);
   });
 
   return (
@@ -44,9 +44,13 @@ const TodayWaterList = () => {
         <Icon id="icon-plus-small" width="16" height="16" viewBox="0 0 16 16" />
         Add water
       </button>
-      {isModalOpen && <Modal onClose={() => setIsModalOpen(false)} />}
+      {isModalOpen && (
+        <Modal
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
-    );
+  );
 };
 
 export default TodayWaterList;

@@ -8,10 +8,12 @@ import styles from "./DailyNormaModal.module.css";
 import toast from "react-hot-toast";
 import Loader from "../Loader/Loader.jsx";
 import axios from "axios";
+import { useRefresh } from "../useRefresh.js";
 
 const DailyNormaModal = ({ onCloseDailyModal, userWaterRate, waterNew }) => {
   const token = useSelector((state) => state.auth.token);
   const userGender = useSelector((state) => state.auth.user.gender);
+  const { refresh, triggerRefresh } = useRefresh();
 
   const [gender, setGender] = useState(userGender);
   const [weight, setWeight] = useState(0);
@@ -42,6 +44,7 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate, waterNew }) => {
   };
 
   const handleSubmit = async (values) => {
+    triggerRefresh();
     try {
       setIsLoading(true);
       setError(null);
