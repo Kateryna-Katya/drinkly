@@ -81,7 +81,7 @@ const Setting = ({ onClose }) => {
         formData.append("photo", requestData.photo);
       }
 
-      console.log(requestData);
+    
 
       const resultAction = await dispatch(updateUser(formData));
 
