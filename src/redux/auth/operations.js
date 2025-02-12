@@ -14,6 +14,7 @@ export const signupUser = createAsyncThunk(
   async (user, thunkAPI) => {
     try {
       const { data } = await axios.post("/auth/register", user);
+
       setAuthHeader(data.data.accessToken);
       return data;
     } catch (error) {
@@ -86,7 +87,6 @@ export const updateUser = createAsyncThunk(
   async (formData, thunkAPI) => {
     try {
       const { data } = await axios.patch("/users", formData);
-
 
       return data;
     } catch (error) {

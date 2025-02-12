@@ -45,7 +45,6 @@ const Modal = ({ isOpen, onClose }) => {
 
   const handleSave = async () => {
     onClose();
-    triggerRefresh();
 
     const resultAction = await dispatch(
       saveWaterCup({ amount: quantity, date, time })
@@ -57,6 +56,7 @@ const Modal = ({ isOpen, onClose }) => {
         className: styles.toast,
       });
     }
+    triggerRefresh();
   };
 
   return (

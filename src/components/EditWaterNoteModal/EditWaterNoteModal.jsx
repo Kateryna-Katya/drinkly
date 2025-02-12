@@ -89,7 +89,7 @@ const EditWaterNoteModal = ({
       date: new Date().toISOString(),
     };
 
-    try {
+   try {
       await dispatch(updateWaterRecord({ recordId, updatedData })).unwrap();
       toast.success("Water saved", { className: s.toast });
 
