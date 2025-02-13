@@ -62,10 +62,14 @@ const AuthForm = ({ signin }) => {
       dispatch(currenthUser());
       navigate("/home");
     } catch (error) {
-      if (error.status === 401 || error.status === 404) {
+      if (error.status === 401) {
         toast.error("Wrong email or password");
         return;
-      }
+    }
+    if (error.status === 404) {
+        toast.error("User not found");
+        return;
+    }
       toast.error(error.data.message);
     }
   };
