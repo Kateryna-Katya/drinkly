@@ -30,18 +30,51 @@ const Setting = ({ onClose }) => {
   const validationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
-    outdatedPassword: Yup.string(),
+
+    outdatedPassword: Yup.string().test(
+      "require-old-password",
+      "Old password is required",
+      function (value) {
+        const { newPassword, repeatNewPassword } = this.parent;
+        if ((newPassword || repeatNewPassword) && !value) {
+          return false;
+        }
+        return true;
+      }
+    ),
+
     newPassword: Yup.string()
       .min(8, "Password must be at least 8 characters")
-      .when("outdatedPassword", {
-        is: (outdatedPassword) => !!outdatedPassword,
-        then: (schema) => schema.required("New password is required"),
-      }),
+      .test(
+        "require-new-password",
+        "New password is required",
+        function (value) {
+          const { outdatedPassword } = this.parent;
+          if (outdatedPassword && !value) {
+            return false;
+          }
+          return true;
+        }
+      ),
+
     repeatNewPassword: Yup.string()
-      .oneOf([Yup.ref("newPassword"), null], "Passwords must match")
-      .when("newPassword", {
-        is: (newPassword) => !!newPassword,
-        then: (schema) => schema.required("Repeat new password is required"),
+      .test(
+        "require-repeat-password",
+        "Repeat new password is required",
+        function (value) {
+          const { newPassword } = this.parent;
+          if (newPassword && !value) {
+            return false;
+          }
+          return true;
+        }
+      )
+      .test("match-passwords", "Passwords must match", function (value) {
+        const { newPassword } = this.parent;
+        if (newPassword && value !== newPassword) {
+          return false;
+        }
+        return true;
       }),
   });
 
@@ -80,8 +113,6 @@ const Setting = ({ onClose }) => {
       if (photoFile !== null) {
         formData.append("photo", requestData.photo);
       }
-
-    
 
       const resultAction = await dispatch(updateUser(formData));
 
@@ -148,6 +179,8 @@ const Setting = ({ onClose }) => {
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
           enableReinitialize={true}
+          validateOnChange={false}
+          validateOnBlur={false}
         >
           {({ setFieldValue, values, errors, touched }) => (
             <Form>
