@@ -8,13 +8,16 @@
 .daily_norma_modal {
   background-color: white;
   width: 280px;
-  height: 816px;
+  max-height: 816px;
   padding: 24px 12px;
   border-radius: 16px;
-  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  overflow-y: auto;
+  position: fixed;
+  max-height: 95vh;
+  overflow-x: hidden;
 }
 
 .btn_close_daily_modal {
@@ -170,16 +173,14 @@
   width: 200px;
   color: red;
   font-size: 12px;
-  position: absolute;
-  top: 90%;
-  left: 30px;
 }
 
 @media (min-width: 768px) {
   .daily_norma_modal {
     width: 696px;
-    height: 704px;
+    max-height: 704px;
     padding: 32px 24px;
+    max-height: 100vh;
   }
 
   .daily_norma_modal_formula {
