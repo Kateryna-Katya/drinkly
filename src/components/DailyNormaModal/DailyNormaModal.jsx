@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "../Icon/Icon.jsx";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useSelector } from "react-redux";
 import { dailyNormaSchema } from "../DailyNormaSchema/DailyNormaSchema.js";
+
 import styles from "./DailyNormaModal.module.css";
 import toast from "react-hot-toast";
 import Loader from "../Loader/Loader.jsx";
@@ -19,6 +20,7 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate, waterNew }) => {
   const [activity, setActivity] = useState(0);
   const [required, setRequired] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const calculateWaterIntake = (weight, activity) => {
     const M = parseFloat(weight);
@@ -45,31 +47,47 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate, waterNew }) => {
     triggerRefresh();
     try {
       setIsLoading(true);
-      const payload = { waterRate: values.water * 1000 };
+      setError(null);
 
-      await axios.patch(
+      const payload = {
+        waterRate: values.water * 1000,
+      };
+
+      const response = await axios.patch(
         "https://water-app-backend.onrender.com/water/daily-norm",
         payload,
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
-
       userWaterRate(values.water * 1000);
       onCloseDailyModal();
     } catch (error) {
-      toast.error(error.response?.data?.message || "Something went wrong");
+      toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
-      setSubmitting(false);
     }
   };
 
   useEffect(() => {
+    const onKeyDown = (event) => {
+      if (event.code === "Escape") {
+        onCloseDailyModal();
+      }
+    };
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [onKeyDown]);
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [onCloseDailyModal]);
 
   const onBackDropClick = (event) => {
-    if (event.target === event.currentTarget) onCloseDailyModal();
+    if (event.target === event.currentTarget) {
+      onCloseDailyModal();
+    }
   };
 
   return (
@@ -91,7 +109,6 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate, waterNew }) => {
             />
           </button>
         </div>
-
         <div className={styles.daily_norma_modal_formula}>
           <p className={styles.daily_norma_madal_gender}>
             For woman:{" "}
@@ -106,53 +123,24 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate, waterNew }) => {
             </span>
           </p>
         </div>
-
         <p className={styles.formula_text_daily_modal}>
           * V is the volume of the water norm in liters per day, M is your body
-          weight, T is the time of active sports or another type of activity
+          weight, T is the time of active sports, or another type of activity
           commensurate in terms of loads (in the absence of these, you must set
           0)
         </p>
 
         <Formik
-          initialValues={{ water: (waterRate / 1000).toFixed(1) }}
-          enableReinitialize={true}
+          initialValues={INITIAL_VALUE}
           onSubmit={handleSubmit}
           validationSchema={dailyNormaSchema}
         >
-          {({ values, setFieldValue }) => (
-            <Form className={styles.form_daily_modal}>
-              <p className={styles.title_daily_modal_calc}>
-                Calculate your rate:
-              </p>
-
-              <div className={styles.radio_div}>
-                <label className={styles.radio_daily_modal}>
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="woman"
-                    checked={gender === "woman"}
-                    onChange={(e) => setGender(e.target.value)}
-                  />
-                  For woman
-                </label>
-                <label className={styles.radio_daily_modal}>
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="man"
-                    checked={gender === "man"}
-                    onChange={(e) => setGender(e.target.value)}
-                  />
-                  For man
-                </label>
-              </div>
-
-              <label className={styles.label_daily_modal}>
-                <span className={styles.daily_modal_weight}>
-                  Your weight in kilograms:
-                </span>
+          <Form className={styles.form_daily_modal}>
+            <p className={styles.title_daily_modal_calc}>
+              Calculate your rate:
+            </p>
+            <div className={styles.radio_div}>
+              <label className={styles.radio_daily_modal}>
                 <input
                   type="radio"
                   name="gender"
@@ -160,13 +148,9 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate, waterNew }) => {
                   checked={gender.toLowerCase() === "woman"}
                   onChange={(e) => setGender(e.target.value)}
                 />
+                For woman
               </label>
-
-              <label className={styles.label_daily_modal}>
-                <span className={styles.daily_modal_time}>
-                  The time of active participation in sports or other activities
-                  with a high physical load in hours:
-                </span>
+              <label className={styles.radio_daily_modal}>
                 <input
                   type="radio"
                   name="gender"
@@ -174,6 +158,7 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate, waterNew }) => {
                   checked={gender.toLowerCase() === "man"}
                   onChange={(e) => setGender(e.target.value)}
                 />
+                For man
               </label>
             </div>
             <label className={styles.label_daily_modal}>
@@ -215,8 +200,6 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate, waterNew }) => {
                   name="water"
                   className={styles.input_daily_modal}
                   placeholder="0"
-                  value={values.water}
-                  onChange={(e) => setFieldValue("water", e.target.value)}
                 />
                 <ErrorMessage
                   component="div"
@@ -224,12 +207,11 @@ const DailyNormaModal = ({ onCloseDailyModal, userWaterRate, waterNew }) => {
                   name="water"
                 />
               </label>
-
-              <button className={styles.btn_save_daily_modal} type="submit">
-                Save
-              </button>
-            </Form>
-          )}
+            </div>
+            <button className={styles.btn_save_daily_modal} type="submit">
+              Save
+            </button>
+          </Form>
         </Formik>
       </div>
     </div>
