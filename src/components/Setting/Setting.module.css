@@ -14,13 +14,16 @@
   position: relative;
   background: #fff;
   padding-left: 12px;
-  padding-right:12px;
+  padding-right: 12px;
   padding-top: 32px;
   padding-bottom: 32px;
   min-width: 280px;
-  min-height: 852px;
+  max-height: 852px;
   border-radius: 10px;
-  overflow: auto;
+  overflow-y: auto;
+  position: fixed;
+  max-height: 95vh;
+  overflow-x: hidden;
 }
 
 .title {
