@@ -129,7 +129,10 @@ const EditWaterNoteModal = ({
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
         <Formik
-          initialValues={initialValues}
+          initialValues={{
+            amount: initialWaterVolume || 250,
+            time: initialTime || "07:00",
+          }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
           enableReinitialize
@@ -142,12 +145,11 @@ const EditWaterNoteModal = ({
                   <svg className={s.icon}>
                     <use xlinkHref={`#${"icon-cup"}`}></use>
                   </svg>
-
                   <span className={s.amount}>{initialWaterVolume} ml</span>
                   <span className={s.time}>{initialTime}</span>
                 </div>
 
-                {/* Кнопки  */}
+                {/*  кнопки */}
                 <label className={s.labelTitle}>Correct entered data:</label>
                 <h4 className={s.modalSubtitle}>Amount of water:</h4>
                 <div className={s.waterAmountBtnBox}>
@@ -183,7 +185,7 @@ const EditWaterNoteModal = ({
                   </button>
                 </div>
 
-                {/* Час  */}
+                {/* час  */}
                 <div className={s.wrapTime}>
                   <label className={s.labelTitleSecond}>Recording time:</label>
                   <Field type="time" name="time" className={s.timeInput} />
@@ -194,7 +196,7 @@ const EditWaterNoteModal = ({
                   />
                 </div>
 
-                {/* Вода*/}
+                {/*  вода */}
                 <div className={s.wrapWater}>
                   <label className={s.labelTitle}>
                     Enter the value of the water used:
@@ -213,7 +215,7 @@ const EditWaterNoteModal = ({
                   />
                 </div>
 
-                {/* дані для зміни */}
+                {/* Дані для збереження */}
                 <div className={s.result}>
                   <span className={s.amountSave}>{values.amount} ml</span>
                   <button type="submit" className={s.saveBtn}>

@@ -1,14 +1,28 @@
 import { format } from "date-fns";
-import { useState } from "react";
-
+import { useEffect, useRef, useState } from "react";
+import useModalClose from "../../hooks/useModalClose.js";
+import useClickOutside from "../../hooks/useClickOutside.js";
 import css from "./DaysGeneralStats.module.css";
 import clsx from "clsx";
 
 const DaysGeneralStats = ({ item, offsetLeft }) => {
   const [isMobile] = useState(innerWidth < 768);
 
+  const [isOpen, setIsOpen] = useState(true);
+  const modalRef = useRef(null);
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  useModalClose(isOpen, handleClose); // Закриття по Escape
+  useClickOutside(modalRef, handleClose); // Закриття при кліку за межами модалки
+
+  if (!isOpen) return null;
+
   return (
     <ul
+      ref={modalRef}
       className={clsx(css.wrapper, offsetLeft > 250 && css.goLeft)}
       style={{ left: isMobile && -offsetLeft - 7 }}
     >
