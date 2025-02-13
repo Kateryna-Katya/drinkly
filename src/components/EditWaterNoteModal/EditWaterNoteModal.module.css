@@ -34,6 +34,10 @@
   color: #2f2f2f;
 }
 
+.modal {
+  overflow: hidden;
+}
+
 .modalSubtitle {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
@@ -77,8 +81,14 @@
   width: 14px;
   height: 14px;
   stroke: #407bff;
-  font: #407bff;
+  fill: #407bff;
 }
+
+/* .iconSecondMenos {
+  width: 14px;
+  height: 14px;
+  fill: #407bff;
+} */
 
 .waterInfo {
   color: #2f2f2f;
@@ -159,7 +169,7 @@
 .currentWater {
   border-radius: 40px;
   padding: 6px 10px;
-  /* width: 92px; */
+  min-width: 92px;
   height: 36px;
   font-size: 18px;
   font-weight: bold;
@@ -170,6 +180,7 @@
   line-height: 133%;
   text-align: center;
   color: #407bff;
+  box-sizing: border-box;
 }
 
 .wrapTime {
@@ -259,7 +270,7 @@
     justify-content: space-between;
   }
 
- .modalTitle {
+  .modalTitle {
     width: 382px;
     height: 32px;
     font-family: "Roboto", sans-serif;
@@ -480,7 +491,7 @@
     justify-content: space-between;
   }
 
-.modalTitle {
+  .modalTitle {
     width: 384px;
     height: 32px;
     font-family: "Roboto", sans-serif;
@@ -490,7 +501,7 @@
     color: #2f2f2f;
   }
 
-.modalSubtitle {
+  .modalSubtitle {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-size: 16px;

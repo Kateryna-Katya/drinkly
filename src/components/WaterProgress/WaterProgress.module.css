@@ -1,8 +1,8 @@
-.container {
+.waterProgressContainer {
   display: flex;
   width: 280px;
   flex-direction: column;
-  margin: 16px 20px ;
+  margin: 16px 20px;
   /* gap: 12px; */
   margin-bottom: 40px;
 }
@@ -12,7 +12,7 @@
   flex-wrap: wrap;
 }
 
- .titel {
+.title {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 18px;
@@ -64,12 +64,12 @@
 }
 
 .wrapLabel:nth-child(3) {
-  text-align: flex-end;
+  text-align: end;
 }
 
 .slider {
   -webkit-appearance: none;
-  width: 92%;
+  width: 96%;
   height: 6px;
   border-radius: 10px;
   outline: none;
@@ -82,16 +82,19 @@
     #dce3fc var(--progress)
   );
 }
+.wrapProgress {
+}
 
 .sliderValue {
   position: absolute;
-  top: -15px;
+  top: -20px;
   font-size: 16px;
   font-weight: bold;
   color: #407bff;
-  margin-left: -5px;
+  /* margin-left: -20px; */
   text-align: center;
-  transition: left 0.1s ease-in-out; /* Плавний рух */
+  transition: left 0.1s ease-in-out;
+  left: calc(var(--progress) - 20px);
 }
 
 .slider::-webkit-slider-thumb {
@@ -129,7 +132,7 @@
   border-radius: 10px;
   justify-content: center;
   align-items: center;
-  gap: 3px;
+  gap: 10px;
   /* padding: 10px 30px; */
   width: 280px;
   height: 36px;
@@ -166,14 +169,14 @@
 }
 
 @media (min-width: 768px) {
-  .container {
+  .waterProgressContainer {
     display: flex;
     flex-direction: row;
     width: 704px;
     gap: 12px;
     margin-bottom: 44px;
   }
-  .titel{
+  .title {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-size: 18px;
@@ -183,13 +186,11 @@
     margin-top: 11px;
   }
   .wrap {
-    
     width: 356px;
     height: 90px;
     display: flex;
     flex-wrap: wrap;
   }
-
 
   .sliderContainer {
     /* display: flex; */
@@ -236,7 +237,7 @@
 
   .slider {
     -webkit-appearance: none;
-    width: 92%;
+    width: 96%;
     height: 6px;
     border-radius: 10px;
     outline: none;
@@ -284,7 +285,7 @@
     border-radius: 10px;
     justify-content: center;
     align-items: center;
-    gap: 3px;
+    /* gap: 3px; */
     /* padding: 10px 30px; */
     width: 336px;
     height: 44px;
@@ -316,7 +317,7 @@
 }
 
 @media (min-width: 1440px) {
-  .container {
+  .waterProgressContainer {
     display: flex;
     gap: 23px;
     width: 592px;
@@ -324,16 +325,15 @@
     flex-direction: row;
     margin-left: 112px;
     /* gap: 12px; */
-    margin-bottom: 120px;
+    margin-bottom: 30px;
   }
   .wrap {
     width: 391px;
     display: flex;
     flex-wrap: wrap;
-  ;
   }
 
-  .titel {
+  .title {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-size: 18px;
@@ -370,7 +370,7 @@
   }
   .slider {
     -webkit-appearance: none;
-    width: 92%;
+    width: 96%;
     height: 6px;
     border-radius: 10px;
     outline: none;

@@ -5,7 +5,7 @@ import EditWaterNoteModal from "../EditWaterNoteModal/EditWaterNoteModal.jsx";
 
 import css from "./WaterNote.module.css";
 
-const WaterNote = ({ id, waterVolume, time}) => {
+const WaterNote = ({ id, waterVolume, time }) => {
   const [isEditWaterNoteModalOpen, setIsEditWaterNoteModalOpen] =
     useState(false);
   const [isDeleteWaterNoteModalOpen, setIsDeleteWaterNoteModalOpen] =
@@ -47,6 +47,8 @@ const WaterNote = ({ id, waterVolume, time}) => {
         isOpen={isEditWaterNoteModalOpen}
         onClose={closeEditWaterNoteModal}
         recordId={selectedRecordId}
+        initialWaterVolume={waterVolume}
+        initialTime={time}
       />
 
       <DeleteWaterNoteModal

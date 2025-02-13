@@ -17,19 +17,22 @@ import {
   selectWaterLoading,
 } from "../../redux/water/selectors";
 import { toggleRefreshTrigger } from "../../redux/water/slice";
+import { useRefresh } from "../useRefresh.js";
 
-const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
-  if (!isOpen) return null;
-
+const EditWaterNoteModal = ({
+  isOpen,
+  onClose,
+  recordId,
+  initialWaterVolume,
+  initialTime,
+}) => {
   const dispatch = useDispatch();
   const waterRecord = useSelector(selectWaterRecord);
   const loading = useSelector(selectWaterLoading);
   const error = useSelector(selectWaterError);
+  const { triggerRefresh } = useRefresh();
 
   const [message, setMessage] = useState("");
-
-  const [initialAmount, setInitialAmount] = useState();
-  const [initialTime, setInitialTime] = useState();
 
   const [initialValues, setInitialValues] = useState({
     amount: 250,
@@ -46,8 +49,6 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
     if (waterRecord) {
       const amount = waterRecord.waterVolume || 250;
       const time = waterRecord.time || "07:00";
-      setInitialAmount(amount);
-      setInitialTime(time);
       setInitialValues({ amount, time });
     }
   }, [waterRecord]);
@@ -74,7 +75,7 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
     time: Yup.string().required("Time is required"),
   });
 
-  const handleSubmit = (values, { setSubmitting }) => {
+  const handleSubmit = async (values, { setSubmitting }) => {
     console.log("Submitted values:", values);
 
     if (!recordId) {
@@ -88,32 +89,31 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
       date: new Date().toISOString(),
     };
 
-    dispatch(updateWaterRecord({ recordId, updatedData }))
-      .unwrap()
-      .then(() => {
-        toast.success("Water saved", { className: s.toast });
+   try {
+      await dispatch(updateWaterRecord({ recordId, updatedData })).unwrap();
+      toast.success("Water saved", { className: s.toast });
 
-        dispatch(fetchWaterToday());
+      await dispatch(fetchWaterToday());
+      // dispatch(toggleRefreshTrigger());
 
-        setTimeout(() => {
-          setMessage("");
-          onClose();
-        }, 2000);
-      })
-      .catch((error) => {
-        console.error("Update error:", error);
-        toast.error("Failed to save water", {
-          className: s.toast,
-        });
-      })
-      .finally(() => {
-        setSubmitting(false);
-      });
+      setTimeout(() => {
+        setMessage("");
+        onClose();
+      }, 2000);
+    } catch (error) {
+      console.error("Update error:", error);
+      toast.error("Failed to save water", { className: s.toast });
+    } finally {
+      setSubmitting(false);
+      triggerRefresh();
+    }
   };
 
   const refreshData = () => {
     dispatch(fetchWaterToday());
   };
+
+  if (!isOpen) return null;
 
   return (
     <div className={s.container} onClick={handleBackdropClick}>
@@ -143,7 +143,7 @@ const EditWaterNoteModal = ({ isOpen, onClose, recordId }) => {
                     <use xlinkHref={`#${"icon-cup"}`}></use>
                   </svg>
 
-                  <span className={s.amount}>{initialAmount} ml</span>
+                  <span className={s.amount}>{initialWaterVolume} ml</span>
                   <span className={s.time}>{initialTime}</span>
                 </div>
 

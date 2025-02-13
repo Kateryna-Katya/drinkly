@@ -1,6 +1,6 @@
 import styles from "./AddWater.module.css";
 import { Icon } from "../Icon/Icon.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useModalClose from "../../hooks/useModalClose";
 import TimeInput from "../TimeInput/TimeInput.jsx";
 import { useDispatch } from "react-redux";
@@ -31,9 +31,20 @@ const Modal = ({ isOpen, onClose }) => {
 
   const date = new Date().toISOString();
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
+
   const handleSave = async () => {
     onClose();
-    triggerRefresh();
 
     const resultAction = await dispatch(
       saveWaterCup({ amount: quantity, date, time })
@@ -45,6 +56,7 @@ const Modal = ({ isOpen, onClose }) => {
         className: styles.toast,
       });
     }
+    triggerRefresh();
   };
 
   return (

@@ -15,8 +15,7 @@ const Setting = ({ onClose }) => {
   const user = useSelector(selectUser);
   const loading = useSelector(selectAuthLoading);
   const dispatch = useDispatch();
-
-  const [photoFile, setPhotoFile] = useState({});
+  const [photoFile, setPhotoFile] = useState(null);
 
   const initialValues = {
     gender: user?.gender === "Man" ? "Man" : "Woman",
@@ -63,9 +62,11 @@ const Setting = ({ onClose }) => {
     try {
       const requestData = {
         ...values,
-        photo: photoFile,
         oldPassword: values.outdatedPassword,
       };
+      if (photoFile !== null) {
+        requestData.photo = photoFile;
+      }
       delete requestData.outdatedPassword;
       delete requestData.repeatNewPassword;
 
@@ -75,7 +76,12 @@ const Setting = ({ onClose }) => {
       formData.append("email", requestData.email);
       formData.append("oldPassword", requestData.oldPassword);
       formData.append("newPassword", requestData.newPassword);
-      formData.append("photo", requestData.photo);
+
+      if (photoFile !== null) {
+        formData.append("photo", requestData.photo);
+      }
+
+    
 
       const resultAction = await dispatch(updateUser(formData));
 

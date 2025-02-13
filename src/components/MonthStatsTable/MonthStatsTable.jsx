@@ -81,7 +81,7 @@ const MonthStatsTable = () => {
   };
 
   return (
-    <div className={css.container}>
+    <div className={css.monthContainer}>
       {loader && <Loader />}
       <div className={css.wrapper}>
         <h2 className={css.title}>Month</h2>
